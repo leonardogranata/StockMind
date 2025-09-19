@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtualenv
+venv/
+env/
+.venv/
+ENV/
+
+# Django stuff
+*.log
+*.pot
+*.pyc
+*.mo
+
+# VS Code / PyCharm / IDEs
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de teste temporários
+.coverage
+htmlcov/
+*.pytest_cache/
+
+# Arquivos de ambiente (segredos, configs locais)
+.env
+.env.local
