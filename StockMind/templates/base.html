@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>StockMind</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='{% static "css/style.css" %}'>
+    <script src='{% static "js/main.js" %}'></script>
+</head>
+<body>
+    <!-- HEADER SUPERIOR -->
+    <header class="header">
+        <div class="logo">StockMind</div>
+        <div class="header-right">
+            <div class="user-info">
+                <div class="user-icon"></div>
+                <span>Sair</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- SIDEBAR LATERAL -->
+    <nav class="sidebar">
+        <!-- Seção Principal -->
+        <div class="sidebar-section">
+            <a href="#" class="sidebar-item">Estoque</a>
+            <a href="#" class="sidebar-item with-badge">
+                Dashboard
+                <span class="badge">Novo</span>
+            </a>
+        </div>
+
+        <!-- Área Administrativa -->
+        <div class="sidebar-section">
+            <div class="sidebar-title">Área administrativa</div>
+            <a href="#" class="sidebar-item active">Auditoria</a>
+            <a href="#" class="sidebar-item">Usuários</a>
+        </div>
+    </nav>
+
+    <!-- ÁREA PRINCIPAL DE CONTEÚDO -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

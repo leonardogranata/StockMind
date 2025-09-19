@@ -1,0 +1,256 @@
+:root {
+    --primary-color: #7289da;
+    --secundary-color: #87c8e0;
+    --white-color: #ffffff;
+    --cinza-color: #393C40;
+    --fundo-escuro: #2C2F33;
+    --fundo-color: #23272A;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--fundo-color);
+    color: var(--white-color);
+}
+
+.header-login {
+    background-color: var(--cinza-color);
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-login h1 {
+    cursor: default;
+}
+
+.formulario-login {
+    background-color: var(--cinza-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.formulario-login h2 {
+    cursor: default;
+}
+
+.formulario-login button {
+    padding: 20px 120px;
+    font-size: 20px;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    border: none;
+}
+
+
+/* BASE  (TESTE) */
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* HEADER SUPERIOR */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #2d2d2d;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1000;
+    border-bottom: 1px solid #404040;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.user-icon {
+    width: 24px;
+    height: 24px;
+    background-color: #666;
+    border-radius: 50%;
+}
+
+/* SIDEBAR LATERAL */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 60px);
+    background-color: #2d2d2d;
+    padding: 20px 0;
+    overflow-y: auto;
+}
+
+.sidebar-section {
+    margin-bottom: 30px;
+}
+
+.sidebar-title {
+    color: #999;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 0 20px 10px;
+    letter-spacing: 1px;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #ccc;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.sidebar-item:hover {
+    background-color: #3a3a3a;
+    color: white;
+}
+
+.sidebar-item.active {
+    background-color: #404040;
+    color: white;
+    border-right: 3px solid #007acc;
+}
+
+.sidebar-item.with-badge {
+    justify-content: space-between;
+}
+
+.badge {
+    background-color: #007acc;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* ÁREA PRINCIPAL DE CONTEÚDO */
+.main-content {
+    margin-left: 250px;
+    margin-top: 60px;
+    padding: 30px;
+    min-height: calc(100vh - 60px);
+}
+
+/* HEADER DA PÁGINA INTERNA */
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-size: 32px;
+    font-weight: 300;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.search-container {
+    max-width: 400px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+}
+
+.search-input::placeholder {
+    color: #888;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #007acc;
+    background-color: #404040;
+}
+
+/* ÁREA DE CONTEÚDO PERSONALIZADA */
+.content-area {
+    background-color: #333;
+    border-radius: 8px;
+    padding: 30px;
+    min-height: 400px;
+}
+
+.content-placeholder {
+    color: #888;
+    font-size: 16px;
+    text-align: center;
+    padding: 50px;
+}
+
+/* RESPONSIVIDADE BÁSICA */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    
+    .main-content {
+        margin-left: 200px;
+    }
+}
+
+@media (max-width: 640px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
