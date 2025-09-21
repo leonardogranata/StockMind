@@ -13,58 +13,9 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: poppins, sans-serif;
     background-color: var(--fundo-color);
     color: var(--white-color);
-}
-
-.header-login {
-    background-color: var(--cinza-color);
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.header-login h1 {
-    cursor: default;
-}
-
-.formulario-login {
-    background-color: var(--cinza-color);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: 40px auto;
-    text-align: center;
-}
-
-.formulario-login h2 {
-    cursor: default;
-}
-
-.formulario-login button {
-    padding: 20px 120px;
-    font-size: 20px;
-    color: var(--white-color);
-    background-color: var(--primary-color);
-    border: none;
-}
-
-
-/* BASE  (TESTE) */
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #1a1a1a;
-    color: white;
-    overflow-x: hidden;
 }
 
 /* HEADER SUPERIOR */
@@ -229,6 +180,12 @@ body {
     padding: 50px;
 }
 
+#logout  {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+}
+
 /* RESPONSIVIDADE BÁSICA */
 @media (max-width: 768px) {
     .sidebar {
@@ -253,4 +210,278 @@ body {
     .main-content {
         margin-left: 0;
     }
+}
+
+
+
+:root {
+    --primary-color: #7289da;
+    --secundary-color: #87c8e0;
+    --white-color: #ffffff;
+    --cinza-color: #393C40;
+    --fundo-escuro: #2C2F33;
+    --fundo-color: #23272A;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: poppins, sans-serif;
+    background-color: var(--fundo-color);
+    color: var(--white-color);
+}
+
+/* HEADER DE LOGIN */
+.header-login {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #3a3a3a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    border-bottom: 1px solid #404040;
+}
+
+.header-login h1 {
+    cursor: default;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: -0.5px;
+}
+
+/* MAIN CONTAINER */
+.main-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 85vh;
+    padding: 20px;
+    margin-top: 60px;
+}
+
+/* FORMULÁRIO DE LOGIN E CADASTRO */
+.formulario-login {
+    background-color: var(--cinza-color);
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    max-width: 500px; /* Maior para acomodar campos de cadastro */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid #555;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.formulario-login h2 {
+    cursor: default;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: white;
+}
+
+/* FORMULÁRIO */
+.formulario-login form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Paragrafos gerados pelo form.as_p */
+.formulario-login p {
+    margin-bottom: 20px;
+    color: white;
+}
+
+/* LABELS */
+.formulario-login label {
+    display: block;
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 8px;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.formulario-login label:first-of-type {
+    margin-top: 0;
+}
+
+/* TODOS OS INPUTS */
+.formulario-login input[type="text"],
+.formulario-login input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--fundo-escuro);
+    border: 1px solid #555;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+    font-family: inherit;
+}
+
+/* ESTADOS DE FOCO */
+.formulario-login input[type="text"]:focus,
+.formulario-login input[type="password"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: var(--fundo-escuro);
+    box-shadow: 0 0 0 2px rgba(114, 137, 218, 0.2);
+}
+
+/* ESTADOS DE HOVER */
+.formulario-login input[type="text"]:hover,
+.formulario-login input[type="password"]:hover {
+    border-color: #666;
+    background-color: #3d3d3d;
+}
+
+/* PLACEHOLDERS */
+.formulario-login input::placeholder,
+.formulario-login textarea::placeholder {
+    color: #999;
+}
+
+/* BOTÃO DE SUBMIT */
+.formulario-login button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.formulario-login button[type="submit"]:hover {
+    transition: all 0.3s ease;
+    background: #1c52e4;
+    transform: translateY(-1px);
+}
+
+.formulario-login button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* MENSAGENS DE ERRO DO DJANGO */
+.formulario-login .errorlist {
+    list-style: none;
+    margin: 5px 0 10px 0;
+    padding: 0;
+}
+
+.formulario-login .errorlist li {
+    color: #ff6b6b;
+    background-color: rgba(255, 107, 107, 0.1);
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    font-size: 13px;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+/* MENSAGEM DE ERRO GENÉRICA */
+.formulario-login p[style*="color: red"] {
+    color: #ff6b6b !important;
+    background-color: rgba(255, 107, 107, 0.1);
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+/* HELP TEXT DO DJANGO - OCULTAR */
+.formulario-login .helptext,
+.formulario-login ul {
+    display: none;
+}
+
+/* CAMPOS OBRIGATÓRIOS (ASTERISCO) */
+.formulario-login .required {
+    color: #ff6b6b;
+}
+
+/* Remover os <br><br> do layout com CSS */
+.formulario-login br {
+    display: none;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 600px) {
+    .formulario-login {
+        padding: 30px 20px;
+        margin: 20px;
+        max-width: 100%;
+    }
+    
+    .formulario-login h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .formulario-login {
+        padding: 25px 15px;
+    }
+    
+    .formulario-login h2 {
+        font-size: 22px;
+    }
+    
+    .header-login h1 {
+        font-size: 20px;
+    }
+    
+    .formulario-login button[type="submit"] {
+        padding: 12px;
+        font-size: 15px;
+    }
+}
+
+
+/* LISTA DE USUARIOS */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+table thead {
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table tr:hover {
+    background-color: #444;
+}
+
+h1 {
+    font-family: Arial, sans-serif;
+    margin-bottom: 10px;
 }
