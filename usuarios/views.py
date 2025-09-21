@@ -3,14 +3,18 @@ from .forms import cadastroForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import User
 
+@user_passes_test(lambda u: u.is_superuser)  # só o superuser acessa
 def cadastroUser(request):
-    form = cadastroForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         form = cadastroForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('home')  
+    else:
+        form = cadastroForm()
     return render(request, 'usuarios/cadastro.html', {'form': form})
 
 def loginUser(request):
@@ -26,3 +30,9 @@ def loginUser(request):
 def logoutUser(request):
     auth.logout(request)
     return redirect('login')
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)  # só o superuser acessa
+def listarUsers(request):
+    users = User.objects.all()
+    return render(request, 'usuarios/listar.html', {'users': users})
