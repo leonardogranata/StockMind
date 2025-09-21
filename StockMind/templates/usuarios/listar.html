@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Usuários{% endblock %}
+
+{% block content %}
+    <h1>Lista de Usuários</h1>
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Superuser</th>
+                <th>Staff</th>
+                <th>Ativo</th>
+                <th>Último Login</th>
+                <th>Criado em</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.is_superuser }}</td>
+                    <td>{{ user.is_staff }}</td>
+                    <td>{{ user.is_active }}</td>
+                    <td>{{ user.last_login|date:"d/m/Y H:i" }}</td>
+                    <td>{{ user.date_joined|date:"d/m/Y H:i" }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
