@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html>
-{% load static %}
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>StockMind - Login</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='{% static "css/style.css" %}'>
-    <script src='{% static "js/main.js" %}'></script>
-</head>
-<body>
-    <header class="header-login">
-        <h1>StockMind</h1>
-    </header>
+{% extends "baseForm.html" %}
+{% block title %}StockMind - Login{% endblock title %}
+{% block content %}
     <main class="main-login">
         <div class="formulario-login">
             <h2>Login</h2>
@@ -29,5 +17,4 @@
             {% endif %}
         </div>
     </main>
-</body>
-</html>
+{% endblock content %}
