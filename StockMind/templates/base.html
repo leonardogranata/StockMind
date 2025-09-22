@@ -14,10 +14,10 @@
     <header class="header">
         <div class="logo">StockMind</div>
         <div class="header-right">
-            <div class="user-info">
-                <div class="user-icon"></div>
-                <a id = "logout" href="{% url 'logout' %}">Sair</a>
-            </div>
+            <button id="logout-button" onclick="window.location.href='{% url 'logout' %}'">
+                <img src="{% static 'media/img/logout.png' %}" alt="Icone de logout">
+                Sair
+            </button>
         </div>
     </header>
 
@@ -35,7 +35,6 @@
                 <div class="sidebar-title">Área administrativa</div>
                 <a href="#" class="sidebar-item active">Auditoria</a>
                 <a href="{% url 'listar' %}" class="sidebar-item">Usuários</a>
-                <a href="{% url 'cadastro' %}" class="sidebar-item">Criar Usuários</a>
             </div>
         {% endif %}
     </nav>

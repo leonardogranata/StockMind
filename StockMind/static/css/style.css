@@ -25,19 +25,20 @@ body {
     left: 0;
     right: 0;
     height: 60px;
-    background-color: #2d2d2d;
+    background-color: var(--cinza-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
     z-index: 1000;
-    border-bottom: 1px solid #404040;
+    border-bottom: 1px solid #252525;
 }
 
 .logo {
     font-size: 20px;
     font-weight: bold;
     color: white;
+    cursor: default;
 }
 
 .header-right {
@@ -46,7 +47,7 @@ body {
     gap: 15px;
 }
 
-.user-info {
+.logout-info {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -54,11 +55,13 @@ body {
     font-size: 14px;
 }
 
-.user-icon {
-    width: 24px;
-    height: 24px;
-    background-color: #666;
-    border-radius: 50%;
+.logout-icon img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1);
+    margin: 5px;
+    margin-top: 6px;
+    margin-right: -4px;
 }
 
 /* SIDEBAR LATERAL */
@@ -68,7 +71,7 @@ body {
     left: 0;
     width: 250px;
     height: calc(100vh - 60px);
-    background-color: #2d2d2d;
+    background-color: var(--cinza-color);
     padding: 20px 0;
     overflow-y: auto;
 }
@@ -99,12 +102,6 @@ body {
 .sidebar-item:hover {
     background-color: #3a3a3a;
     color: white;
-}
-
-.sidebar-item.active {
-    background-color: #404040;
-    color: white;
-    border-right: 3px solid #007acc;
 }
 
 .sidebar-item.with-badge {
@@ -180,10 +177,51 @@ body {
     padding: 50px;
 }
 
-#logout  {
-    color: #ccc;
-    text-decoration: none;
-    font-size: 14px;
+/* BOTÃO DE LOGOUT */
+#logout-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: #dc3545; /* Vermelho para logout */
+    border: none;
+    border-radius: 8px;
+    color: var(--white-color);
+    font-weight: 500;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    white-space: nowrap;
+}
+
+#logout-button:hover {
+    background-color: #c82333;
+}
+
+/* ÍCONE DO LOGOUT */
+#logout-button img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Torna o ícone branco */
+    transition: all 0.3s ease;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 480px) {
+    #logout-button {
+        padding: 8px 12px;
+        font-size: 12px;
+        gap: 6px;
+    }
+    
+    #logout-button img {
+        width: 14px;
+        height: 14px;
+    }
 }
 
 /* RESPONSIVIDADE BÁSICA */
@@ -484,4 +522,59 @@ table tr:hover {
 h1 {
     font-family: Arial, sans-serif;
     margin-bottom: 10px;
+}
+
+/* BOTÃO NOVO COM ONCLICK - VERSÃO FINAL */
+#create-user-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+    color: var(--white-color);
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    outline: none; /* Remove outline padrão do botão */
+}
+
+/* ÍCONE DENTRO DO BOTÃO */
+#create-user-button img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Torna o ícone branco */
+    transition: all 0.3s ease;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 480px) {
+    #create-user-button {
+        padding: 10px 16px;
+        font-size: 13px;
+        gap: 8px;
+    }
+    
+    #create-user-button img {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* VARIAÇÃO PARA BOTÃO MAIOR */
+.btn-novo-large {
+    padding: 15px 25px !important;
+    font-size: 16px !important;
+}
+
+.btn-novo-large img {
+    width: 20px !important;
+    height: 20px !important;
 }

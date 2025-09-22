@@ -1,9 +1,13 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Lista de Usuários{% endblock %}
 
 {% block content %}
     <h1>Lista de Usuários</h1>
+    <button id="create-user-button" onclick="window.location.href='{% url 'cadastro' %}'">
+        <img src="{% static "media/img/new-icon.png" %}" alt="Icone de novo">
+        Novo
+    </button>
     <table border="1" cellpadding="5">
         <thead>
             <tr>
