@@ -5,6 +5,9 @@
     --cinza-color: #393C40;
     --fundo-escuro: #2C2F33;
     --fundo-color: #23272A;
+    --hover-button-blue: #5f79d4;
+    --yellow-color: #d8c589;
+    --hover-button-yellow: #c4b06e;
 }
 
 * {
@@ -39,6 +42,15 @@ body {
     font-weight: bold;
     color: white;
     cursor: default;
+    /* margin-left: 50px; */
+    text-decoration: none;
+}
+
+.logo img {
+    height: 30px;
+    margin-right: 10px;
+    vertical-align: middle;
+    margin-top: -2px;
 }
 
 .header-right {
@@ -97,6 +109,12 @@ body {
     text-decoration: none;
     transition: all 0.2s ease;
     position: relative;
+}
+
+.sidebar-item.active {
+    border-right: 4px solid #007BFF; /* azul bonito */
+    background-color: #3a3a3a;
+
 }
 
 .sidebar-item:hover {
@@ -409,8 +427,7 @@ body {
 
 .formulario-login button[type="submit"]:hover {
     transition: all 0.3s ease;
-    background: #1c52e4;
-    transform: translateY(-1px);
+    background: var(--hover-button-blue);
 }
 
 .formulario-login button[type="submit"]:active {
@@ -498,25 +515,51 @@ body {
 /* LISTA DE USUARIOS */
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;   /* precisa ser separate */
+    border-spacing: 0;           /* evita “buracos” entre células */
     margin-top: 20px;
     font-family: Arial, sans-serif;
     font-size: 14px;
+    cursor: default;
+    border: 1px solid #ddd;
+    border-radius: 10px;         /* arredondamento da tabela */
+    overflow: hidden;            /* garante que o fundo siga o arredondado */
 }
 
 table thead {
     background-color: #333;
     color: #fff;
     text-align: left;
+    cursor: default;
 }
 
 table th, table td {
     border: 1px solid #ddd;
     padding: 8px;
+    cursor: default;
+}
+
+/* tira a borda duplicada nas laterais */
+table th {
+    border-top: none;
+}
+table th:first-child,
+table td:first-child {
+    border-left: none;
+}
+
+table th:last-child,
+table td:last-child {
+    border-right: none;
+}
+
+table tr:last-child td {
+    border-bottom: none;
 }
 
 table tr:hover {
     background-color: #444;
+    cursor: default;
 }
 
 h1 {
@@ -545,6 +588,10 @@ h1 {
     outline: none; /* Remove outline padrão do botão */
 }
 
+#create-user-button:hover {
+    background-color: var(--hover-button-blue);
+}
+
 /* ÍCONE DENTRO DO BOTÃO */
 #create-user-button img {
     width: 18px;
@@ -553,6 +600,40 @@ h1 {
     filter: brightness(0) invert(1); /* Torna o ícone branco */
     transition: all 0.3s ease;
 }
+
+#export-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background-color: var(--yellow-color);
+    border: none;
+    border-radius: 10px;
+    color: var(--white-color);
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    margin-top: 20px;
+    outline: none; /* Remove outline padrão do botão */
+}
+
+#export-button {
+    background-color: var(--hover-button-yellow);
+}
+
+/* ÍCONE DENTRO DO BOTÃO */
+#export-button img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Torna o ícone branco */
+    transition: all 0.3s ease;
+}
+
 
 /* RESPONSIVIDADE */
 @media (max-width: 480px) {

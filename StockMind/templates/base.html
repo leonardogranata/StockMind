@@ -7,12 +7,15 @@
     <title>StockMind</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='{% static "css/style.css" %}'>
+    <link rel="icon" type="image/png" href="{% static 'media/img/favicon.png' %}">
     <script src='{% static "js/main.js" %}'></script>
 </head>
 <body>
     <!-- HEADER SUPERIOR -->
     <header class="header">
-        <div class="logo">StockMind</div>
+        <a href="{% url 'home' %}" class="logo">
+            <img id="logo-id" src="{% static 'media/img/favicon.png' %}" alt="Logo">StockMind
+        </a>
         <div class="header-right">
             <button id="logout-button" onclick="window.location.href='{% url 'logout' %}'">
                 <img src="{% static 'media/img/logout.png' %}" alt="Icone de logout">
@@ -23,18 +26,28 @@
 
     <!-- SIDEBAR LATERAL -->
     <nav class="sidebar">
-        <!-- Seção Principal -->
         <div class="sidebar-section">
-            <a href="{% url 'home' %}" class="sidebar-item">Estoque</a>
-            <a href="#" class="sidebar-item with-badge">Dashboard</a>
+            <a href="{% url 'home' %}" 
+            class="sidebar-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+            Estoque
+            </a>
+            <a href="#" 
+            class="sidebar-item with-badge {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+            Dashboard
+            </a>
         </div>
 
-        <!-- Área Administrativa -->
         {% if user.is_superuser %}
             <div class="sidebar-section">
                 <div class="sidebar-title">Área administrativa</div>
-                <a href="#" class="sidebar-item active">Auditoria</a>
-                <a href="{% url 'listar' %}" class="sidebar-item">Usuários</a>
+                <a href="#" 
+                class="sidebar-item {% if request.resolver_match.url_name == 'auditoria' %}active{% endif %}">
+                Auditoria
+                </a>
+                <a href="{% url 'listar' %}" 
+                class="sidebar-item {% if request.resolver_match.url_name == 'listar' %}active{% endif %}">
+                Usuários
+                </a>
             </div>
         {% endif %}
     </nav>
