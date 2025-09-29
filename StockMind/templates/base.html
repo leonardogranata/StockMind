@@ -13,42 +13,56 @@
 <body>
     <!-- HEADER SUPERIOR -->
     <header class="header">
-        <a href="{% url 'home' %}" class="logo">
-            <img id="logo-id" src="{% static 'media/img/favicon.png' %}" alt="Logo">StockMind
-        </a>
+        <div class="esquerdo">
+            <button id="toggle-btn" class="menu-btn">
+                <img src="{% static 'media/img/sidebar-icon.png' %}" alt="Sidebar Icon">
+            </button>
+
+            <a href="{% url 'home' %}" class="logo">
+                <img id="logo-id" src="{% static 'media/img/favicon.png' %}" alt="Logo">StockMind
+            </a>
+        </div>
+         
+
         <div class="header-right">
             <button id="logout-button" onclick="window.location.href='{% url 'logout' %}'">
                 <img src="{% static 'media/img/logout.png' %}" alt="Icone de logout">
                 Sair
             </button>
         </div>
+
     </header>
 
     <!-- SIDEBAR LATERAL -->
-    <nav class="sidebar">
+    <nav class="sidebar" id="sidebar">
         <div class="sidebar-section">
             <a href="{% url 'home' %}" 
             class="sidebar-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-            Estoque
+                <i class="icon"><img src="{% static 'media/img/icon-estoque.png' %}" alt="Icon de Estoque"></i>
+                <span class="text">Estoque</span>
             </a>
             <a href="#" 
-            class="sidebar-item with-badge {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
-            Dashboard
+            class="sidebar-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                <i class="icon"><img src="{% static 'media/img/icon-dashboard.png' %}" alt="Icon de Dashboard"></i>
+                <span class="text">Dashboard</span>
             </a>
         </div>
 
         {% if user.is_superuser %}
-            <div class="sidebar-section">
-                <div class="sidebar-title">Área administrativa</div>
-                <a href="#" 
-                class="sidebar-item {% if request.resolver_match.url_name == 'auditoria' %}active{% endif %}">
-                Auditoria
-                </a>
-                <a href="{% url 'listar' %}" 
-                class="sidebar-item {% if request.resolver_match.url_name == 'listar' %}active{% endif %}">
-                Usuários
-                </a>
-            </div>
+        <div class="sidebar-section">
+            <div class="sidebar-title">Área administrativa</div>
+            <div class="sidebar-title-abbr">A.D.</div>
+            <a href="#" 
+            class="sidebar-item {% if request.resolver_match.url_name == 'auditoria' %}active{% endif %}">
+                 <i class="icon"><img src="{% static 'media/img/icon-auditoria.png' %}" alt="Icon de Auditoria"></i>
+                <span class="text">Auditoria</span>
+            </a>
+            <a href="{% url 'listar' %}" 
+            class="sidebar-item {% if request.resolver_match.url_name == 'listar' %}active{% endif %}">
+                <i class="icon"><img src="{% static 'media/img/icon-usuarios.png' %}" alt="Icon de Usuário"></i>
+                <span class="text">Usuários</span>
+            </a>
+        </div>
         {% endif %}
     </nav>
 
@@ -56,5 +70,6 @@
     <main class="main-content">
         {% block content %}{% endblock %}
     </main>
+    <script src="{% static 'js/sidebar.js' %}"></script>
 </body>
 </html>

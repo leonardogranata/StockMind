@@ -42,8 +42,8 @@ body {
     font-weight: bold;
     color: white;
     cursor: default;
-    /* margin-left: 50px; */
     text-decoration: none;
+    margin-left: 15px;
 }
 
 .logo img {
@@ -86,11 +86,46 @@ body {
     background-color: var(--cinza-color);
     padding: 20px 0;
     overflow-y: auto;
+    transition: width 0.3s ease;
+}
+
+.sidebar.collapsed {
+    width: 70px;
+}
+
+.sidebar.collapsed .text,
+.sidebar.collapsed .sidebar-title {
+    display: none;
+}
+
+.sidebar.collapsed .icon img {
+    margin-right: 0;
 }
 
 .sidebar-section {
     margin-bottom: 30px;
 }
+
+.sidebar-title-abbr {
+    display: none;
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 0;
+    
+}
+
+/* Quando a sidebar colapsa, some o título longo e aparece a sigla */
+.sidebar.collapsed .sidebar-title {
+    display: none;
+}
+.sidebar.collapsed .sidebar-title-abbr {
+    display: block;
+}
+
 
 .sidebar-title {
     color: #999;
@@ -113,18 +148,15 @@ body {
 
 .sidebar-item.active {
     border-right: 4px solid #007BFF; /* azul bonito */
-    background-color: #3a3a3a;
+    background-color: #313238;
 
 }
 
 .sidebar-item:hover {
-    background-color: #3a3a3a;
+    background-color: #313238;
     color: white;
 }
 
-.sidebar-item.with-badge {
-    justify-content: space-between;
-}
 
 .badge {
     background-color: #007acc;
@@ -133,6 +165,12 @@ body {
     padding: 2px 6px;
     border-radius: 10px;
     font-weight: 500;
+}
+
+.icon img {
+    width: 33px;
+    height: 30px;
+    margin-right: 15px;
 }
 
 /* ÁREA PRINCIPAL DE CONTEÚDO */
@@ -147,6 +185,28 @@ body {
 .page-header {
     margin-bottom: 30px;
 }
+
+.menu-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0 15px;
+    margin-right: none;
+}
+
+.menu-btn img {
+    width: 24px;
+    height: 24px;
+    filter: invert(1);
+    margin-bottom: -5px;
+}
+
+.menu-btn:hover {
+    color: #007BFF; /* azul de destaque */
+}
+
 
 .page-title {
     font-size: 32px;
