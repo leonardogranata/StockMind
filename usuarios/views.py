@@ -59,3 +59,4 @@ def excluirUser(request, user_id):
         user.delete()
         return redirect('listar')
     return render(request, 'usuarios/excluir.html', {'user': user})
+    
