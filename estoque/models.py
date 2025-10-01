@@ -2,6 +2,7 @@ from django.db import models
 
 class Estoque(models.Model):
     codigo = models.CharField(max_length=25)
+    nome = models.CharField(max_length=150)
     descricao = models.TextField()
     quantidade = models.IntegerField()
     marca = models.CharField(max_length=120)
@@ -11,4 +12,4 @@ class Estoque(models.Model):
     qtd_max = models.IntegerField()
 
     def __str__(self):
-        return self.descricao
+        return self.nome
