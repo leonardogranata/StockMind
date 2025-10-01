@@ -2,28 +2,55 @@
 {% load static %}
 
 {% block content %}
-
-<h1>Estoque Completo</h1>
-<table>
-    <thead>
-        <tr>
-            <th>Nome do Produto</th>
-            <th>Quantidade</th>
-            <th>Preço</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in estoque %}
-        <tr>
-            <td>{{ item.nome }}</td>
-            <td>{{ item.quantidade }}</td>
-            <td>{{ item.preco }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="3">Nenhum produto em estoque.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
+    
+    <h1>Estoque Completo</h1>
+    <div class="bloco-tabela">
+        <div class="botoes">
+            <button id="create-item-button" onclick="window.location.href='{% url 'cadastroItem' %}'">
+                <img src="{% static "media/img/new-icon.png" %}" alt="Icone de novo">
+                Novo
+            </button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descrição</th>
+                    <th>Quatidade</th>
+                    <th>Marca</th>
+                    <th>Fornecedor</th>
+                    <th>Preço</th>
+                    <th>Qtd. Min</th>
+                    <th>Qtd. Max</th>
+                    <th>Alterações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in itens %}
+                <tr>
+                    <td>{{ item.codigo }}</td>
+                    <td>{{ item.descricao }}</td>
+                    <td>{{ item.quantidade }}</td>
+                    <td>{{ item.marca }}</td>
+                    <td>{{ item.fornecedor }}</td>
+                    <td>{{ item.preco }}</td>
+                    <td>{{ item.qtd_min }}</td>
+                    <td>{{ item.qtd_max }}</td>
+                    <td>
+                        <div class="icones-alteracao">
+                            <a href="{% url 'editarItem' item.id %}"><img src="{% static 'media/img/icon-edit.png' %}" alt="Ícone edição"></a>
+                            <a href="{% url 'excluirItem' item.id %}"><img src="{% static 'media/img/icon-delete.png' %}" alt="Ícone exclusão"></a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Nenhum produto em estoque.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
 
 {% endblock content %}

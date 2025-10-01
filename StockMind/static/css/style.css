@@ -357,7 +357,7 @@ body {
 }
 
 /* MAIN CONTAINER */
-.main-login {
+.main {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -374,7 +374,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.formulario-login {
+.formulario {
     background-color: var(--cinza-color);
     border-radius: 12px;
     padding: 40px;
@@ -385,7 +385,7 @@ body {
     animation: fadeInUp 0.6s ease-out;
 }
 
-.formulario-login h2 {
+.formulario h2 {
     cursor: default;
     text-align: center;
     font-size: 28px;
@@ -395,20 +395,20 @@ body {
 }
 
 /* FORMULÁRIO */
-.formulario-login form {
+.formulario form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
 /* Paragrafos gerados pelo form.as_p */
-.formulario-login p {
+.formulario p {
     margin-bottom: 20px;
     color: white;
 }
 
 /* LABELS */
-.formulario-login label {
+.formulario label {
     display: block;
     color: #ccc;
     font-size: 14px;
@@ -417,13 +417,13 @@ body {
     font-weight: 500;
 }
 
-.formulario-login label:first-of-type {
+.formulario label:first-of-type {
     margin-top: 0;
 }
 
 /* TODOS OS INPUTS */
-.formulario-login input[type="text"],
-.formulario-login input[type="password"] {
+.formulario input[type="text"],
+.formulario input[type="password"] {
     width: 95%;
     padding: 15px;
     background-color: var(--fundo-escuro);
@@ -437,8 +437,8 @@ body {
 }
 
 /* ESTADOS DE FOCO */
-.formulario-login input[type="text"]:focus,
-.formulario-login input[type="password"]:focus {
+.formulario input[type="text"]:focus,
+.formulario input[type="password"]:focus {
     outline: none;
     border-color: var(--primary-color);
     background-color: var(--fundo-escuro);
@@ -446,20 +446,20 @@ body {
 }
 
 /* ESTADOS DE HOVER */
-.formulario-login input[type="text"]:hover,
-.formulario-login input[type="password"]:hover {
+.formulario input[type="text"]:hover,
+.formulario input[type="password"]:hover {
     border-color: #666;
     background-color: #3d3d3d;
 }
 
 /* PLACEHOLDERS */
-.formulario-login input::placeholder,
-.formulario-login textarea::placeholder {
+.formulario input::placeholder,
+.formulario textarea::placeholder {
     color: #999;
 }
 
 /* BOTÃO DE SUBMIT */
-.formulario-login button[type="submit"] {
+.formulario button[type="submit"] {
     width: 100%;
     padding: 15px;
     background: var(--primary-color);
@@ -473,23 +473,23 @@ body {
     margin-top: 20px;
 }
 
-.formulario-login button[type="submit"]:hover {
+.formulario button[type="submit"]:hover {
     transition: all 0.3s ease;
     background: var(--hover-button-blue);
 }
 
-.formulario-login button[type="submit"]:active {
+.formulario button[type="submit"]:active {
     transform: translateY(0);
 }
 
 /* MENSAGENS DE ERRO DO DJANGO */
-.formulario-login .errorlist {
+.formulario .errorlist {
     list-style: none;
     margin: 5px 0 10px 0;
     padding: 0;
 }
 
-.formulario-login .errorlist li {
+.formulario .errorlist li {
     color: #ff6b6b;
     background-color: rgba(255, 107, 107, 0.1);
     padding: 8px 12px;
@@ -500,7 +500,7 @@ body {
 }
 
 /* MENSAGEM DE ERRO GENÉRICA */
-.formulario-login p[style*="color: red"] {
+.formulario p[style*="color: red"] {
     color: #ff6b6b !important;
     background-color: rgba(255, 107, 107, 0.1);
     padding: 10px;
@@ -512,40 +512,40 @@ body {
 }
 
 /* HELP TEXT DO DJANGO - OCULTAR */
-.formulario-login .helptext,
-.formulario-login ul {
+.formulario .helptext,
+.formulario ul {
     display: none;
 }
 
 /* CAMPOS OBRIGATÓRIOS (ASTERISCO) */
-.formulario-login .required {
+.formulario .required {
     color: #ff6b6b;
 }
 
 /* Remover os <br><br> do layout com CSS */
-.formulario-login br {
+.formulario br {
     display: none;
 }
 
 /* RESPONSIVIDADE */
 @media (max-width: 600px) {
-    .formulario-login {
+    .formulario {
         padding: 30px 20px;
         margin: 20px;
         max-width: 100%;
     }
     
-    .formulario-login h2 {
+    .formulario h2 {
         font-size: 24px;
     }
 }
 
 @media (max-width: 480px) {
-    .formulario-login {
+    .formulario {
         padding: 25px 15px;
     }
     
-    .formulario-login h2 {
+    .formulario h2 {
         font-size: 22px;
     }
     
@@ -553,7 +553,7 @@ body {
         font-size: 20px;
     }
     
-    .formulario-login button[type="submit"] {
+    .formulario button[type="submit"] {
         padding: 12px;
         font-size: 15px;
     }
@@ -703,6 +703,40 @@ table td {
 
 /* ÍCONE DENTRO DO BOTÃO */
 #create-user-button img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Torna o ícone branco */
+    transition: all 0.3s ease;
+}
+
+
+#create-item-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+    color: var(--white-color);
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    outline: none; /* Remove outline padrão do botão */
+}
+
+#create-item-button:hover {
+    background-color: var(--hover-button-blue);
+}
+
+/* ÍCONE DENTRO DO BOTÃO */
+#create-item-button img {
     width: 18px;
     height: 18px;
     object-fit: contain;

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Excluir Item{% endblock %}
+
+{% block content %}
+
+    <div class="bloco-exclusao">
+        <div class="mini-bloco-exclusao">
+            <div class="btn-voltar-exclusao">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'media/img/icon-voltar.png' %}" alt="Ícone de voltar">
+                </a>
+            </div>
+    
+            <h2>Excluir Usuário: {{ estoque.descricao }}</h2>
+    
+            <form method="post" action="{% url 'excluirItem' estoque.id %}">
+                {% csrf_token %}
+                <p>Tem certeza que deseja excluir o usuário "{{ estoque.descricao }}"?</p>
+                <button id="btn-exclusao" type="submit">Confirmar Exclusão</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

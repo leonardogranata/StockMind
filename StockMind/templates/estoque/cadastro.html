@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+    <main class="main">
+        <div class="formulario">
+            <div class="btn-voltar">
+                <a href="{% url 'home' %}"><img src="{% static 'media/img/icon-voltar.png' %}" alt="Ícone de voltar"></a>
+            </div>
+            
+            <h2>Cadastro de Item</h2>
+            <form method="post" action="{% url 'cadastroItem' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </main>
+
+{% endblock content %}

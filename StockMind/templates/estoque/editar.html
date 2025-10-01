@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}StockMind - Editar Item{% endblock title %}
+
+{% block content %}
+<main class="main">
+    <div class="formulario">
+        <div class="btn-voltar">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'media/img/icon-voltar.png' %}" alt="Ícone de voltar">
+            </a>
+        </div>
+
+        <h2>Editar Item: {{ estoque.descricao }}</h2>
+
+        <form method="post" action="{% url 'editarItem' estoque.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+</main>
+{% endblock content %}
