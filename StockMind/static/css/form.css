@@ -43,6 +43,13 @@ body {
     letter-spacing: -0.5px;
 }
 
+#logo-id-login {
+    height: 30px;
+    margin-right: 10px;
+    vertical-align: middle;
+    margin-top: -2px;
+}
+
 /* MAIN CONTAINER */
 .main-login {
     display: flex;

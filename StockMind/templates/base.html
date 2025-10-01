@@ -5,6 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>StockMind</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='{% static "css/style.css" %}'>
     <link rel="icon" type="image/png" href="{% static 'media/img/favicon.png' %}">
@@ -25,6 +26,7 @@
          
 
         <div class="header-right">
+            <img id="icone-dark-light" src="{% static 'media/img/dark-light-mode.png' %}" alt="Modo claro/escuro">
             <button id="logout-button" onclick="window.location.href='{% url 'logout' %}'">
                 <img src="{% static 'media/img/logout.png' %}" alt="Icone de logout">
                 Sair
