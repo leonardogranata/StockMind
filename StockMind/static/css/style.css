@@ -560,11 +560,6 @@ body {
 }
 
 /* LISTA DE USUARIOS */
-#lista-user-title {
-    text-align: center;
-    font-size: 64px;
-    font-family: 'Poppins', sans-serif;
-}
 
 .bloco-tabela {
     display: flex;
@@ -653,8 +648,9 @@ table td {
 }
 
 h1 {
+    text-align: center;
+    font-size: 64px;
     font-family: 'Poppins', sans-serif;
-    margin-bottom: 10px;
 }
 
 table th,

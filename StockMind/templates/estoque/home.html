@@ -3,8 +3,27 @@
 
 {% block content %}
 
-<h1>Bem-vindo ao StockMind</h1>
-<p>Gerencie seu estoque de forma eficiente e inteligente.</p>
-    . q
+<h1>Estoque Completo</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Nome do Produto</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in estoque %}
+        <tr>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.quantidade }}</td>
+            <td>{{ item.preco }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhum produto em estoque.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 
 {% endblock content %}
