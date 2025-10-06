@@ -126,10 +126,10 @@ body {
 .sidebar.collapsed .sidebar-title {
     display: none;
 }
+
 .sidebar.collapsed .sidebar-title-abbr {
     display: block;
 }
-
 
 .sidebar-title {
     color: #999;
@@ -153,14 +153,12 @@ body {
 .sidebar-item.active {
     border-right: 4px solid #007BFF; /* azul bonito */
     background-color: #313238;
-
 }
 
 .sidebar-item:hover {
     background-color: #313238;
     color: white;
 }
-
 
 .badge {
     background-color: #007acc;

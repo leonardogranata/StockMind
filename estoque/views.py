@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Estoque
+from django.db.models.signals import post_save, post_delete
+from django.contrib.auth.models import User
+from django.dispatch import receiver
+from .models import Estoque, Auditoria
 from .forms import EstoqueForm
-from django.shortcuts import get_object_or_404, redirect
+
 
 # CRUD
 
@@ -16,7 +19,9 @@ def cadastroItem(request):
     if request.method == 'POST':
         form = EstoqueForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            item = form.save(commit=False)
+            item.usuario_logado = request.user  # para auditoria
+            item.save()
             return redirect('home')
     else:
         form = EstoqueForm()
@@ -28,7 +33,9 @@ def editarItem(request, pk):
     if request.method == 'POST':
         form = EstoqueForm(request.POST, instance=estoque)
         if form.is_valid():
-            form.save()
+            item = form.save(commit=False)
+            item.usuario_logado = request.user  # para auditoria
+            item.save()
             return redirect('home')  
     else:
         form = EstoqueForm(instance=estoque)
@@ -38,9 +45,13 @@ def editarItem(request, pk):
 def excluirItem(request, pk):
     estoque = get_object_or_404(Estoque, pk=pk)
     if request.method == 'POST':
+        estoque.usuario_logado = request.user  # para auditoria
         estoque.delete()
         return redirect('home')
-    return render(request, 'estoque/excluir.html', {'estoque': estoque}) 
+    return render(request, 'estoque/excluir.html', {'estoque': estoque})
 
 
-# -----------------
+# auditoria:
+def auditoria_list(request):
+    logs = Auditoria.objects.all().order_by('-data_hora')
+    return render(request, 'estoque/auditoria_list.html', {'logs': logs})

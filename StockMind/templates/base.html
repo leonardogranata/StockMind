@@ -54,8 +54,8 @@
         <div class="sidebar-section">
             <div class="sidebar-title">Área administrativa</div>
             <div class="sidebar-title-abbr">A.D.</div>
-            <a href="#" 
-            class="sidebar-item {% if request.resolver_match.url_name == 'auditoria' %}active{% endif %}">
+            <a href="{% url 'auditoria_list' %}" 
+            class="sidebar-item {% if request.resolver_match.url_name == 'auditoria_list' %}active{% endif %}">
                  <i class="icon"><img src="{% static 'media/img/icon-auditoria.png' %}" alt="Icon de Auditoria"></i>
                 <span class="text">Auditoria</span>
             </a>
