@@ -423,7 +423,10 @@ body {
 
 /* TODOS OS INPUTS */
 .formulario input[type="text"],
-.formulario input[type="password"] {
+.formulario input[type="password"],
+.formulario input[type="email"],
+.formulario input[type="number"],
+.formulario textarea {
     width: 95%;
     padding: 15px;
     background-color: var(--fundo-escuro);
@@ -438,7 +441,10 @@ body {
 
 /* ESTADOS DE FOCO */
 .formulario input[type="text"]:focus,
-.formulario input[type="password"]:focus {
+.formulario input[type="password"]:focus,
+.formulario input[type="email"]:focus,
+.formulario input[type="number"]:focus,
+.formulario textarea:focus {
     outline: none;
     border-color: var(--primary-color);
     background-color: var(--fundo-escuro);
@@ -447,7 +453,10 @@ body {
 
 /* ESTADOS DE HOVER */
 .formulario input[type="text"]:hover,
-.formulario input[type="password"]:hover {
+.formulario input[type="password"]:hover,
+.formulario input[type="email"]:hover,
+.formulario input[type="number"]:hover,
+.formulario textarea:hover {
     border-color: #666;
     background-color: #3d3d3d;
 }
@@ -474,13 +483,13 @@ body {
 }
 
 .formulario button[type="submit"]:hover {
-    transition: all 0.3s ease;
     background: var(--hover-button-blue);
 }
 
 .formulario button[type="submit"]:active {
     transform: translateY(0);
 }
+
 
 /* MENSAGENS DE ERRO DO DJANGO */
 .formulario .errorlist {
@@ -570,7 +579,7 @@ body {
 }
 
 .bloco-tabela .botoes {
-    width: 75%; /* mesma largura da tabela */
+    width: 80%; /* mesma largura da tabela */
     display: flex;
     justify-content: flex-start; /* joga botões pra esquerda */
     margin-bottom: 15px;
@@ -578,7 +587,7 @@ body {
 }
 
 .bloco-tabela table {
-    width: 75%; /* metade da tela */
+    width: 80%; /* metade da tela */
     border-collapse: collapse;
     text-align: center;
 }
