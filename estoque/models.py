@@ -2,7 +2,7 @@ from django.db import models
 
 class Estoque(models.Model):
     codigo = models.CharField(max_length=25)
-    nome = models.CharField(max_length=150)
+    nome = models.CharField(max_length=100, default='Sem nome')
     descricao = models.TextField()
     quantidade = models.IntegerField()
     marca = models.CharField(max_length=120)
