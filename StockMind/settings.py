@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'estoque',
-    #'usuarios',
+    'usuarios',
     #'analise',
 ]
 
@@ -79,24 +79,14 @@ WSGI_APPLICATION = 'stockmind.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'stockmind',        # Substitua pelo nome do seu banco
+        'USER': 'tecmysql',          # Substitua pelo usuário do MySQL
+        'PASSWORD': 'devmysql',        # Substitua pela senha do usuário
+        'HOST': 'localhost',            # Ou o IP do servidor MySQL
+        'PORT': '3306',                 # Porta padrão do MySQL
     }
 }
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'nome_do_banco',        # Substitua pelo nome do seu banco
-#        'USER': 'seu_usuario',          # Substitua pelo usuário do MySQL
-#        'PASSWORD': 'sua_senha',        # Substitua pela senha do usuário
-#        'HOST': 'localhost',            # Ou o IP do servidor MySQL
-#        'PORT': '3306',                 # Porta padrão do MySQL
-#        'OPTIONS': {
-#            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-#        },
-#    }
-#}
 
 
 # Password validation
