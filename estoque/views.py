@@ -6,7 +6,6 @@ from django.dispatch import receiver
 from .models import Estoque, Auditoria
 from .forms import EstoqueForm
 
-
 # CRUD
 
 @login_required
@@ -49,7 +48,6 @@ def excluirItem(request, pk):
         estoque.delete()
         return redirect('home')
     return render(request, 'estoque/excluir.html', {'estoque': estoque})
-
 
 # auditoria:
 def auditoria_list(request):

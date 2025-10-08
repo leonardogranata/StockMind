@@ -14,7 +14,9 @@
         <table>
             <thead>
                 <tr>
+                    <th>status</th>
                     <th>Código</th>
+                    <th>Nome</th>
                     <th>Descrição</th>
                     <th>Quatidade</th>
                     <th>Marca</th>
@@ -28,7 +30,17 @@
             <tbody>
                 {% for item in itens %}
                 <tr>
+                    <td class="status-td">
+                        {% if item.quantidade > item.qtd_min %}
+                            <img src="{% static 'media/img/icon-true.png' %}" alt="Icon True">
+                        {% elif item.quantidade == item.qtd_min %}
+                            <img src="{% static 'media/img/icon-neutro.png' %}" alt="Icon Neutro">
+                        {% else %}
+                            <img src="{% static 'media/img/icon-false.png' %}" alt="Icon False">
+                        {% endif %}
+                    </td>
                     <td>{{ item.codigo }}</td>
+                    <td>{{ item.nome}}
                     <td>{{ item.descricao }}</td>
                     <td>{{ item.quantidade }}</td>
                     <td>{{ item.marca }}</td>
@@ -50,6 +62,12 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div class="botoes">
+            <button id="export-button">
+                <img src="{% static "media/img/exportar.png" %}" alt="Icone de exportar">
+                Exportar JSON
+            </button>
+        </div>
     </div>
     
 
