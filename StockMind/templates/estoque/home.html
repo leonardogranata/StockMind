@@ -4,6 +4,10 @@
 {% block content %}
     
     <h1>Estoque Completo</h1>
+    <form method="get">
+        <input type="text" name="q" placeholder="Buscar item..." value="{{ request.GET.q }}">
+        <button type="submit">🔍</button>
+    </form>
     <div class="bloco-tabela">
         <div class="botoes">
             <button id="create-item-button" onclick="window.location.href='{% url 'cadastroItem' %}'">

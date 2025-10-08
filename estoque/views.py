@@ -10,8 +10,13 @@ from .forms import EstoqueForm
 
 @login_required
 def home(request):
-    itens = Estoque.objects.all()
+    busca = request.GET.get('q')  # pega o texto digitado na busca
+    if busca:
+        itens = Estoque.objects.filter(nome__icontains=busca)
+    else:
+        itens = Estoque.objects.all()
     return render(request, 'estoque/home.html', {'itens': itens})
+
 
 @login_required
 def cadastroItem(request):
