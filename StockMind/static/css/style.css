@@ -577,7 +577,7 @@ body {
 }
 
 .bloco-tabela .botoes {
-    width: 80%; /* mesma largura da tabela */
+    width: 100%; /* mesma largura da tabela */
     display: flex;
     justify-content: flex-start; /* joga botões pra esquerda */
     margin-bottom: 15px;
@@ -585,7 +585,7 @@ body {
 }
 
 .bloco-tabela table {
-    width: 80%; /* metade da tela */
+    width: 100%; /* metade da tela */
     border-collapse: collapse;
     text-align: center;
 }
@@ -664,6 +664,10 @@ table th,
 table td {
     padding: 12px 15px;
     border: none; /* mata a borda branca */
+}
+.status-td img{
+    width: 4vh;
+    height: 4vh;
 }
 
 .icones-alteracao img {
