@@ -1,25 +1,53 @@
 {% extends "base.html" %}
+
 {% block content %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Previsão de Consumo - Todos os Itens</h1>
+        <hr>
 
+        {% for item_data in previsoes_itens %}
+            <div class="item-container mb-5">
+                
+                <h3>{{ item_data.item }}</h3>
 
-    <h2>Previsão de Consumo - Todos os Itens</h2>
+                <div style="width: 100%; max-width: 900px; margin: 20px 0;">
+                    <canvas id="grafico_{{ forloop.counter }}"></canvas>
+                </div>
 
-    {% for item_data in previsoes_itens %}
-    <h3>{{ item_data.item }}</h3>
-    <table border="1" cellpadding="5">
-        <tr>
-        <th>Data</th>
-        <th>Consumo Previsto</th>
-        </tr>
-        {% for linha in item_data.previsao.values %}
-        <tr>
-        <td>{{ linha.0 }}</td>
-        <td>{{ linha.1|floatformat:2 }}</td>
-        </tr>
+            </div>
+            <hr class="my-5">
+        {% empty %}
+            <div class="alert alert-warning" role="alert">
+                Nenhum item com previsão disponível foi encontrado.
+            </div>
         {% endfor %}
-    </table>
-    {% endfor %}
 
+    </div>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        {% for item_data in previsoes_itens %}
+            const dados_{{ forloop.counter }} = {{ item_data.previsao_json|safe }};
+            const labels_{{ forloop.counter }} = dados_{{ forloop.counter }}.map(dado => dado[0]);
+            const valores_{{ forloop.counter }} = dados_{{ forloop.counter }}.map(dado => dado[1]);
+            const ctx_{{ forloop.counter }} = document.getElementById('grafico_{{ forloop.counter }}').getContext('2d');
+            new Chart(ctx_{{ forloop.counter }}, {
+                type: 'line',
+                data: {
+                    labels: labels_{{ forloop.counter }},
+                    datasets: [{
+                        label: 'Consumo Previsto',
+                        data: valores_{{ forloop.counter }},
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: { /* ... suas opções ... */ }
+            });
+        {% endfor %}
+    });
+    </script>
 {% endblock content %}
