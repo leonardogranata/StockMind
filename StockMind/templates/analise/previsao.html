@@ -2,20 +2,24 @@
 {% block content %}
 
 
-    <h2>Previsão de Consumo: {{ item_nome }}</h2>
+    <h2>Previsão de Consumo - Todos os Itens</h2>
 
+    {% for item_data in previsoes_itens %}
+    <h3>{{ item_data.item }}</h3>
     <table border="1" cellpadding="5">
-    <tr>
+        <tr>
         <th>Data</th>
         <th>Consumo Previsto</th>
-    </tr>
-    {% for linha in previsoes.values %}
-    <tr>
+        </tr>
+        {% for linha in item_data.previsao.values %}
+        <tr>
         <td>{{ linha.0 }}</td>
         <td>{{ linha.1|floatformat:2 }}</td>
-    </tr>
-    {% endfor %}
+        </tr>
+        {% endfor %}
     </table>
+    {% endfor %}
+
 
 
 {% endblock content %}
