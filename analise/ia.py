@@ -7,7 +7,7 @@ def gerar_csv_consumo(item_nome):
         Consumo.objects
         .filter(item__nome=item_nome)
         .order_by('data')
-        .values('data', 'quantidade')
+        .values('item', 'data', 'quantidade')
     )
     df = pd.DataFrame(list(dados))
     df.to_csv('dados_consumo.csv', index=False)
