@@ -1,53 +1,95 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h1 class="mb-4">Previsão de Consumo - Todos os Itens</h1>
-        <hr>
+<div class="container mt-4">
+    <h1 class="mb-4">Previsão de Consumo por Item</h1>
 
-        {% for item_data in previsoes_itens %}
-            <div class="item-container mb-5">
-                
-                <h3>{{ item_data.item }}</h3>
-
-                <div style="width: 100%; max-width: 900px; margin: 20px 0;">
-                    <canvas id="grafico_{{ forloop.counter }}"></canvas>
-                </div>
-
-            </div>
-            <hr class="my-5">
-        {% empty %}
-            <div class="alert alert-warning" role="alert">
-                Nenhum item com previsão disponível foi encontrado.
-            </div>
-        {% endfor %}
-
+    <div class="form-group mb-4" style="max-width: 400px;">
+        <label for="itemSelect">Selecione um Item:</label>
+        <select class="form-control" id="itemSelect">
+            <option selected disabled>Escolha um item para ver a previsão...</option>
+            {% for nome in nomes_itens %}
+                <option value="{{ nome }}">{{ nome }}</option>
+            {% endfor %}
+        </select>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        {% for item_data in previsoes_itens %}
-            const dados_{{ forloop.counter }} = {{ item_data.previsao_json|safe }};
-            const labels_{{ forloop.counter }} = dados_{{ forloop.counter }}.map(dado => dado[0]);
-            const valores_{{ forloop.counter }} = dados_{{ forloop.counter }}.map(dado => dado[1]);
-            const ctx_{{ forloop.counter }} = document.getElementById('grafico_{{ forloop.counter }}').getContext('2d');
-            new Chart(ctx_{{ forloop.counter }}, {
-                type: 'line',
-                data: {
-                    labels: labels_{{ forloop.counter }},
-                    datasets: [{
-                        label: 'Consumo Previsto',
-                        data: valores_{{ forloop.counter }},
-                        borderColor: 'rgb(75, 192, 192)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        fill: true,
-                        tension: 0.1
-                    }]
-                },
-                options: { /* ... suas opções ... */ }
-            });
-        {% endfor %}
+    <div id="chartContainer" style="display: none; width: 100%; max-width: 900px; margin: 20px 0;">
+        <h3 id="chartTitle"></h3>
+        <canvas id="graficoItem"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Pega a string JSON com os dados de TODOS os itens e a transforma em um objeto JavaScript
+    const todasAsPrevisoes = JSON.parse('{{ previsoes_json|safe }}');
+    
+    // 2. Pega as referências dos elementos HTML que vamos manipular
+    const selectElement = document.getElementById('itemSelect');
+    const chartContainer = document.getElementById('chartContainer');
+    const chartTitle = document.getElementById('chartTitle');
+    const ctx = document.getElementById('graficoItem').getContext('2d');
+    
+    let meuGrafico; // Variável global para guardar a instância do gráfico
+
+    // 3. Adiciona um "escutador" de eventos que será acionado toda vez que o usuário mudar a seleção
+    selectElement.addEventListener('change', function() {
+        const itemSelecionado = this.value;
+        const dadosDoItem = todasAsPrevisoes[itemSelecionado];
+        
+        if (dadosDoItem) {
+            // Se encontrou dados para o item, mostra o container e atualiza o gráfico
+            chartContainer.style.display = 'block';
+            atualizarGrafico(itemSelecionado, dadosDoItem);
+        } else {
+            // Se não, esconde o container
+            chartContainer.style.display = 'none';
+        }
     });
-    </script>
+
+    // 4. Função responsável por desenhar (ou redesenhar) o gráfico
+    function atualizarGrafico(nomeItem, dados) {
+        // Se já existe um gráfico na tela, ele é destruído.
+        // Isso é crucial para evitar sobreposição e bugs visuais.
+        if (meuGrafico) {
+            meuGrafico.destroy();
+        }
+
+        // Separa os dados em rótulos (datas) e valores (quantidades)
+        const labels = dados.map(dado => dado[0]);
+        const valores = dados.map(dado => dado[1]);
+
+        // Atualiza o título acima do gráfico
+        chartTitle.innerText = `Evolução do Consumo Previsto para ${nomeItem}`;
+
+        // Cria a nova instância do gráfico com os dados do item selecionado
+        meuGrafico = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Consumo Previsto',
+                    data: valores,
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true, // Garante que o eixo Y comece no zero
+                        title: { display: true, text: 'Quantidade' }
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
 {% endblock content %}
