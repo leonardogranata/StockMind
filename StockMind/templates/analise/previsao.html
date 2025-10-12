@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+    <h2>Previsão de Consumo: {{ item_nome }}</h2>
+
+    <table border="1" cellpadding="5">
+    <tr>
+        <th>Data</th>
+        <th>Consumo Previsto</th>
+    </tr>
+    {% for linha in previsoes.values %}
+    <tr>
+        <td>{{ linha.0 }}</td>
+        <td>{{ linha.1|floatformat:2 }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+
+{% endblock content %}

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'estoque',
     'usuarios',
-    #'analise',
+    'analise',
 ]
 
 MIDDLEWARE = [
@@ -79,12 +79,8 @@ WSGI_APPLICATION = 'stockmind.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'stockmind',        # Substitua pelo nome do seu banco
-        'USER': 'tecmysql',          # Substitua pelo usuário do MySQL
-        'PASSWORD': 'devmysql',        # Substitua pela senha do usuário
-        'HOST': 'localhost',            # Ou o IP do servidor MySQL
-        'PORT': '3306',                 # Porta padrão do MySQL
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

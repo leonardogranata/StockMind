@@ -43,7 +43,7 @@
                 <i class="icon"><img src="{% static 'media/img/icon-estoque.png' %}" alt="Icon de Estoque"></i>
                 <span class="text">Estoque</span>
             </a>
-            <a href="#" 
+            <a href="{% url 'previsao' item_nome='item1' %}" 
             class="sidebar-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
                 <i class="icon"><img src="{% static 'media/img/icon-dashboard.png' %}" alt="Icon de Dashboard"></i>
                 <span class="text">Dashboard</span>

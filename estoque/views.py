@@ -3,8 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.signals import post_save, post_delete
 from django.contrib.auth.models import User
 from django.dispatch import receiver
+from analise.models import Consumo
 from .models import Estoque, Auditoria
 from .forms import EstoqueForm
+from django.utils import timezone
 
 # CRUD
 
@@ -34,15 +36,35 @@ def cadastroItem(request):
 @login_required
 def editarItem(request, pk):
     estoque = get_object_or_404(Estoque, pk=pk)
+    quantidade_anterior = estoque.quantidade
+
     if request.method == 'POST':
         form = EstoqueForm(request.POST, instance=estoque)
         if form.is_valid():
-            item = form.save(commit=False)
-            item.usuario_logado = request.user  # para auditoria
-            item.save()
-            return redirect('home')  
+            novo_item = form.save(commit=False)
+            diferenca = quantidade_anterior - novo_item.quantidade
+
+            # se retirou item
+            if diferenca > 0:
+                hoje = timezone.now().date()
+                consumo_existente = Consumo.objects.filter(item=estoque, data=hoje).first()
+
+                if consumo_existente:
+                    consumo_existente.quantidade += diferenca
+                    consumo_existente.save()
+                else:
+                    Consumo.objects.create(
+                        item=estoque,
+                        quantidade=diferenca,
+                        data=hoje,
+                        usuario=request.user
+                    )
+            novo_item.save()
+            return redirect('home')
+
     else:
         form = EstoqueForm(instance=estoque)
+
     return render(request, 'estoque/editar.html', {'form': form, 'estoque': estoque})
 
 @login_required
