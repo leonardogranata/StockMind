@@ -42,6 +42,7 @@ def cadastroItem(request):
 def editarItem(request, pk):
     estoque = get_object_or_404(Estoque, pk=pk)
     quantidade_anterior = estoque.quantidade
+    item = get_object_or_404(Estoque, pk=pk)
 
     if request.method == 'POST':
         form = EstoqueForm(request.POST, instance=estoque)
@@ -70,7 +71,7 @@ def editarItem(request, pk):
     else:
         form = EstoqueForm(instance=estoque)
 
-    return render(request, 'estoque/editar.html', {'form': form, 'estoque': estoque})
+    return render(request, 'estoque/editar.html', {'form': form, 'estoque': estoque, 'item': item})
 
 @login_required
 def excluirItem(request, pk):

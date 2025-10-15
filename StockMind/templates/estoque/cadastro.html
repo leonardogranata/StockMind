@@ -81,12 +81,10 @@ textarea {
     resize: vertical;
 }
 
-/* Campo Detalhes ocupa toda a linha */
 .full {
     grid-column: 1 / -1;
 }
 
-/* Botão centralizado */
 #button-create {
     grid-column: 1 / -1;
     justify-self: center;
@@ -106,7 +104,6 @@ button:hover {
     background: #5b6cf7;
 }
 
-/* Responsivo */
 @media (max-width: 768px) {
     form {
         grid-template-columns: 1fr;
@@ -119,69 +116,58 @@ button:hover {
         <div class="container">
             <h2>Cadastro de Item</h2>
 
-            <form>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Código:</label>
+                    <input type="text" name="codigo" placeholder="Digite o código" required>
+                </div>
+
                 <div class="form-group">
                     <label>Nome:</label>
-                    <input type="text" placeholder="Digite o nome">
-                </div>
-
-                <div class="form-group">
-                    <label>Preço:</label>
-                    <input type="text" placeholder="Digite o preço">
-                </div>
-
-                <div class="form-group">
-                    <label>Fabricante:</label>
-                    <input type="text" placeholder="Digite o fabricante">
-                </div>
-
-                <div class="form-group">
-                    <label>Categoria:</label>
-                    <input type="text" placeholder="Digite a categoria">
+                    <input type="text" name="nome" placeholder="Digite o nome" required>
                 </div>
 
                 <div class="form-group">
                     <label>Quantidade:</label>
-                    <input type="number" placeholder="Digite a quantidade">
+                    <input type="number" name="quantidade" placeholder="Digite a quantidade" required>
                 </div>
 
                 <div class="form-group">
                     <label>Marca:</label>
-                    <input type="text" placeholder="Digite a marca">
+                    <input type="text" name="marca" placeholder="Digite a marca" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Modelo:</label>
-                    <input type="text" placeholder="Digite o modelo">
-                </div>
-            
-                <div class="form-group">
-                    <label>Unid. de medida:</label>
-                    <input type="text" placeholder="Ex: unidade, litro, kg">
+                    <label>Fornecedor:</label>
+                    <input type="text" name="fornecedor" placeholder="Digite o fornecedor" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Qtd. min:</label>
-                    <input type="number" placeholder="Mínimo">
+                    <label>Preço:</label>
+                    <input type="number" step="0.01" name="preco" placeholder="Digite o preço" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Qtd. max:</label>
-                    <input type="number" placeholder="Máximo">
+                    <label>Qtd. Mínima:</label>
+                    <input type="number" name="qtd_min" placeholder="Mínimo" required>
                 </div>
 
-                <div class="form-group full">
-                    <label>Detalhes:</label>
-                    <textarea placeholder="Digite os detalhes..."></textarea>
+                <div class="form-group">
+                    <label>Qtd. Máxima:</label>
+                    <input type="number" name="qtd_max" placeholder="Máximo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Descrição:</label>
+                    <textarea name="descricao" placeholder="Digite a descrição..." required></textarea>
                 </div>
 
                 <button id="button-create" type="submit">Cadastrar</button>
             </form>
         </div>
-
     </div>
-
-
 </body>
 </html>
 {% endblock content %}
