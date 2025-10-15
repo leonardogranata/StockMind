@@ -70,13 +70,13 @@
 
             <div class="botoes-json">
                 <a href="{% url 'exportar_json' %}">
-                    <button type="button" class="button-baixar-json"><img src="{% static "media/img/exportar.png" %}" alt="Icone de importar">Baixar JSON</button>
+                    <button type="button" class="button-baixar-json"><img src="{% static "media/img/exportar.png" %}" alt="Icone de exportar">Baixar JSON</button>
                 </a>
                 
                 <form action="{% url 'importar_json' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="file" name="arquivo" accept=".json" required>
-                    <button type="submit" class="button-enviar-json">Enviar JSON</button>
+                    <button type="submit" class="button-enviar-json"><img src="{% static "media/img/import.png" %}" alt="Icone de importar">Enviar JSON</button>
                 </form>
             </div>
         

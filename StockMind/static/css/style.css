@@ -929,5 +929,5 @@ table td {
 }
 
 .botoes-json button:hover {
-    background-color: var(--hover-button-blue);
+    background-color: var(--hover-button-yellow);
 }
