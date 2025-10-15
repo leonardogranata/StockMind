@@ -1,13 +1,6 @@
 {% extends "base.html" %}
-{% block content %}
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cadastro de Item</title>
+{% block content %}
 
 <style>
 body {
@@ -16,24 +9,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     color: #f1f1f1;
     margin: 0;
 }
 
-.div-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .container {
-    margin-top: 15%;
     background-color: #2b2d36;
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     width: 800px;
+    max-width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h2 {
@@ -47,6 +37,7 @@ form {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px 40px;
+    width: 100%;
 }
 
 .form-group {
@@ -60,7 +51,8 @@ label {
     margin-bottom: 5px;
 }
 
-input, textarea {
+input,
+textarea {
     background-color: #1e1f26;
     border: 1px solid #444;
     color: #fff;
@@ -70,7 +62,8 @@ input, textarea {
     width: 100%;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
     outline: none;
     border-color: #677bff;
     box-shadow: 0 0 4px #677bff;
@@ -89,7 +82,7 @@ textarea {
     grid-column: 1 / -1;
     justify-self: center;
     width: 100%;
-    padding: 10px 0;
+    padding: 12px 0;
     background: #677bff;
     border: none;
     border-radius: 8px;
@@ -100,7 +93,7 @@ textarea {
     transition: 0.3s ease;
 }
 
-button:hover {
+#button-create:hover {
     background: #5b6cf7;
 }
 
@@ -110,64 +103,59 @@ button:hover {
     }
 }
 </style>
-</head>
-<body>
-    <div class="div-form">
-        <div class="container">
-            <h2>Cadastro de Item</h2>
 
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
+<div class="container">
+    <h2>Cadastro de Item</h2>
 
-                <div class="form-group">
-                    <label>Código:</label>
-                    <input type="text" name="codigo" placeholder="Digite o código" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Nome:</label>
-                    <input type="text" name="nome" placeholder="Digite o nome" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Quantidade:</label>
-                    <input type="number" name="quantidade" placeholder="Digite a quantidade" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Marca:</label>
-                    <input type="text" name="marca" placeholder="Digite a marca" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Fornecedor:</label>
-                    <input type="text" name="fornecedor" placeholder="Digite o fornecedor" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Preço:</label>
-                    <input type="number" step="0.01" name="preco" placeholder="Digite o preço" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Qtd. Mínima:</label>
-                    <input type="number" name="qtd_min" placeholder="Mínimo" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Qtd. Máxima:</label>
-                    <input type="number" name="qtd_max" placeholder="Máximo" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Descrição:</label>
-                    <textarea name="descricao" placeholder="Digite a descrição..." required></textarea>
-                </div>
-
-                <button id="button-create" type="submit">Cadastrar</button>
-            </form>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Código:</label>
+            <input type="text" name="codigo" placeholder="Digite o código" required>
         </div>
-    </div>
-</body>
-</html>
+
+        <div class="form-group">
+            <label>Nome:</label>
+            <input type="text" name="nome" placeholder="Digite o nome" required>
+        </div>
+
+        <div class="form-group">
+            <label>Quantidade:</label>
+            <input type="number" name="quantidade" placeholder="Digite a quantidade" required>
+        </div>
+
+        <div class="form-group">
+            <label>Marca:</label>
+            <input type="text" name="marca" placeholder="Digite a marca" required>
+        </div>
+
+        <div class="form-group">
+            <label>Fornecedor:</label>
+            <input type="text" name="fornecedor" placeholder="Digite o fornecedor" required>
+        </div>
+
+        <div class="form-group">
+            <label>Preço:</label>
+            <input type="number" step="0.01" name="preco" placeholder="Digite o preço" required>
+        </div>
+
+        <div class="form-group">
+            <label>Qtd. Mínima:</label>
+            <input type="number" name="qtd_min" placeholder="Mínimo" required>
+        </div>
+
+        <div class="form-group">
+            <label>Qtd. Máxima:</label>
+            <input type="number" name="qtd_max" placeholder="Máximo" required>
+        </div>
+
+        <div class="form-group full">
+            <label>Descrição:</label>
+            <textarea name="descricao" placeholder="Digite a descrição..." required></textarea>
+        </div>
+
+        <button id="button-create" type="submit">Cadastrar</button>
+    </form>
+</div>
+
 {% endblock content %}

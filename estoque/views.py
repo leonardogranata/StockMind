@@ -33,6 +33,14 @@ def cadastroItem(request):
             item = form.save(commit=False)
             item.usuario_logado = request.user  # para auditoria
             item.save()
+
+            Auditoria.objects.create(
+                usuario=request.user,
+                tabela='Estoque',
+                acao='INSERT',
+                registro_id=item.id,
+                descricao=f"Item cadastrado: {item.nome}"
+            )
             return redirect('home')
     else:
         form = EstoqueForm()
@@ -42,45 +50,70 @@ def cadastroItem(request):
 def editarItem(request, pk):
     estoque = get_object_or_404(Estoque, pk=pk)
     quantidade_anterior = estoque.quantidade
-    item = get_object_or_404(Estoque, pk=pk)
 
     if request.method == 'POST':
         form = EstoqueForm(request.POST, instance=estoque)
         if form.is_valid():
             novo_item = form.save(commit=False)
-            diferenca = quantidade_anterior - novo_item.quantidade
 
-            # se retirou item
+            # salva primeiro para garantir que o obj está persistido e tem pk definitivo
+            novo_item.save()
+
+            # calculo de diferença (consumo): se diminuiu, registra consumo
+            diferenca = quantidade_anterior - novo_item.quantidade
             if diferenca > 0:
                 hoje = timezone.now().date()
-                consumo_existente = Consumo.objects.filter(item=estoque, data=hoje).first()
-
+                consumo_existente = Consumo.objects.filter(item=novo_item, data=hoje).first()
                 if consumo_existente:
                     consumo_existente.quantidade += diferenca
                     consumo_existente.save()
                 else:
                     Consumo.objects.create(
-                        item=estoque,
+                        item=novo_item,
                         quantidade=diferenca,
                         data=hoje,
                         usuario=request.user
                     )
-            novo_item.save()
-            return redirect('home')
 
+            # auditoria: usar UPDATE quando for edição
+            Auditoria.objects.create(
+                usuario=request.user,
+                tabela='Estoque',
+                acao='UPDATE',
+                registro_id=novo_item.id,
+                descricao=f"Item atualizado: {novo_item.nome}"
+            )
+
+            return redirect('home')
+        else:
+            # debug: imprime erros no console do servidor para tu ver
+            print("FORM ERRORS:", form.errors)
     else:
         form = EstoqueForm(instance=estoque)
 
-    return render(request, 'estoque/editar.html', {'form': form, 'estoque': estoque, 'item': item})
+    return render(request, 'estoque/editar.html', {
+        'form': form,
+        'estoque': estoque,
+        'item': estoque
+    })
+
 
 @login_required
 def excluirItem(request, pk):
     estoque = get_object_or_404(Estoque, pk=pk)
+    item = get_object_or_404(Estoque, pk=pk)
     if request.method == 'POST':
         estoque.usuario_logado = request.user  # para auditoria
+        Auditoria.objects.create(
+                usuario=request.user,
+                tabela='Estoque',
+                acao='DELETE',
+                registro_id=item.id,
+                descricao=f"Item deletado: {item.nome}"
+            )
         estoque.delete()
         return redirect('home')
-    return render(request, 'estoque/excluir.html', {'estoque': estoque})
+    return render(request, 'estoque/excluir.html', {'estoque': estoque, 'item': item})
 
 # auditoria:
 def auditoria_list(request):

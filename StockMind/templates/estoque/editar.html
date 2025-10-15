@@ -1,45 +1,33 @@
 {% extends "base.html" %}
-{% block content %}
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Edição de Item</title>
-
+{% block content %}
 <style>
 body {
     background-color: #1a1b20;
     font-family: "Poppins", sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #f1f1f1;
     margin: 0;
+    color: #f1f1f1;
 }
 
 .div-form {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh; /* ocupa altura total da tela */
 }
 
 .container {
-    margin-top: 15%;
     background-color: #2b2d36;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     width: 800px;
+    max-width: 90%;
 }
 
 h2 {
     text-align: center;
     margin-bottom: 30px;
-    color: #fff;
     font-weight: 600;
 }
 
@@ -49,18 +37,13 @@ form {
     gap: 15px 40px;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
 label {
     font-size: 14px;
     color: #ddd;
     margin-bottom: 5px;
 }
 
-input, textarea {
+input, textarea, select {
     background-color: #1e1f26;
     border: 1px solid #444;
     color: #fff;
@@ -81,7 +64,7 @@ textarea {
     resize: vertical;
 }
 
-.full {
+.form-full {
     grid-column: 1 / -1;
 }
 
@@ -100,8 +83,8 @@ textarea {
     transition: 0.3s ease;
 }
 
-button:hover {
-    background: #7289da;
+#button-update:hover {
+    background: #5b6ec6;
 }
 
 @media (max-width: 768px) {
@@ -110,64 +93,62 @@ button:hover {
     }
 }
 </style>
-</head>
-<body>
-    <div class="div-form">
-        <div class="container">
-            <h2>Editar Item</h2>
 
-            <form method="post">
-                {% csrf_token %}
+<div class="div-form">
+  <div class="container">
+      <h2>Editar Item</h2>
 
-                <div class="form-group">
-                    <label>Código:</label>
-                    <input type="text" name="codigo" value="{{ item.codigo }}" required>
-                </div>
+      <form method="post" action="{% url 'editarItem' item.id %}">
+          {% csrf_token %}
 
-                <div class="form-group">
-                    <label>Nome:</label>
-                    <input type="text" name="nome" value="{{ item.nome }}" required>
-                </div>
+          <div>
+              <label for="{{ form.codigo.id_for_label }}">Código</label>
+              {{ form.codigo }}
+          </div>
 
-                <div class="form-group">
-                    <label>Quantidade:</label>
-                    <input type="number" name="quantidade" value="{{ item.quantidade }}" required>
-                </div>
+          <div>
+              <label for="{{ form.nome.id_for_label }}">Nome</label>
+              {{ form.nome }}
+          </div>
 
-                <div class="form-group">
-                    <label>Marca:</label>
-                    <input type="text" name="marca" value="{{ item.marca }}" required>
-                </div>
+          <div>
+              <label for="{{ form.quantidade.id_for_label }}">Quantidade</label>
+              {{ form.quantidade }}
+          </div>
 
-                <div class="form-group">
-                    <label>Fornecedor:</label>
-                    <input type="text" name="fornecedor" value="{{ item.fornecedor }}" required>
-                </div>
+          <div>
+              <label for="{{ form.marca.id_for_label }}">Marca</label>
+              {{ form.marca }}
+          </div>
 
-                <div class="form-group">
-                    <label>Preço:</label>
-                    <input type="text" name="preco" value="{{ item.preco }}" required>
-                </div>
+          <div>
+              <label for="{{ form.fornecedor.id_for_label }}">Fornecedor</label>
+              {{ form.fornecedor }}
+          </div>
 
-                <div class="form-group">
-                    <label>Qtd. Mínima:</label>
-                    <input type="number" name="qtd_min" value="{{ item.qtd_min }}" required>
-                </div>
+          <div>
+              <label for="{{ form.preco.id_for_label }}">Preço</label>
+              {{ form.preco }}
+          </div>
 
-                <div class="form-group">
-                    <label>Qtd. Máxima:</label>
-                    <input type="number" name="qtd_max" value="{{ item.qtd_max }}" required>
-                </div>
+          <div>
+              <label for="{{ form.qtd_min.id_for_label }}">Qtd. Mínima</label>
+              {{ form.qtd_min }}
+          </div>
 
-                <div class="form-group">
-                    <label>Descrição:</label>
-                    <textarea name="descricao" required>{{ item.descricao }}</textarea>
-                </div>
+          <div>
+              <label for="{{ form.qtd_max.id_for_label }}">Qtd. Máxima</label>
+              {{ form.qtd_max }}
+          </div>
 
-                <button id="button-update" type="submit">Salvar Alterações</button>
-            </form>
-        </div>
-    </div>
-</body>
-</html>
+          <div class="form-full">
+              <label for="{{ form.descricao.id_for_label }}">Descrição</label>
+              {{ form.descricao }}
+          </div>
+
+          <button id="button-update" type="submit">Salvar Alterações</button>
+      </form>
+  </div>
+</div>
+
 {% endblock content %}
