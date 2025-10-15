@@ -865,3 +865,69 @@ table td {
     background-color: #c82333;
     color: white;
 }
+
+
+/* botões json */
+
+.container-principal-json {
+    display: flex;
+    justify-content: flex-start; /* Alinha os itens filhos no início (esquerda) */
+    width: 100%; /* Garante que o contêiner ocupe toda a largura disponível */
+    padding: 20px; /* Apenas para espaçamento visual */
+    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+}
+
+/* O resto do seu CSS para os botões continua o mesmo */
+.botoes-json {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+/* ... etc ... */
+
+.botoes-json {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: start;
+}
+
+.botoes-json form input{
+    margin-bottom: 10px;
+}
+
+.botoes-json button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: var(--yellow-color);
+    border: none;
+    border-radius: 8px;
+    color: var(--white-color);
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    outline: none;
+    text-decoration: none;
+}
+
+.botoes-json a {
+    text-decoration: none;
+}
+
+.botoes-json button img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Torna o ícone branco */
+    transition: all 0.3s ease;
+}
+
+.botoes-json button:hover {
+    background-color: var(--hover-button-blue);
+}
