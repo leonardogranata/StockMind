@@ -1090,13 +1090,11 @@ table td {
 .select-customizado:hover {
     background-color: var(--fundo-escuro);
     border-color: var(--secundary-color);
-    box-shadow: 0 4px 8px rgba(114, 137, 218, 0.3);
 }
 
 .select-customizado:focus {
     outline: none;
     border-color: var(--secundary-color);
-    box-shadow: 0 4px 12px rgba(135, 200, 224, 0.4);
     background-color: var(--fundo-escuro);
 }
 
@@ -1111,7 +1109,7 @@ table td {
 
 .titulo-previsao-main {
     color: var(--white-color);
-    font-size: 36px;
+    font-size: 64px;
     font-weight: 600;
     margin-bottom: 40px;
     text-align: center;
@@ -1167,14 +1165,12 @@ table td {
 
 .select-customizado:hover {
     background-color: var(--fundo-escuro);
-    border-color: var(--secundary-color);
-    box-shadow: 0 4px 8px rgba(114, 137, 218, 0.3);
+    border-color: var(--hover-button-blue);
 }
 
 .select-customizado:focus {
     outline: none;
-    border-color: var(--secundary-color);
-    box-shadow: 0 4px 12px rgba(135, 200, 224, 0.4);
+    border-color: var(--hover-button-blue);
     background-color: var(--fundo-escuro);
 }
 
@@ -1188,7 +1184,6 @@ table td {
     background-color: var(--cinza-color);
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     margin-top: 40px;
 }
 
