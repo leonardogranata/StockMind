@@ -17,19 +17,18 @@ def cadastroUser(request):
         form = cadastroForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.usuario_logado = request.user  # para auditoria
+            user.is_superuser = form.cleaned_data.get('is_superuser', False)
+            user.is_staff = user.is_superuser  # permite acesso ao admin
             user.save()
-            
-            # Criar auditoria manual para user
+
             Auditoria.objects.create(
                 usuario=request.user,
                 tabela='User',
                 acao='INSERT',
                 registro_id=user.id,
-                descricao=f"Usuário cadastrado: {user.username}, Email: {user.email}"
+                descricao=f"Usuário cadastrado: {user.username}, Superuser: {user.is_superuser}"
             )
-
-            return redirect('listar')  
+            return redirect('listar')
     else:
         form = cadastroForm()
     return render(request, 'usuarios/cadastro.html', {'form': form})
