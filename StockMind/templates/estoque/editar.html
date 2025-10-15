@@ -1,23 +1,161 @@
 {% extends "base.html" %}
-{% load static %}
-{% block title %}StockMind - Editar Item{% endblock title %}
-
 {% block content %}
-<main class="main">
-    <div class="formulario">
-        <div class="btn-voltar">
-            <a href="{% url 'home' %}">
-                <img src="{% static 'media/img/icon-voltar.png' %}" alt="Ícone de voltar">
-            </a>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editar Item</title>
+
+<style>
+body {
+    background-color: #1a1b20;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #f1f1f1;
+    margin: 0;
+}
+.div-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container {
+    margin-top: 15%;
+    background-color: #2b2d36;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    width: 800px;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #fff;
+    font-weight: 600;
+}
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 40px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+label {
+    font-size: 14px;
+    color: #ddd;
+    margin-bottom: 5px;
+}
+input, textarea {
+    background-color: #1e1f26;
+    border: 1px solid #444;
+    color: #fff;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 14px;
+    width: 100%;
+}
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #677bff;
+    box-shadow: 0 0 4px #677bff;
+}
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+.full {
+    grid-column: 1 / -1;
+}
+#button-create {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 100%;
+    padding: 10px 0;
+    background: #677bff;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+button:hover {
+    background: #5b6cf7;
+}
+@media (max-width: 768px) {
+    form {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+    <div class="div-form">
+        <div class="container">
+            <h2>Editar Item</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label>Código::</label>
+                    <input type="text" name="codigo" value="{{ form.codigo.value|default_if_none:'' }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Nome:</label>
+                    <input type="text" name="nome" value="{{ form.nome.value|default_if_none:'' }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Fornecedor:</label>
+                    <input type="text" name="fornecedor" value="{{ form.fornecedor.value|default_if_none:'' }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Quantidade:</label>
+                    <input type="number" name="quantidade" value="{{ form.quantidade.value|default_if_none:'' }}">
+                </div>
+
+                 <div class="form-group">
+                    <label>Marca:</label>
+                    <input type="text" name="marca" value="{{ form.marca.value|default_if_none:'' }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Preço:</label>
+                    <input type="text" name="preco" value="{{ form.preco.value|default_if_none:'' }}">
+                </div>
+            
+                <div class="form-group">
+                    <label>Qtd. min:</label>
+                    <input type="number" name="qtd_min" value="{{ form.qtd_min.value|default_if_none:'' }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Qtd. max:</label>
+                    <input type="number" name="qtd_max" value="{{ form.qtd_max.value|default_if_none:'' }}">
+                </div>
+
+                <div class="form-group full">
+                    <label>Descrição:</label>
+                    <textarea name="descricao">{{ form.descricao.value|default_if_none:'' }}</textarea>
+
+                </div>
+
+                <button id="button-create" type="submit">Salvar Alterações</button>
+            </form>
         </div>
-
-        <h2>Editar Item: {{ estoque.descricao }}</h2>
-
-        <form method="post" action="{% url 'editarItem' estoque.id %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Salvar Alterações</button>
-        </form>
     </div>
-</main>
+</body>
+</html>
 {% endblock content %}
