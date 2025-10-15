@@ -7,6 +7,11 @@ from analise.models import Consumo
 from .models import Estoque, Auditoria
 from .forms import EstoqueForm
 from django.utils import timezone
+import json
+from django.http import JsonResponse, HttpResponse
+from decimal import Decimal
+from django.contrib.auth.decorators import login_required
+
 
 # CRUD
 
@@ -80,3 +85,46 @@ def excluirItem(request, pk):
 def auditoria_list(request):
     logs = Auditoria.objects.all().order_by('-data_hora')
     return render(request, 'estoque/auditoria_list.html', {'logs': logs})
+
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return float(obj)  # ou str(obj) se quiser manter formato exato
+        return super().default(obj)
+
+@login_required
+def exportar_json(request):
+    dados = list(Estoque.objects.values())
+    response = HttpResponse(
+        json.dumps(dados, indent=4, ensure_ascii=False, cls=DecimalEncoder),
+        content_type='application/json'
+    )
+    response['Content-Disposition'] = 'attachment; filename="estoque.json"'
+    return response
+
+
+# --- Importar ---
+@login_required
+def importar_json(request):
+    if request.method == 'POST' and request.FILES.get('arquivo'):
+        arquivo = request.FILES['arquivo']
+        dados = json.load(arquivo)
+
+        for item in dados:
+            item_id = item.pop('id', None)  # pega o ID e remove do dict
+
+            # converte float/str para Decimal nos campos numéricos
+            for campo in ['preco', 'qtd_min', 'qtd_max', 'quantidade']:
+                if campo in item:
+                    try:
+                        item[campo] = Decimal(str(item[campo]))
+                    except:
+                        pass
+
+            # se já existir, atualiza; senão, cria
+            if item_id and Estoque.objects.filter(id=item_id).exists():
+                Estoque.objects.filter(id=item_id).update(**item)
+            else:
+                Estoque.objects.create(**item)
+
+    return redirect('home')
