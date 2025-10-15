@@ -936,58 +936,121 @@ table td {
     padding: 20px; /* Apenas para espaçamento visual */
     box-sizing: border-box; /* Garante que o padding não aumente a largura total */
 }
-
-/* O resto do seu CSS para os botões continua o mesmo */
 .botoes-json {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 30px 0;
+    padding: 0 20px;
+}
+
+.link-exportar {
+    text-decoration: none;
+}
+
+.button-baixar-json,
+.button-enviar-json {
     display: flex;
     align-items: center;
-    gap: 15px;
-}
-/* ... etc ... */
-
-.botoes-json {
-    display: flex;
     gap: 10px;
-    margin-top: 10px;
-    justify-content: start;
-}
-
-.botoes-json form input{
-    margin-bottom: 10px;
-}
-
-.botoes-json button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    background-color: var(--yellow-color);
+    padding: 12px 24px;
     border: none;
     border-radius: 8px;
-    color: var(--white-color);
-    font-weight: 600;
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 0.3px;
+    font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
-    white-space: nowrap;
-    outline: none;
-    text-decoration: none;
+    font-family: inherit;
+    color: var(--white-color);
 }
 
-.botoes-json a {
-    text-decoration: none;
+.button-baixar-json {
+    background-color: var(--yellow-color);
 }
 
-.botoes-json button img {
-    width: 18px;
-    height: 18px;
-    object-fit: contain;
-    filter: brightness(0) invert(1); /* Torna o ícone branco */
-    transition: all 0.3s ease;
-}
-
-.botoes-json button:hover {
+.button-baixar-json:hover {
     background-color: var(--hover-button-yellow);
+    transform: translateY(-2px);
+}
+
+.button-enviar-json {
+    background-color: var(--yellow-color);
+    color: #ffffff;;
+}
+
+.button-enviar-json:hover {
+    background-color: var(--hover-button-yellow);
+    transform: translateY(-2px);
+}
+
+.form-importar-json {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.file-input-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 250px;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background-color: var(--cinza-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    color: var(--white-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.file-label:hover {
+    background-color: var(--fundo-escuro);
+    border-color: var(--primary-color);
+}
+
+.file-input:focus + .file-label {
+    border-color: var(--hover-button-blue);
+    background-color: var(--fundo-escuro);
+}
+
+.file-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+    .botoes-json {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-importar-json {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .file-input-wrapper {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .button-baixar-json,
+    .button-enviar-json {
+        width: 100%;
+        justify-content: center;
+    }
 }
