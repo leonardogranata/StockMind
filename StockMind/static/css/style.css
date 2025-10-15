@@ -566,6 +566,66 @@ body {
     }
 }
 
+/* BARRA DE PESQUISA */
+.search-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--cinza-color);
+    border-radius: 25px;
+    padding: 8px 15px;
+    margin-left: 8vh;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+.search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--white-color);
+    font-size: 16px;
+    padding: 8px 12px;
+    font-family: inherit;
+}
+
+.search-input::placeholder {
+    color: #9ba1a8;
+}
+
+.search-button {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    color: var(--white-color);
+}
+
+.search-button:hover {
+    background-color: var(--hover-button-blue);
+    transform: scale(1.05);
+}
+
+.search-input:focus ~ .search-button {
+    background-color: var(--hover-button-blue);
+}
+
+
+
 /* LISTA DE USUARIOS */
 
 .bloco-tabela {
