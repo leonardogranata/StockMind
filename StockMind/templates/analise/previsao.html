@@ -1,22 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1 class="mb-4">Previsão de Consumo por Item</h1>
+<h1 class="titulo-previsao-main">Previsão de Consumo por Item</h1>
 
-    <div class="form-group mb-4" style="max-width: 400px;">
-        <label for="itemSelect">Selecione um Item:</label>
-        <select class="form-control" id="itemSelect">
-            <option selected disabled>Escolha um item para ver a previsão...</option>
-            {% for nome in nomes_itens %}
-                <option value="{{ nome }}">{{ nome }}</option>
-            {% endfor %}
-        </select>
-    </div>
+<div class="container-previsao">
+    <div class="content-previsao">
+        <div class="form-group-select">
+            <label for="itemSelect">Selecione um Item:</label>
+            <select class="select-customizado" id="itemSelect">
+                <option selected disabled>Escolha um item para ver a previsão...</option>
+                {% for nome in nomes_itens %}
+                    <option value="{{ nome }}">{{ nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <div id="chartContainer" style="display: none; width: 100%; max-width: 900px; margin: 20px 0;">
-        <h3 id="chartTitle"></h3>
-        <canvas id="graficoItem"></canvas>
+        <div id="chartContainer" class="chart-wrapper">
+            <h3 id="chartTitle" class="chart-title"></h3>
+            <canvas id="graficoItem"></canvas>
+        </div>
     </div>
 </div>
 
@@ -24,48 +26,36 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Pega a string JSON com os dados de TODOS os itens e a transforma em um objeto JavaScript
     const todasAsPrevisoes = JSON.parse('{{ previsoes_json|safe }}');
-    
-    // 2. Pega as referências dos elementos HTML que vamos manipular
     const selectElement = document.getElementById('itemSelect');
     const chartContainer = document.getElementById('chartContainer');
     const chartTitle = document.getElementById('chartTitle');
     const ctx = document.getElementById('graficoItem').getContext('2d');
     
-    let meuGrafico; // Variável global para guardar a instância do gráfico
+    let meuGrafico;
 
-    // 3. Adiciona um "escutador" de eventos que será acionado toda vez que o usuário mudar a seleção
     selectElement.addEventListener('change', function() {
         const itemSelecionado = this.value;
         const dadosDoItem = todasAsPrevisoes[itemSelecionado];
         
         if (dadosDoItem) {
-            // Se encontrou dados para o item, mostra o container e atualiza o gráfico
-            chartContainer.style.display = 'block';
+            chartContainer.classList.add('visible');
             atualizarGrafico(itemSelecionado, dadosDoItem);
         } else {
-            // Se não, esconde o container
-            chartContainer.style.display = 'none';
+            chartContainer.classList.remove('visible');
         }
     });
 
-    // 4. Função responsável por desenhar (ou redesenhar) o gráfico
     function atualizarGrafico(nomeItem, dados) {
-        // Se já existe um gráfico na tela, ele é destruído.
-        // Isso é crucial para evitar sobreposição e bugs visuais.
         if (meuGrafico) {
             meuGrafico.destroy();
         }
 
-        // Separa os dados em rótulos (datas) e valores (quantidades)
         const labels = dados.map(dado => dado[0]);
         const valores = dados.map(dado => dado[1]);
 
-        // Atualiza o título acima do gráfico
         chartTitle.innerText = `Evolução do Consumo Previsto para ${nomeItem}`;
 
-        // Cria a nova instância do gráfico com os dados do item selecionado
         meuGrafico = new Chart(ctx, {
             type: 'line',
             data: {
@@ -73,18 +63,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 datasets: [{
                     label: 'Consumo Previsto',
                     data: valores,
-                    borderColor: 'rgb(75, 192, 192)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: '#7289da',
+                    backgroundColor: 'rgba(114, 137, 218, 0.2)',
                     fill: true,
-                    tension: 0.1
+                    tension: 0.1,
+                    borderWidth: 2,
+                    pointBackgroundColor: '#7289da',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: true,
                 scales: {
                     y: {
-                        beginAtZero: true, // Garante que o eixo Y comece no zero
-                        title: { display: true, text: 'Quantidade' }
+                        beginAtZero: true,
+                        ticks: { color: '#ddd' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    x: {
+                        ticks: { color: '#ddd' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: '#ddd' }
                     }
                 }
             }
