@@ -18,7 +18,14 @@
         <div id="chartContainer" class="chart-wrapper">
             <h3 id="chartTitle" class="chart-title"></h3>
             <canvas id="graficoItem"></canvas>
-            <div id="sugestaoBox" class="sugestao-box" style="margin-top:20px; color:#ddd; font-size:1.1em;"></div>
+
+            <!-- Caixa de sugestão -->
+            <div id="sugestaoBox" class="sugestao-box" 
+                style="margin-top:20px; padding:15px; border-radius:10px; font-size:1.1em; font-weight:500; 
+                       transition: all 0.4s ease; opacity:0;">
+                <span id="iconeSugestao" style="margin-right:10px;"></span>
+                <span id="textoSugestao"></span>
+            </div>
         </div>
     </div>
 </div>
@@ -33,17 +40,50 @@ document.addEventListener('DOMContentLoaded', function() {
     const chartContainer = document.getElementById('chartContainer');
     const chartTitle = document.getElementById('chartTitle');
     const ctx = document.getElementById('graficoItem').getContext('2d');
-    
+    const sugestaoBox = document.getElementById('sugestaoBox');
+    const iconeSugestao = document.getElementById('iconeSugestao');
+    const textoSugestao = document.getElementById('textoSugestao');
+
     let meuGrafico;
 
     selectElement.addEventListener('change', function() {
         const itemSelecionado = this.value;
         const dadosDoItem = todasAsPrevisoes[itemSelecionado];
-        const sugestaoBox = document.getElementById('sugestaoBox');
-        const textoSugestao = sugestoes[itemSelecionado] || "Sem sugestão disponível para este item.";
+        const mensagem = sugestoes[itemSelecionado] || "Sem sugestão disponível para este item.";
 
-        sugestaoBox.textContent = textoSugestao;
+        // Define cor e ícone conforme a mensagem
+        let corFundo = '';
+        let icone = '';
 
+        if (mensagem.includes("abaixo do nível mínimo") || mensagem.includes("Compre imediatamente")) {
+            corFundo = '#ff4d4d'; // vermelho
+            icone = '⚠️';
+        } else if (mensagem.includes("nível mínimo") || mensagem.includes("nova compra logo") || mensagem.includes("atingir o nível mínimo")) {
+            corFundo = '#ffcc00'; // amarelo
+            icone = '🟡';
+        } else if (mensagem.includes("baixo consumo") || mensagem.includes("Evite")) {
+            corFundo = '#3b82f6'; // azul
+            icone = '💤';
+        } else if (mensagem.includes("equilibrado")) {
+            corFundo = '#22c55e'; // verde
+            icone = '✅';
+        } else {
+            corFundo = '#6b7280'; // cinza neutro
+            icone = 'ℹ️';
+        }
+
+        // Atualiza o conteúdo da sugestão
+        iconeSugestao.textContent = icone;
+        textoSugestao.textContent = mensagem;
+        sugestaoBox.style.backgroundColor = corFundo;
+        
+        // Animação leve de aparição
+        sugestaoBox.style.opacity = 0;
+        setTimeout(() => {
+            sugestaoBox.style.opacity = 1;
+        }, 100);
+
+        // Atualiza o gráfico
         if (dadosDoItem) {
             chartContainer.classList.add('visible');
             atualizarGrafico(itemSelecionado, dadosDoItem);
