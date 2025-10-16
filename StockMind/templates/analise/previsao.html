@@ -18,6 +18,7 @@
         <div id="chartContainer" class="chart-wrapper">
             <h3 id="chartTitle" class="chart-title"></h3>
             <canvas id="graficoItem"></canvas>
+            <div id="sugestaoBox" class="sugestao-box" style="margin-top:20px; color:#ddd; font-size:1.1em;"></div>
         </div>
     </div>
 </div>
@@ -26,7 +27,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const todasAsPrevisoes = JSON.parse('{{ previsoes_json|safe }}');
+    const todasAsPrevisoes = JSON.parse('{{ previsoes_json|escapejs }}');
+    const sugestoes = JSON.parse('{{ sugestoes_json|escapejs }}');
     const selectElement = document.getElementById('itemSelect');
     const chartContainer = document.getElementById('chartContainer');
     const chartTitle = document.getElementById('chartTitle');
@@ -37,7 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
     selectElement.addEventListener('change', function() {
         const itemSelecionado = this.value;
         const dadosDoItem = todasAsPrevisoes[itemSelecionado];
-        
+        const sugestaoBox = document.getElementById('sugestaoBox');
+        const textoSugestao = sugestoes[itemSelecionado] || "Sem sugestão disponível para este item.";
+
+        sugestaoBox.textContent = textoSugestao;
+
         if (dadosDoItem) {
             chartContainer.classList.add('visible');
             atualizarGrafico(itemSelecionado, dadosDoItem);
