@@ -19,7 +19,7 @@
         <div class="botoes">
             <button id="create-item-button" onclick="window.location.href='{% url 'cadastroItem' %}'">
                 <img src="{% static "media/img/new-icon.png" %}" alt="Icone de novo">
-                Novo
+                Novo    
             </button>
         </div>
         <table>
@@ -76,7 +76,7 @@
         <div class="container-principal-json">
 
             <div class="botoes-json">
-                <a href="{% url 'exportar_json' %}" class="link-exportar">
+                <a href="{% url 'exportar_json' %}" id="botaoDownload" class="link-exportar">
                     <button type="button" class="button-baixar-json">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -108,15 +108,41 @@
                         Enviar JSON
                     </button>
                 </form>
-            </div>
-            
-            <script>
-                document.getElementById('arquivo-json').addEventListener('change', function(e) {
-                    const fileName = e.target.files[0]?.name || 'Selecione um arquivo JSON';
-                    document.querySelector('.file-text').textContent = fileName;
-                });
-            </script>
-        
+            </div> 
+    
+        <!-- Tela de carregamento -->
+        <div id="tela-carregamento" class="overlay">
+        <div class="loader"></div>
+        <p>Carregando...</p>
         </div>
+    </div> 
+
+<script>
+    document.getElementById("botaoDownload").addEventListener("click", async function(e) {
+    e.preventDefault();
+    const tela = document.getElementById("tela-carregamento");
+    tela.style.display = "flex";
+
+    try {
+        const response = await fetch("{% url 'exportar_json' %}");
+        const blob = await response.blob();
+
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "estoque.json";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    } catch (err) {
+        alert("Erro ao baixar o arquivo.");
+    } finally {
+        setTimeout(() => {
+        tela.style.display = "none";
+        }, 500); // Mantém a tela por pelo menos 500ms
+    }
+    });
+</script>
 
 {% endblock content %}
