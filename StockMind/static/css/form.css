@@ -5,6 +5,9 @@
     --cinza-color: #393C40;
     --fundo-escuro: #2C2F33;
     --fundo-color: #23272A;
+    --hover-button-blue: #5f79d4;
+    --yellow-color: #d8c589;
+    --hover-button-yellow: #c4b06e;
 }
 
 /* Reset básico */
@@ -27,7 +30,7 @@ body {
     left: 0;
     right: 0;
     height: 60px;
-    background-color: #3a3a3a;
+    background-color: var(--cinza-color);
     display: flex;
     align-items: center;
     justify-content: center;
