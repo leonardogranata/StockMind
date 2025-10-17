@@ -1232,3 +1232,53 @@ table td {
         margin-top: 30px;
     }
 }
+
+/* SUGESTÕES */
+#sugestaoBox {
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(-10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+#sugestaoBox.ativo {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sugestao-critico {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fecaca;
+}
+
+.sugestao-alerta {
+    background: rgba(234, 179, 8, 0.15);
+    color: #fde047;
+}
+
+.sugestao-info {
+    background: rgba(59, 130, 246, 0.15);
+    color: #bfdbfe;
+}
+
+.sugestao-sucesso {
+    background: rgba(34, 197, 94, 0.15);
+    color: #bbf7d0;
+}
+
+.sugestao-neutro {
+    background: rgba(107, 114, 128, 0.15);
+    color: #d1d5db;
+}

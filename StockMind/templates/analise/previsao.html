@@ -51,35 +51,76 @@ document.addEventListener('DOMContentLoaded', function() {
         const dadosDoItem = todasAsPrevisoes[itemSelecionado];
         const mensagem = sugestoes[itemSelecionado] || "Sem sugestão disponível para este item.";
 
-        // Define cor e ícone conforme a mensagem
-        let corFundo = '';
+        // Define classe, ícone e cores conforme a mensagem
+        let classe = '';
         let icone = '';
+        let corBorda = '';
 
         if (mensagem.includes("abaixo do nível mínimo") || mensagem.includes("Compre imediatamente")) {
-            corFundo = '#ff4d4d'; // vermelho
+            classe = 'sugestao-critico';
             icone = '⚠️';
+            corBorda = 'rgba(239, 68, 68, 0.3)';
         } else if (mensagem.includes("nível mínimo") || mensagem.includes("nova compra logo") || mensagem.includes("atingir o nível mínimo")) {
-            corFundo = '#ffcc00'; // amarelo
+            classe = 'sugestao-alerta';
             icone = '🟡';
+            corBorda = 'rgba(234, 179, 8, 0.3)';
         } else if (mensagem.includes("baixo consumo") || mensagem.includes("Evite")) {
-            corFundo = '#3b82f6'; // azul
+            classe = 'sugestao-info';
             icone = '💤';
+            corBorda = 'rgba(59, 130, 246, 0.3)';
         } else if (mensagem.includes("equilibrado")) {
-            corFundo = '#22c55e'; // verde
+            classe = 'sugestao-sucesso';
             icone = '✅';
+            corBorda = 'rgba(34, 197, 94, 0.3)';
         } else {
-            corFundo = '#6b7280'; // cinza neutro
+            classe = 'sugestao-neutro';
             icone = 'ℹ️';
+            corBorda = 'rgba(107, 114, 128, 0.3)';
         }
 
-        // Atualiza o conteúdo da sugestão
-        iconeSugestao.textContent = icone;
-        textoSugestao.textContent = mensagem;
-        sugestaoBox.style.backgroundColor = corFundo;
-        
-        // Animação leve de aparição
+        // Remove animação anterior
         sugestaoBox.style.opacity = 0;
+
+        // Atualiza o conteúdo da sugestão
         setTimeout(() => {
+            iconeSugestao.textContent = icone;
+            textoSugestao.textContent = mensagem;
+            
+            // Define estilos de fundo e cor conforme a classe
+            let estilos = {
+                'sugestao-critico': {
+                    background: 'rgba(239, 68, 68, 0.15)',
+                    color: '#fecaca',
+                    borderColor: 'rgba(239, 68, 68, 0.3)'
+                },
+                'sugestao-alerta': {
+                    background: 'rgba(234, 179, 8, 0.15)',
+                    color: '#fde047',
+                    borderColor: 'rgba(234, 179, 8, 0.3)'
+                },
+                'sugestao-info': {
+                    background: 'rgba(59, 130, 246, 0.15)',
+                    color: '#bfdbfe',
+                    borderColor: 'rgba(59, 130, 246, 0.3)'
+                },
+                'sugestao-sucesso': {
+                    background: 'rgba(34, 197, 94, 0.15)',
+                    color: '#bbf7d0',
+                    borderColor: 'rgba(34, 197, 94, 0.3)'
+                },
+                'sugestao-neutro': {
+                    background: 'rgba(107, 114, 128, 0.15)',
+                    color: '#d1d5db',
+                    borderColor: 'rgba(107, 114, 128, 0.3)'
+                }
+            };
+
+            const estilo = estilos[classe];
+            sugestaoBox.style.backgroundColor = estilo.background;
+            sugestaoBox.style.color = estilo.color;
+            sugestaoBox.style.borderColor = estilo.borderColor;
+            
+            // Animação de aparição
             sugestaoBox.style.opacity = 1;
         }, 100);
 
@@ -100,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const labels = dados.map(dado => dado[0]);
         const valores = dados.map(dado => dado[1]);
 
-        chartTitle.innerText = `Evolução do Consumo Previsto para ${nomeItem}`;
+        chartTitle.innerText = `Evolução do Consumo Previsto para "${nomeItem}" nos próximos 15 dias`;
 
         meuGrafico = new Chart(ctx, {
             type: 'line',
