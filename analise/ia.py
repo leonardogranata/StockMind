@@ -13,16 +13,6 @@ def gerar_csv_consumo(item_nome):
     df.to_csv('dados_consumo.csv', index=False)
     return 'dados_consumo.csv'
 
-#def prever_consumo(item_nome, dias=15):
-    caminho = gerar_csv_consumo(item_nome)
-    df = pd.read_csv(caminho)
-    df = df.rename(columns={'data': 'ds', 'quantidade': 'y'})
-    modelo = Prophet()
-    modelo.fit(df)
-    futuro = modelo.make_future_dataframe(periods=dias)
-    previsao = modelo.predict(futuro)
-    return previsao[['ds', 'yhat']].tail(dias)
-
 def prever_consumo(item_nome, dias=15):
     """
     Prevê o consumo de um item para os próximos 'dias',
@@ -37,8 +27,6 @@ def prever_consumo(item_nome, dias=15):
         # Retorna um DataFrame vazio se o arquivo não existir
         return pd.DataFrame(columns=['ds', 'yhat'])
 
-    # --- INÍCIO DAS MELHORIAS ---
-
     # 1. VERIFICAÇÃO DE SEGURANÇA: Prophet precisa de pelo menos 2 pontos de dados.
     if len(df) < 2:
         print(f"AVISO: Dados insuficientes para prever o item {item_nome}. Necessário no mínimo 2 registros.")
@@ -52,8 +40,6 @@ def prever_consumo(item_nome, dias=15):
 
     # 2. ADICIONA O PISO (FLOOR): Diz ao Prophet que a quantidade não pode ser menor que 0
     df['floor'] = 0
-
-    # --- FIM DAS MELHORIAS ---
     
     modelo = Prophet()
     modelo.fit(df)
