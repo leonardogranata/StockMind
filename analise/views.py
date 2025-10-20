@@ -3,6 +3,32 @@ import pandas as pd
 from django.shortcuts import render
 from estoque.models import Estoque
 from analise.ia import prever_consumo 
+from django.db.models import Sum
+from .models import Consumo  # <-- ADICIONE ESTA LINHA
+
+def dashboard(request):
+    return render(request, 'analise/dashboard.html')
+
+def itens_mais_usados(request):
+    """
+    Calcula o total consumido de cada item e prepara os dados para o gráfico.
+    """
+    # 1. Agrega os dados: Agrupa por nome do item e soma as quantidades consumidas.
+    #    Ordena do mais consumido para o menos consumido e pega os TOP 10.
+    dados_consumo = Consumo.objects.values('item__nome').annotate(
+        total_consumido=Sum('quantidade')
+    ).order_by('-total_consumido')[:10]  # Limita aos 10 itens mais usados
+
+    # 2. Prepara as listas para o Chart.js
+    labels = [item['item__nome'] for item in dados_consumo]
+    data = [item['total_consumido'] for item in dados_consumo]
+    
+    # 3. Envia os dados para o template
+    context = {
+        'labels': labels,
+        'data': data,
+    }
+    return render(request, 'analise/maisUsados.html', context)
 
 def previsao(request):
     itens = Estoque.objects.all()
