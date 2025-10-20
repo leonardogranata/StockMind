@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="dashboard-container">
+    <div class="content-wrapper">
+        <div class="header-section">
+            <h1>Análises Dashboard</h1>
+            <p>Explore suas análises de estoque em detalhes</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card card-consumo">
+                <div class="icon-wrapper">
+                    <img src="{% static 'media/img/icon-previsao.png' %}" alt="Ícone de Previsão de Consumo">
+                </div>
+                <h2>Previsão de Consumo</h2>
+                <p>Analise tendências futuras e padrões de consumo dos seus itens. Tome decisões baseadas em dados.</p>
+                <button class="btn-access btn-consumo" onclick="window.location.href='{% url 'previsao' %}'">
+                    Ver Previsão
+                </button>
+            </div>
+
+            <div class="card card-itens">
+                <div class="icon-wrapper">
+                    <img src="{% static 'media/img/icon-pizza.png' %}" alt="Ícone de itens mais usados">
+                </div>
+                <h2>Itens Mais Usados</h2>
+                <p>Visualize quais são os itens mais movimentados do seu estoque e otimize seu controle.</p>
+                <button class="btn-access btn-itens" onclick="window.location.href='{% url 'mais_usados' %}'">
+                    Ver Gráfico
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
