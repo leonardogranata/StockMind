@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,10 +80,18 @@ WSGI_APPLICATION = 'stockmind.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'stockmind',      
+        'USER': 'tecmysql',             
+        'PASSWORD': 'devmysql',     
+        'HOST': 'localhost',         
+        'PORT': '3306',              
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
+
 
 
 # Password validation
@@ -131,3 +140,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'accounts/login/'
 LOGIN_REDIRECT_URL = '/'  
 LOGOUT_REDIRECT_URL = 'accounts/login/'
+
+# JAZZMIN
+JAZZMIN_SETTINGS = {
+    # Título da aba e cabeçalho (pode usar o nome do seu site)
+    "site_title": "StockMind Admin",
+    "site_header": "Administração",
+    # Logo (opcional)
+    "site_logo": "media/img/logo.png",
+    # Tema (existem vários, 'flatly', 'darkly', 'litera', etc.)
+    "theme": "flatly",
+}
