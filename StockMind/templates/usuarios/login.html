@@ -1,20 +1,45 @@
 {% extends "baseForm.html" %}
 {% block title %}StockMind - Login{% endblock title %}
+{% load static %}
 {% block content %}
-    <main class="main-login">
-        <div class="formulario-login">
-            <h2>Login</h2>
-            <form method="post" action="{% url 'login' %}">
-                {% csrf_token %}
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required><br><br>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required><br><br>
-                <button type="submit">Entrar</button>
-            </form>
-            {% if error_message %}
-                <p style="color: red;">{{ error_message }}</p>
-            {% endif %}
-        </div>
-    </main>
+<main class="main-login">
+  <div class="formulario-login">
+    <h2>Login</h2>
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required><br><br>
+
+      <label for="password">Password:</label>
+      <div style="position: relative;">
+        <input type="password" id="password" name="password" required>
+        <button type="button" id="togglePassword" 
+          style="position:absolute; right:8px; top:50%; transform:translateY(-50%); border:none; background:none; cursor:pointer;">
+          <img id="eyeIcon" src="{% static "media/img/view.png" %}" alt="Mostrar senha" width="20">
+        </button>
+      </div>
+      <br><br>
+
+      <button type="submit">Entrar</button>
+    </form>
+
+    {% if error_message %}
+      <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+  </div>
+</main>
+
+<script>
+  const toggle = document.getElementById('togglePassword');
+  const password = document.getElementById('password');
+  const eyeIcon = document.getElementById('eyeIcon');
+
+  toggle.addEventListener('click', () => {
+    const showing = password.getAttribute('type') === 'text';
+    password.setAttribute('type', showing ? 'password' : 'text');
+    eyeIcon.src = showing 
+      ? "{% static 'media/img/view.png' %}" 
+      : "{% static 'media/img/hide.png' %}";
+  });
+</script>
 {% endblock content %}
