@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="main-container">
+    <h1 class="titulo-previsao-main">Top Itens Mais Consumidos</h1>
+    <p style="text-align: center; color: #b8bcc4; margin-top: -30px; margin-bottom: 30px;">
+        Este gráfico mostra a proporção de consumo entre os 10 itens mais utilizados.
+    </p>
+
+    <div class="chart-card">
+        {% if labels and data %}
+            <div class="chart-container" style="position: relative; height:60vh; max-width: 650px; margin: auto;">
+                <canvas id="graficoPizzaUsados"></canvas>
+            </div>
+        {% else %}
+            <p style="text-align: center; padding: 40px; font-size: 1.2em; color: #a0a6ab;">
+                Ainda não há dados de consumo registrados para exibir este gráfico.
+            </p>
+        {% endif %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+
+{{ labels|json_script:"chart-labels" }}
+{{ data|json_script:"chart-data" }}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // ✅ 2. REGISTRE O PLUGIN GLOBALMENTE PARA QUE O CHART.JS POSSA USÁ-LO
+        Chart.register(ChartDataLabels);
+
+        const labels = JSON.parse(document.getElementById('chart-labels')?.textContent || '[]');
+        const data = JSON.parse(document.getElementById('chart-data')?.textContent || '[]');
+
+        if (labels.length > 0) {
+            const chartData = {
+                labels: labels,
+                datasets: [{
+                    label: 'Quantidade Consumida',
+                    data: data,
+                    backgroundColor: [
+                        '#7289da', '#d8c589', '#87c8e0', '#4BC0C0',
+                        '#F9A825', '#9966FF', '#5f79d4', '#c4b06e',
+                        '#2ECC71', '#E91E63'
+                    ],
+                    borderColor: '#2C2F33',
+                    borderWidth: 3,
+                    hoverOffset: 12
+                }]
+            };
+
+            const config = {
+                type: 'pie',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#ccc',
+                                font: {
+                                    size: 14,
+                                    family: "'Poppins', sans-serif"
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Proporção de Consumo por Item',
+                            color: '#ffffff',
+                            font: {
+                                size: 18,
+                                family: "'Poppins', sans-serif",
+                                weight: '600'
+                            }
+                        },
+                        // ✅ 3. CONFIGURE O PLUGIN PARA MOSTRAR AS PORCENTAGENS
+                        datalabels: {
+                            // Função que formata o que será exibido
+                            formatter: (value, ctx) => {
+                                // Pega todos os valores do gráfico
+                                const datapoints = ctx.chart.data.datasets[0].data;
+                                // Soma todos os valores para ter o total
+                                const total = datapoints.reduce((total, datapoint) => total + datapoint, 0);
+                                // Calcula a porcentagem
+                                const percentage = (value / total) * 100;
+                                // Retorna o valor formatado (ex: "15.2%")
+                                return percentage.toFixed(1) + '%';
+                            },
+                            // Estilo do texto da porcentagem
+                            color: '#ffffff', // Cor branca para o texto
+                            font: {
+                                weight: 'bold',
+                                size: 14,
+                                family: "'Poppins', sans-serif"
+                            }
+                        }
+                    }
+                },
+            };
+
+            const ctx = document.getElementById('graficoPizzaUsados').getContext('2d');
+            new Chart(ctx, config);
+        }
+    });
+</script>
+
+<style>
+    .chart-card {
+        background-color: var(--cinza-color);
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 1px solid #555;
+        padding: 40px;
+    }
+</style>
+
+{% endblock content %}
