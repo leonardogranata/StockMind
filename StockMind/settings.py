@@ -82,8 +82,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stockmind',      
-        'USER': 'root',             
-        'PASSWORD': 'Admindev369@@',
+        'USER': 'tecmysql',             
+        'PASSWORD': 'devmysql',
         'HOST': 'localhost',         
         'PORT': '3306',              
         'OPTIONS': {

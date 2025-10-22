@@ -16,12 +16,7 @@ INSERT INTO estoque_estoque (codigo, nome, descricao, quantidade, marca, fornece
 ('F012', 'Escova de Aço Manual', 'Escova de limpeza metálica', 60, 'Tramontina', 'Ferramentas RJ', 9.90, 10, 80),
 ('F013', 'Luvas de Raspa', 'Luvas de couro para proteção térmica', 45, 'Kalipso', 'EPI Brasil', 18.00, 5, 60),
 ('F014', 'Óculos de Proteção Incolor', 'Óculos de segurança antiembaçante', 70, 'CarboGrafite', 'EPI Brasil', 11.20, 10, 90),
-('F015', 'Máscara PFF2', 'Máscara de proteção respiratória', 120, '3M', 'EPI Brasil', 6.80, 20, 150),
-('F016', 'Tinta Spray Preta 350ml', 'Tinta spray de secagem rápida', 25, 'Tekbond', 'Pinturas & Cia', 14.50, 3, 40),
-('F017', 'Chave Inglesa 12”', 'Chave ajustável até 30mm', 12, 'Stanley', 'Ferramentas RJ', 45.00, 1, 20),
-('F018', 'Fita Isolante 19mm', 'Fita isolante profissional preta', 200, '3M', 'FixAll', 2.40, 20, 250),
-('F019', 'Alicate Universal 8”', 'Alicate temperado com cabo ergonômico', 28, 'Gedore', 'Ferramentas RJ', 29.90, 5, 35),
-('F020', 'Disco Flap 115mm', 'Disco flap de desbaste grão 80', 60, 'Norton', 'Abrasivos Brasil', 5.60, 10, 80);
+('F015', 'Máscara PFF2', 'Máscara de proteção respiratória', 120, '3M', 'EPI Brasil', 6.80, 20, 150);
 
 INSERT INTO analise_consumo (item_id, quantidade, data, usuario_id) VALUES
 (1, 4, '2025-10-19', 1),
@@ -53,14 +48,4 @@ INSERT INTO analise_consumo (item_id, quantidade, data, usuario_id) VALUES
 (14, 5, '2025-10-19', 1),
 (14, 6, '2025-10-20', 1),
 (15, 7, '2025-10-19', 1),
-(15, 8, '2025-10-20', 1),
-(16, 2, '2025-10-19', 1),
-(16, 3, '2025-10-20', 1),
-(17, 2, '2025-10-19', 1),
-(17, 2, '2025-10-20', 1),
-(18, 6, '2025-10-19', 1),
-(18, 7, '2025-10-20', 1),
-(19, 3, '2025-10-19', 1),
-(19, 3, '2025-10-20', 1),
-(20, 5, '2025-10-19', 1),
-(20, 6, '2025-10-20', 1);
+(15, 8, '2025-10-20', 1);
