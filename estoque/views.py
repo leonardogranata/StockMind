@@ -4,8 +4,8 @@ from django.db.models.signals import post_save, post_delete
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from analise.models import Consumo
-from .models import Estoque, Auditoria
-from .forms import EstoqueForm
+from .models import Estoque, Auditoria, Maquina
+from .forms import EstoqueForm, MaquinaForm
 from django.utils import timezone
 import json
 from django.http import JsonResponse, HttpResponse
@@ -162,3 +162,115 @@ def importar_json(request):
                 Estoque.objects.create(**item)
 
     return redirect('home')
+
+
+
+# --- MÁQUINAS ---
+@login_required
+def maquinas(request):
+    maquinas = Maquina.objects.all()
+    return render(request, 'estoque/maquinas.html', {'maquinas': maquinas})
+
+def cadastrarMaquina(request):
+    if request.method == 'POST':
+        codigo = request.POST.get('codigo')
+        nome = request.POST.get('nome')
+        descricao = request.POST.get('descricao')
+        localizacao = request.POST.get('localizacao')
+        data_aquisicao = request.POST.get('data_aquisicao')
+        status = request.POST.get('status')
+        pecas_ids = request.POST.getlist('pecas')  # várias peças
+
+        maquina = Maquina.objects.create(
+            codigo=codigo,
+            nome=nome,
+            descricao=descricao,
+            localizacao=localizacao,
+            data_aquisicao=data_aquisicao if data_aquisicao else None,
+            status=status
+        )
+
+        if pecas_ids:
+            maquina.pecas.set(pecas_ids)
+        return redirect('maquinas')
+
+    pecas = Estoque.objects.all()
+    return render(request, 'estoque/cadastro_maquinas.html', {'pecas': pecas})
+
+@login_required
+def editar_maquina(request, id):
+    maquina = get_object_or_404(Maquina, id=id)
+
+    if request.method == 'POST':
+        form = MaquinaForm(request.POST, instance=maquina)
+        if form.is_valid():
+            nova_maquina = form.save(commit=False)
+            nova_maquina.save()
+            
+            # Atualiza o relacionamento com as peças, se enviado
+            pecas_ids = request.POST.getlist('pecas')
+            if pecas_ids:
+                nova_maquina.pecas.set(pecas_ids)
+            else:
+                nova_maquina.pecas.clear()
+
+            # Auditoria opcional, se você quiser registrar edição
+            Auditoria.objects.create(
+                usuario=request.user,
+                tabela='Maquina',
+                acao='UPDATE',
+                registro_id=nova_maquina.id,
+                descricao=f"Máquina atualizada: {nova_maquina.nome}"
+            )
+
+            return redirect('maquinas')
+    else:
+        form = MaquinaForm(instance=maquina)
+
+    pecas = Estoque.objects.all()
+    return render(request, 'estoque/editar_maquina.html', {
+        'form': form,
+        'maquina': maquina,
+        'pecas': pecas
+    })
+
+@login_required
+def excluir_maquina(request, id):
+    maquina = get_object_or_404(Maquina, id=id)
+
+    if request.method == 'POST':
+        # Auditoria antes de deletar
+        Auditoria.objects.create(
+            usuario=request.user,
+            tabela='Maquina',
+            acao='DELETE',
+            registro_id=maquina.id,
+            descricao=f"Máquina deletada: {maquina.nome}"
+        )
+        maquina.delete()
+        return redirect('maquinas')
+
+    # Caso seja GET, mostra página de confirmação
+    return render(request, 'estoque/excluir_maquina.html', {'maquina': maquina})
+
+@login_required
+def excluir_estoque(request, pk):
+    item = get_object_or_404(Estoque, pk=pk)
+
+    if request.method == 'POST':
+        # Remove peça das máquinas associadas
+        maquinas = Maquina.objects.filter(pecas=item)
+        for m in maquinas:
+            m.pecas.remove(item)
+
+        Auditoria.objects.create(
+            usuario=request.user,
+            tabela='Estoque',
+            acao='DELETE',
+            registro_id=item.id,
+            descricao=f"Peça deletada: {item.nome}"
+        )
+        item.delete()
+        return redirect('home')
+
+    return render(request, 'estoque/excluir.html', {'estoque': item})

@@ -16,6 +16,27 @@ class Estoque(models.Model):
     def __str__(self):
         return self.nome
 
+class Maquina(models.Model):
+    codigo = models.CharField(max_length=25, unique=True)
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField(blank=True)
+    localizacao = models.CharField(max_length=100, blank=True)
+    data_aquisicao = models.DateField(null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('Ativa', 'Ativa'),
+            ('Em manutenção', 'Em manutenção'),
+            ('Inativa', 'Inativa'),
+        ],
+        default='Ativa'
+    )
+    pecas = models.ManyToManyField(Estoque, related_name='maquinas')
+
+    def __str__(self):
+        return self.nome
+
+
 class Auditoria(models.Model):
     usuario = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     tabela = models.CharField(max_length=50)

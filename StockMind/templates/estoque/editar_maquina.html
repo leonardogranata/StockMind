@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h2>Editar Máquina: {{ maquina.nome }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div>
+        <label for="id_codigo">Código:</label>
+        <input type="text" name="codigo" id="id_codigo" value="{{ maquina.codigo }}" required>
+    </div>
+
+    <div>
+        <label for="id_nome">Nome:</label>
+        <input type="text" name="nome" id="id_nome" value="{{ maquina.nome }}" required>
+    </div>
+
+    <div>
+        <label for="id_descricao">Descrição:</label>
+        <textarea name="descricao" id="id_descricao">{{ maquina.descricao }}</textarea>
+    </div>
+
+    <div>
+        <label for="id_localizacao">Localização:</label>
+        <input type="text" name="localizacao" id="id_localizacao" value="{{ maquina.localizacao }}">
+    </div>
+
+    <div>
+        <label for="id_data_aquisicao">Data de Aquisição:</label>
+        <input type="date" name="data_aquisicao" id="id_data_aquisicao" value="{{ maquina.data_aquisicao|date:'Y-m-d' }}">
+    </div>
+
+    <div>
+        <label for="id_status">Status:</label>
+        <select name="status" id="id_status">
+            <option value="Ativa" {% if maquina.status == "Ativa" %}selected{% endif %}>Ativa</option>
+            <option value="Inativa" {% if maquina.status == "Inativa" %}selected{% endif %}>Inativa</option>
+            <option value="Manutenção" {% if maquina.status == "Manutenção" %}selected{% endif %}>Manutenção</option>
+        </select>
+    </div>
+
+    <div>
+        <label>Peças:</label><br>
+        {% for peca in pecas %}
+            <input type="checkbox" name="pecas" value="{{ peca.id }}"
+                {% if peca in maquina.pecas.all %}checked{% endif %}>
+            {{ peca.nome }}<br>
+        {% endfor %}
+    </div>
+
+    <button type="submit">Salvar Alterações</button>
+    <a href="{% url 'maquinas' %}">Cancelar</a>
+</form>
+
+{% endblock content %}

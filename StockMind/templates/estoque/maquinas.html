@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h1>Máquinas Cadastradas</h1>
+
+<div class="botoes">
+    <button id="create-item-button" onclick="window.location.href='{% url 'cadastroMaquina' %}'">
+        <img src="{% static "media/img/new-icon.png" %}" alt="Icone de novo">
+        Novo    
+    </button>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Código</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Localização</th>
+            <th>Data de aquisição</th>
+            <th>Status</th>
+            <th>Peças</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for maquina in maquinas %}
+        <tr>
+            <td>{{ maquina.id }}</td>
+            <td>{{ maquina.codigo }}</td>
+            <td>{{ maquina.nome }}</td>
+            <td>{{ maquina.descricao }}</td>
+            <td>{{ maquina.localizacao }}</td>
+            <td>{{ maquina.data_aquisicao }}</td>
+            <td>{{ maquina.status }}</td>
+            <td>
+                {% if maquina.pecas.all %}
+                    <ul>
+                        {% for peca in maquina.pecas.all %}
+                            <li>{{ peca.nome }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    Nenhuma peça vinculada
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'editar_maquina' maquina.id %}">Editar</a>
+                <a href="{% url 'excluir_maquina' maquina.id %}">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

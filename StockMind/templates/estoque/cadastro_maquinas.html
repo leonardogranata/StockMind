@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Cadastrar Máquina</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="codigo">Código:</label><br>
+    <input type="text" id="codigo" name="codigo" required><br><br>
+
+    <label for="nome">Nome:</label><br>
+    <input type="text" id="nome" name="nome" required><br><br>
+
+    <label for="descricao">Descrição:</label><br>
+    <textarea id="descricao" name="descricao"></textarea><br><br>
+
+    <label for="localizacao">Localização:</label><br>
+    <input type="text" id="localizacao" name="localizacao"><br><br>
+
+    <label for="data_aquisicao">Data de Aquisição:</label><br>
+    <input type="date" id="data_aquisicao" name="data_aquisicao"><br><br>
+
+    <label for="status">Status:</label><br>
+    <select id="status" name="status">
+        <option value="Ativa">Ativa</option>
+        <option value="Em manutenção">Em manutenção</option>
+        <option value="Inativa">Inativa</option>
+    </select><br><br>
+
+    <label for="pecas">Peças:</label><br>
+    <select id="pecas" name="pecas" multiple size="5">
+        {% for peca in pecas %}
+            <option value="{{ peca.id }}">{{ peca.nome }}</option>
+        {% endfor %}
+    </select>
+    <p><small>Segure CTRL (ou CMD no Mac) pra selecionar várias</small></p><br>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+<a href="{% url 'maquinas' %}">← Voltar para lista</a>
+
+{% endblock content %}
