@@ -1,58 +1,90 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/maquina_lista.css' %}">
+{% endblock %}
+
 {% block content %}
+<div class="lista-container">
+    <div class="header-section">
+        <div class="header-content">   
+        <h1 class="page-title">Máquinas</h1>
+        <p class="page-subtitle">Gerencie todas as máquinas do sistema</p>
+        </div>
+        <a href="{% url 'cadastro_maquina' %}" class="btn-adicionar">
+            + Nova Máquina
+        </a>
+    </div>
 
-<h1>Máquinas Cadastradas</h1>
-
-<div class="botoes">
-    <button id="create-item-button" onclick="window.location.href='{% url 'cadastroMaquina' %}'">
-        <img src="{% static "media/img/new-icon.png" %}" alt="Icone de novo">
-        Novo    
-    </button>
-</div>
-
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Código</th>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Localização</th>
-            <th>Data de aquisição</th>
-            <th>Status</th>
-            <th>Peças</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
+    {% if maquinas %}
+    <div class="cards-grid">
         {% for maquina in maquinas %}
-        <tr>
-            <td>{{ maquina.id }}</td>
-            <td>{{ maquina.codigo }}</td>
-            <td>{{ maquina.nome }}</td>
-            <td>{{ maquina.descricao }}</td>
-            <td>{{ maquina.localizacao }}</td>
-            <td>{{ maquina.data_aquisicao }}</td>
-            <td>{{ maquina.status }}</td>
-            <td>
-                {% if maquina.pecas.all %}
-                    <ul>
-                        {% for peca in maquina.pecas.all %}
-                            <li>{{ peca.nome }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    Nenhuma peça vinculada
-                {% endif %}
-            </td>
-            <td>
-                <a href="{% url 'editar_maquina' maquina.id %}">Editar</a>
-                <a href="{% url 'excluir_maquina' maquina.id %}">Excluir</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <div class="maquina-card">
+            <div class="card-header">
+                <div class="card-codigo">{{ maquina.codigo }}</div>
+                <div class="card-status status-{{ maquina.status|lower|cut:' ' }}">
+                    {% if maquina.status == "Ativa" %}
+                        ✓ Ativa
+                    {% elif maquina.status == "Em manutenção" %}
+                        ⚙ Manutenção
+                    {% else %}
+                        ✕ Inativa
+                    {% endif %}
+                </div>
+            </div>
 
+            <div class="card-body">
+                <h3 class="card-title">{{ maquina.nome }}</h3>
+                
+                {% if maquina.descricao %}
+                <p class="card-descricao">{{ maquina.descricao|truncatewords:15 }}</p>
+                {% endif %}
+
+                <div class="card-info">
+                    {% if maquina.localizacao %}
+                    <div class="info-item">
+                        <span class="info-icon">📍</span>
+                        <span class="info-text">{{ maquina.localizacao }}</span>
+                    </div>
+                    {% endif %}
+
+                    {% if maquina.data_aquisicao %}
+                    <div class="info-item">
+                        <span class="info-icon">📅</span>
+                        <span class="info-text">{{ maquina.data_aquisicao|date:"d/m/Y" }}</span>
+                    </div>
+                    {% endif %}
+
+                    {% if maquina.pecas.count > 0 %}
+                    <div class="info-item">
+                        <span class="info-icon">🔧</span>
+                        <span class="info-text">{{ maquina.pecas.count }} peça{{ maquina.pecas.count|pluralize:"s" }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card-actions">
+                <a href="{% url 'editar_maquina' maquina.id %}" class="btn-action btn-editar">
+                    Editar
+                </a>
+                <a href="{% url 'excluir_maquina' maquina.id %}" class="btn-action btn-deletar" onclick="return confirm('Tem certeza que deseja deletar esta máquina?')">
+                    Deletar
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-icon">🏭</div>
+        <h2 class="empty-title">Nenhuma máquina cadastrada</h2>
+        <p class="empty-text">Comece adicionando sua primeira máquina ao sistema</p>
+        <a href="{% url 'cadastrar_maquina' %}" class="btn-empty">
+            + Cadastrar primeira máquina
+        </a>
+    </div>
+    {% endif %}
+</div>
 {% endblock content %}

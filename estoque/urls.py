@@ -11,7 +11,7 @@ urlpatterns = [
     path('importar/', views.importar_json, name='importar_json'),
     # Máquinas
     path('maquinas', views.maquinas, name='maquinas'),
-    path('cadastro/maquina/', views.cadastrarMaquina, name='cadastroMaquina'),
+    path('cadastro/maquina/', views.cadastrarMaquina, name='cadastro_maquina'),
     path('maquinas/editar/<int:id>/', views.editar_maquina, name='editar_maquina'),
     path('maquinas/excluir/<int:id>/', views.excluir_maquina, name='excluir_maquina'),
 ]

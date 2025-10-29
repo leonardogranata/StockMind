@@ -1,43 +1,70 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Cadastrar Máquina</h1>
+<div class="form-container">
+    
+    <div class="form-card">
+        <h1 class="form-title">Cadastrar Nova Máquina</h1>
+        <p class="form-subtitle">Preencha os dados para adicionar uma máquina ao sistema</p>
 
-<form method="POST">
-    {% csrf_token %}
-    <label for="codigo">Código:</label><br>
-    <input type="text" id="codigo" name="codigo" required><br><br>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="codigo" class="form-label">Código</label>
+                    <input type="text" id="codigo" name="codigo" class="form-input" required placeholder="Ex: MQ-001">
+                </div>
 
-    <label for="nome">Nome:</label><br>
-    <input type="text" id="nome" name="nome" required><br><br>
+                <div class="form-group">
+                    <label for="data_aquisicao" class="form-label">Data de Aquisição</label>
+                    <input type="date" id="data_aquisicao" name="data_aquisicao" class="form-input">
+                </div>
+            </div>
 
-    <label for="descricao">Descrição:</label><br>
-    <textarea id="descricao" name="descricao"></textarea><br><br>
+            <div class="form-group">
+                <label for="nome" class="form-label">Nome da Máquina</label>
+                <input type="text" id="nome" name="nome" class="form-input" required placeholder="Ex: Torno CNC Modelo X">
+            </div>
 
-    <label for="localizacao">Localização:</label><br>
-    <input type="text" id="localizacao" name="localizacao"><br><br>
+            <div class="form-group">
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea id="descricao" name="descricao" class="form-textarea" placeholder="Descreva as características e especificações da máquina..."></textarea>
+            </div>
 
-    <label for="data_aquisicao">Data de Aquisição:</label><br>
-    <input type="date" id="data_aquisicao" name="data_aquisicao"><br><br>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="localizacao" class="form-label">Localização</label>
+                    <input type="text" id="localizacao" name="localizacao" class="form-input" placeholder="Ex: Galpão A - Setor 3">
+                </div>
 
-    <label for="status">Status:</label><br>
-    <select id="status" name="status">
-        <option value="Ativa">Ativa</option>
-        <option value="Em manutenção">Em manutenção</option>
-        <option value="Inativa">Inativa</option>
-    </select><br><br>
+                <div class="form-group">
+                    <label for="status" class="form-label">Status</label>
+                    <select id="status" name="status" class="form-select">
+                        <option value="Ativa">✅ Ativa</option>
+                        <option value="Em manutenção">🔧 Em manutenção</option>
+                        <option value="Inativa">⛔ Inativa</option>
+                    </select>
+                </div>
+            </div>
 
-    <label for="pecas">Peças:</label><br>
-    <select id="pecas" name="pecas" multiple size="5">
-        {% for peca in pecas %}
-            <option value="{{ peca.id }}">{{ peca.nome }}</option>
-        {% endfor %}
-    </select>
-    <p><small>Segure CTRL (ou CMD no Mac) pra selecionar várias</small></p><br>
+            <div class="form-group">
+                <label for="pecas" class="form-label">Peças Associadas</label>
+                <select id="pecas" name="pecas" multiple class="form-select">
+                    {% for peca in pecas %}
+                        <option value="{{ peca.id }}">{{ peca.nome }}</option>
+                    {% endfor %}
+                </select>
+                <p class="form-help">Segure CTRL (ou CMD no Mac) para selecionar múltiplas peças</p>
+            </div>
 
-    <button type="submit">Cadastrar</button>
-</form>
+            <button type="submit" class="btn-submit">
+                Cadastrar Máquina
+            </button>
+        </form>
+    </div>
 
-<a href="{% url 'maquinas' %}">← Voltar para lista</a>
+    <a href="{% url 'maquinas' %}" class="btn-back">← Voltar para lista</a>
+</div>
 
 {% endblock content %}

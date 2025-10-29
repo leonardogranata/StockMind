@@ -1,57 +1,74 @@
+<!-- editar_maquina.html -->
 {% extends "base.html" %}
 {% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/maquina_form.css' %}">
+{% endblock %}
+
 {% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <h1 class="form-title">Editar Máquina</h1>
+        <p class="form-subtitle">Atualize os dados da máquina {{ maquina.nome }}</p>
 
-<h2>Editar Máquina: {{ maquina.nome }}</h2>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="codigo" class="form-label">Código</label>
+                    <input type="text" id="codigo" name="codigo" class="form-input" required placeholder="Ex: MQ-001" value="{{ maquina.codigo }}">
+                </div>
 
-<form method="post">
-    {% csrf_token %}
-    
-    <div>
-        <label for="id_codigo">Código:</label>
-        <input type="text" name="codigo" id="id_codigo" value="{{ maquina.codigo }}" required>
+                <div class="form-group">
+                    <label for="data_aquisicao" class="form-label">Data de Aquisição</label>
+                    <input type="date" id="data_aquisicao" name="data_aquisicao" class="form-input" value="{{ maquina.data_aquisicao|date:'Y-m-d' }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nome" class="form-label">Nome da Máquina</label>
+                <input type="text" id="nome" name="nome" class="form-input" required placeholder="Ex: Torno CNC Modelo X" value="{{ maquina.nome }}">
+            </div>
+
+            <div class="form-group">
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea id="descricao" name="descricao" class="form-textarea" placeholder="Descreva as características e especificações da máquina...">{{ maquina.descricao }}</textarea>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="localizacao" class="form-label">Localização</label>
+                    <input type="text" id="localizacao" name="localizacao" class="form-input" placeholder="Ex: Galpão A - Setor 3" value="{{ maquina.localizacao }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="status" class="form-label">Status</label>
+                    <select id="status" name="status" class="form-select">
+                        <option value="Ativa" {% if maquina.status == "Ativa" %}selected{% endif %}>✅ Ativa</option>
+                        <option value="Em manutenção" {% if maquina.status == "Em manutenção" %}selected{% endif %}>🔧 Em manutenção</option>
+                        <option value="Inativa" {% if maquina.status == "Inativa" %}selected{% endif %}>⛔ Inativa</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="pecas" class="form-label">Peças Associadas</label>
+                <select id="pecas" name="pecas" multiple class="form-select">
+                    {% for peca in pecas %}
+                        <option value="{{ peca.id }}" {% if peca in maquina.pecas.all %}selected{% endif %}>{{ peca.nome }}</option>
+                    {% endfor %}
+                </select>
+                <p class="form-help">Segure CTRL (ou CMD no Mac) para selecionar múltiplas peças</p>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                💾 Salvar Alterações
+            </button>
+        </form>
     </div>
 
-    <div>
-        <label for="id_nome">Nome:</label>
-        <input type="text" name="nome" id="id_nome" value="{{ maquina.nome }}" required>
-    </div>
-
-    <div>
-        <label for="id_descricao">Descrição:</label>
-        <textarea name="descricao" id="id_descricao">{{ maquina.descricao }}</textarea>
-    </div>
-
-    <div>
-        <label for="id_localizacao">Localização:</label>
-        <input type="text" name="localizacao" id="id_localizacao" value="{{ maquina.localizacao }}">
-    </div>
-
-    <div>
-        <label for="id_data_aquisicao">Data de Aquisição:</label>
-        <input type="date" name="data_aquisicao" id="id_data_aquisicao" value="{{ maquina.data_aquisicao|date:'Y-m-d' }}">
-    </div>
-
-    <div>
-        <label for="id_status">Status:</label>
-        <select name="status" id="id_status">
-            <option value="Ativa" {% if maquina.status == "Ativa" %}selected{% endif %}>Ativa</option>
-            <option value="Inativa" {% if maquina.status == "Inativa" %}selected{% endif %}>Inativa</option>
-            <option value="Manutenção" {% if maquina.status == "Manutenção" %}selected{% endif %}>Manutenção</option>
-        </select>
-    </div>
-
-    <div>
-        <label>Peças:</label><br>
-        {% for peca in pecas %}
-            <input type="checkbox" name="pecas" value="{{ peca.id }}"
-                {% if peca in maquina.pecas.all %}checked{% endif %}>
-            {{ peca.nome }}<br>
-        {% endfor %}
-    </div>
-
-    <button type="submit">Salvar Alterações</button>
-    <a href="{% url 'maquinas' %}">Cancelar</a>
-</form>
-
+    <a href="{% url 'maquinas' %}" class="btn-back">← Voltar para lista</a>
+</div>
 {% endblock content %}
