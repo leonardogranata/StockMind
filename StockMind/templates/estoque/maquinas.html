@@ -1,3 +1,4 @@
+<!-- lista_maquinas.html -->
 {% extends "base.html" %}
 {% load static %}
 
@@ -6,24 +7,27 @@
 {% endblock %}
 
 {% block content %}
-<div class="lista-container">
-    <div class="header-section">
-        <div class="header-content">   
-        <h1 class="page-title">Máquinas</h1>
-        <p class="page-subtitle">Gerencie todas as máquinas do sistema</p>
+<div class="container-listagem">
+    <div class="secao-topo">
+        <div class="conteudo-topo">
+            <h1 class="titulo-pagina">Máquinas</h1>
+            <p class="subtitulo-pagina">Gerencie todas as máquinas do sistema</p>
         </div>
-        <a href="{% url 'cadastro_maquina' %}" class="btn-adicionar">
-            + Nova Máquina
-        </a>
+        <div class="botoes">
+            <button id="create-item-button" onclick="window.location.href='{% url 'cadastro_maquina' %}'">
+                <img src="{% static "media/img/new-icon.png" %}" alt="Icone de novo">
+                Novo  
+            </button>
+        </div>
     </div>
 
     {% if maquinas %}
-    <div class="cards-grid">
+    <div class="grade-cards">
         {% for maquina in maquinas %}
-        <div class="maquina-card">
-            <div class="card-header">
-                <div class="card-codigo">{{ maquina.codigo }}</div>
-                <div class="card-status status-{{ maquina.status|lower|cut:' ' }}">
+        <div class="card-maquina">
+            <div class="cabecalho-card">
+                <div class="codigo-card">{{ maquina.codigo }}</div>
+                <div class="badge-status status-{{ maquina.status|lower|cut:' ' }}">
                     {% if maquina.status == "Ativa" %}
                         ✓ Ativa
                     {% elif maquina.status == "Em manutenção" %}
@@ -34,42 +38,42 @@
                 </div>
             </div>
 
-            <div class="card-body">
-                <h3 class="card-title">{{ maquina.nome }}</h3>
+            <div class="corpo-card">
+                <h3 class="titulo-card">{{ maquina.nome }}</h3>
                 
                 {% if maquina.descricao %}
-                <p class="card-descricao">{{ maquina.descricao|truncatewords:15 }}</p>
+                <p class="descricao-card">{{ maquina.descricao|truncatewords:15 }}</p>
                 {% endif %}
 
-                <div class="card-info">
+                <div class="informacoes-card">
                     {% if maquina.localizacao %}
-                    <div class="info-item">
-                        <span class="info-icon">📍</span>
-                        <span class="info-text">{{ maquina.localizacao }}</span>
+                    <div class="item-info">
+                        <span class="icone-info">📍</span>
+                        <span class="texto-info">{{ maquina.localizacao }}</span>
                     </div>
                     {% endif %}
 
                     {% if maquina.data_aquisicao %}
-                    <div class="info-item">
-                        <span class="info-icon">📅</span>
-                        <span class="info-text">{{ maquina.data_aquisicao|date:"d/m/Y" }}</span>
+                    <div class="item-info">
+                        <span class="icone-info">📅</span>
+                        <span class="texto-info">{{ maquina.data_aquisicao|date:"d/m/Y" }}</span>
                     </div>
                     {% endif %}
 
                     {% if maquina.pecas.count > 0 %}
-                    <div class="info-item">
-                        <span class="info-icon">🔧</span>
-                        <span class="info-text">{{ maquina.pecas.count }} peça{{ maquina.pecas.count|pluralize:"s" }}</span>
+                    <div class="item-info">
+                        <span class="icone-info">🔧</span>
+                        <span class="texto-info">{{ maquina.pecas.count }} peça{{ maquina.pecas.count|pluralize:"s" }}</span>
                     </div>
                     {% endif %}
                 </div>
             </div>
 
-            <div class="card-actions">
-                <a href="{% url 'editar_maquina' maquina.id %}" class="btn-action btn-editar">
+            <div class="acoes-card">
+                <a href="{% url 'editar_maquina' maquina.id %}" class="botao-acao botao-editar">
                     Editar
                 </a>
-                <a href="{% url 'excluir_maquina' maquina.id %}" class="btn-action btn-deletar" onclick="return confirm('Tem certeza que deseja deletar esta máquina?')">
+                <a href="{% url 'excluir_maquina' maquina.id %}" class="botao-acao botao-deletar" onclick="return confirm('Tem certeza que deseja deletar esta máquina?')">
                     Deletar
                 </a>
             </div>
@@ -77,11 +81,11 @@
         {% endfor %}
     </div>
     {% else %}
-    <div class="empty-state">
-        <div class="empty-icon">🏭</div>
-        <h2 class="empty-title">Nenhuma máquina cadastrada</h2>
-        <p class="empty-text">Comece adicionando sua primeira máquina ao sistema</p>
-        <a href="{% url 'cadastrar_maquina' %}" class="btn-empty">
+    <div class="estado-vazio">
+        <div class="icone-vazio">🏭</div>
+        <h2 class="titulo-vazio">Nenhuma máquina cadastrada</h2>
+        <p class="texto-vazio">Comece adicionando sua primeira máquina ao sistema</p>
+        <a href="{% url 'cadastro_maquina' %}" class="botao-vazio">
             + Cadastrar primeira máquina
         </a>
     </div>
