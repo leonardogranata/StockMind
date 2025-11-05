@@ -23,8 +23,12 @@
       <button type="submit">Entrar</button>
     </form>
 
-    {% if error_message %}
-      <p style="color: red;">{{ error_message }}</p>
+    {% if form.non_field_errors %}
+      <div style="color: red; margin-top: 10px;">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
     {% endif %}
   </div>
 </main>

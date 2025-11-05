@@ -1,4 +1,3 @@
-from django.shortcuts import render, redirect
 from .forms import cadastroForm
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
 from django.contrib import auth
@@ -6,9 +5,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from estoque.models import Auditoria  # ou de onde estiver o model
+
+
+
+def loginUser(request):
+    form = AuthenticationForm(request, data=request.POST or None)
+
+    if request.method == "POST":
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect("home")
+
+    # renderiza inclusive os erros gerados automaticamente
+    return render(request, "usuarios/login.html", {"form": form})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
