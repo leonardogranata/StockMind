@@ -651,6 +651,124 @@ body {
     }
 }
 
+
+
+/* FORMULARIO ISABELE */
+.btn-voltar img {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+}
+
+.formulario {
+    background-color: var(--cinza-color);
+    border-radius: 12px;
+    padding: 40px;
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid #555;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.formulario h2 {
+    cursor: default;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: white;
+}
+
+/* 💥 Aqui o tapa no espaçamento que não tava indo */
+.formulario form p {
+    margin-bottom: 6px !important; /* reduz o espaço entre os campos */
+    margin-top: 6px !important;
+}
+
+/* Sobe o checkbox de "Usuário administrador" */
+.formulario form p:last-of-type {
+    margin-top: -6px !important;
+}
+
+.formulario label {
+    display: block;
+    color: #ddd;
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+.formulario input[type="text"],
+.formulario input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #1e1e1e;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+.formulario input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+.formulario button {
+    width: 100%;
+    background-color: #667DFA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.formulario button:hover {
+    background-color: #5065d6;
+}
+.mensagem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 15px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.mensagem.error {
+    background-color: #a01111;
+    border: 2px solid rgb(226, 21, 21);
+    color: #ffffff;
+}
+
+.icone-erro {
+    font-size: 18px;
+    color: #fff;
+}
+
+.icone-sucesso {
+    font-size: 18px;
+    color: #fff;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* BARRA DE PESQUISA */
 .search-form {
     max-width: 600px;

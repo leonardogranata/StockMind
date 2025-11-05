@@ -2,18 +2,29 @@
 {% load static %}
 {% block title %}StockMind - Cadastro{% endblock title %}
 {% block content %}
-    <main class="main">
-        <div class="formulario">
-            <div class="btn-voltar">
-                <a href="{% url 'listar' %}"><img src="{% static 'media/img/icon-voltar.png' %}" alt="Ícone de voltar"></a>
-            </div>
-            
-            <h2>Cadastro de Usuário</h2>
-            <form method="post" action="{% url 'cadastro' %}">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Cadastrar</button>
-            </form>
+<main class="main">
+    <div class="formulario">
+        <div class="btn-voltar">
+            <a href="{% url 'listar' %}">
+                <img src="{% static 'media/img/icon-voltar.png' %}" alt="Ícone de voltar">
+            </a>
         </div>
-    </main>
+
+        <h2>Cadastro de Usuário</h2>
+       {% if messages %}
+            {% for message in messages %}
+                <div class="mensagem {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+        <form method="post" action="{% url 'cadastro' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+</main>
 {% endblock content %}

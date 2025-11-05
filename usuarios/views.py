@@ -6,8 +6,8 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect, get_object_or_404
-from estoque.models import Auditoria  # ou de onde estiver o model
-
+from estoque.models import Auditoria
+from django.contrib import messages
 
 
 def loginUser(request):
@@ -16,10 +16,12 @@ def loginUser(request):
     if request.method == "POST":
         if form.is_valid():
             user = form.get_user()
-            login(request, user)
+            auth.login(request, user)
+            messages.success(request, f"Bem-vindo, {user.username}!")
             return redirect("home")
+        else:
+            messages.error(request, "Usuário ou senha inválidos.")
 
-    # renderiza inclusive os erros gerados automaticamente
     return render(request, "usuarios/login.html", {"form": form})
 
 @login_required
@@ -30,7 +32,7 @@ def cadastroUser(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_superuser = form.cleaned_data.get('is_superuser', False)
-            user.is_staff = user.is_superuser  # permite acesso ao admin
+            user.is_staff = user.is_superuser 
             user.save()
 
             Auditoria.objects.create(
@@ -40,9 +42,18 @@ def cadastroUser(request):
                 registro_id=user.id,
                 descricao=f"Usuário cadastrado: {user.username}, Superuser: {user.is_superuser}"
             )
+
+            messages.success(request, f"Usuário '{user.username}' cadastrado com sucesso!")
             return redirect('listar')
+
+        else:
+            if 'password2' in form.errors:
+                messages.error(request, "As senhas não coincidem!")
+            else:
+                messages.error(request, "Erro ao cadastrar usuário. Verifique os campos.")
     else:
         form = cadastroForm()
+
     return render(request, 'usuarios/cadastro.html', {'form': form})
 
 def loginUser(request):

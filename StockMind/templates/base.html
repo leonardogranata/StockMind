@@ -9,7 +9,6 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='{% static "css/style.css" %}'>
     <link rel="icon" type="image/png" href="{% static 'media/img/favicon.png' %}">
-    <script src='{% static "js/main.js" %}'></script>
 </head>
 <body>
     <!-- HEADER SUPERIOR -->
@@ -80,5 +79,21 @@
         {% block content %}{% endblock %}
     </main>
     <script src="{% static 'js/sidebar.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% if messages %}
+    <script id="django-messages" type="application/json">
+    [
+    {% for message in messages %}
+    {"message": "{{ message|escapejs }}", "tags": "{{ message.tags }}"}{% if not forloop.last %},{% endif %}
+    {% endfor %}
+    ]
+    </script>
+    {% endif %}
+
+    <script src="{% static 'js/alerts.js' %}"></script>
+
+
+
 </body>
 </html>
