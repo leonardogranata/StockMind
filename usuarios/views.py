@@ -1,4 +1,4 @@
-from .forms import cadastroForm
+from .forms import cadastroForm, editarUserForm
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
@@ -81,24 +81,23 @@ def listarUsers(request):
 def editarUser(request, user_id):
     user = User.objects.get(id=user_id)
     if request.method == "POST":
-        form = UserChangeForm(request.POST, instance=user)
+        form = editarUserForm(request.POST, instance=user)
         if form.is_valid():
             user = form.save(commit=False)
-            user.usuario_logado = request.user  # para auditoria
+            user.usuario_logado = request.user
             user.save()
 
-            # Criar auditoria manual para user
             Auditoria.objects.create(
                 usuario=request.user,
                 tabela='User',
                 acao='UPDATE',
                 registro_id=user.id,
-                descricao=f"Usuário atualizado: {user.username}, Email: {user.email}"
+                descricao=f"Usuário atualizado: {user.username}, Nome: {user.first_name} {user.last_name}"
             )
 
             return redirect('listar')
     else:
-        form = UserChangeForm(instance=user)
+        form = editarUserForm(instance=user)
     return render(request, 'usuarios/editar.html', {'form': form, 'user': user})
 
 
