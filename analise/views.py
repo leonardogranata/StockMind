@@ -4,7 +4,7 @@ from django.shortcuts import render
 from estoque.models import Estoque
 from analise.ia import prever_consumo 
 from django.db.models import Sum
-from .models import Consumo  # <-- ADICIONE ESTA LINHA
+from .models import Consumo  
 
 def dashboard(request):
     return render(request, 'analise/dashboard.html')
