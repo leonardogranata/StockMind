@@ -9,6 +9,7 @@
     --yellow-color: #d8c589;
     --hover-button-yellow: #c4b06e;
 }
+
 /* === Custom Multi-Select === */
 .custom-multiselect {
     position: relative;
@@ -1686,159 +1687,182 @@ table td {
 
 /* CADASTRO MÁQUINAS */
 
-.form-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0;
+/* === Container geral === */
+.maquina-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
 }
 
-.form-card {
+/* === Card principal === */
+.maquina-card {
     background: var(--fundo-escuro);
-    padding: 2.5rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.form-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--white-color);
-    margin-bottom: 0.5rem;
-    text-align: center;
-}
-
-.form-subtitle {
-    text-align: center;
-    color: var(--primary-color);
-    margin-bottom: 2rem;
-    font-size: 0.95rem;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-    margin-right: 1.5rem;
-}
-
-.form-label {
-    display: block;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.form-input,
-.form-textarea,
-.form-select {
     width: 100%;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--cinza-color);
-    border-radius: 10px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background-color: var(--fundo-color);
-    color: var(--white-color);
+    max-width: 800px;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
 }
 
-
-.form-textarea {
-    resize: vertical;
-    min-height: 100px;
-    font-family: inherit;
-}
-
-.form-select[multiple] {
-    min-height: 150px;
-    padding: 0.5rem;
-}
-
-.form-select[multiple] option {
-    padding: 0.5rem;
-    margin: 0.25rem;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.form-select[multiple] option:hover {
-    background-color: var(--cinza-color);
-}
-
-.form-help {
-    font-size: 0.85rem;
+/* === Título e subtítulo === */
+.maquina-title {
+    text-align: center;
+    font-size: 2rem;
     color: var(--primary-color);
-    margin-top: 0.5rem;
+    margin-bottom: 10px;
+}
+
+.maquina-subtitle {
+    text-align: center;
+    color: var(--secundary-color);
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+/* === Formulário === */
+.maquina-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* === Grid responsivo === */
+.maquina-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.maquina-group {
+    flex: 1 1 48%;
+    display: flex;
+    flex-direction: column;
+}
+.maquina-group.full {
+    flex: 1 1 100%;
+}
+
+/* === Labels e Inputs === */
+.maquina-label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--secundary-color);
+}
+
+.maquina-input, 
+.maquina-select, 
+.maquina-textarea {
+    background: var(--cinza-color);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 10px;
+    color: var(--white-color);
+    font-size: 1rem;
+    transition: 0.3s;
+    outline: none;
+}
+
+.maquina-input:focus,
+.maquina-select:focus,
+.maquina-textarea:focus {
+    border-color: var(--primary-color);
+    background: var(--fundo-color);
+}
+
+.maquina-textarea {
+    resize: none;
+    min-height: 100px;
+}
+
+/* === Multiselect custom === */
+.maquina-multiselect {
+    position: relative;
+    background: var(--cinza-color);
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.maquina-selected-items {
+    padding: 10px;
+    border: 2px solid transparent;
+    color: var(--white-color);
+    transition: 0.3s;
+}
+
+.maquina-selected-items:hover {
+    border-color: var(--primary-color);
+}
+
+.maquina-options-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 180px;
+    overflow-y: auto;
+    background: var(--fundo-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    margin-top: 5px;
+    z-index: 10;
+}
+
+.maquina-option-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    padding: 8px 12px;
+    color: var(--white-color);
+    cursor: pointer;
 }
 
-.btn-submit {
+.maquina-option-item:hover {
+    background: var(--primary-color);
+}
+
+.maquina-option-item input {
+    margin-right: 8px;
+}
+
+/* === Ajuda === */
+.maquina-help {
+    font-size: 0.85rem;
+    color: var(--yellow-color);
+    margin-top: 5px;
+}
+
+/* === Botão principal === */
+.maquina-submit {
     width: 100%;
-    padding: 1rem;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
     background: var(--primary-color);
     color: var(--white-color);
-    border: none;
-    border-radius: 10px;
+    font-weight: bold;
     font-size: 1.1rem;
-    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 1rem;
+    transition: 0.3s;
 }
 
-.btn-submit:hover {
+.maquina-submit:hover {
     background: var(--hover-button-blue);
+    transform: scale(1.02);
 }
 
-.btn-submit:active {
-    transform: translateY(0);
-}
-
-.btn-back {
-    display: inline-block;
-    margin-top: 1.5rem;
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    background: var(--fundo-escuro);
-    margin-bottom: 1.5rem;
-}
-
-.btn-back:hover {
-    background: var(--cinza-color);
-    transform: translateX(-5px);
-    color: var(--white-color);
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-}
-
-@media (max-width: 768px) {
-    .form-container {
-        margin: 1rem;
-        padding: 1.5rem;
+/* === Responsividade === */
+@media (max-width: 700px) {
+    .maquina-card {
+        padding: 25px;
     }
 
-    .form-card {
-        padding: 1.5rem;
+    .maquina-grid {
+        flex-direction: column;
     }
 
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .form-title {
-        font-size: 1.5rem;
+    .maquina-group {
+        flex: 1 1 100%;
     }
 }
 
@@ -2145,3 +2169,649 @@ table td {
         transform: translateY(-4px);
     }
 }
+
+/* Cadastro de peças */
+
+/* === Container principal === */
+.peca-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* === Card === */
+.peca-card {
+    position: relative;
+    background: var(--fundo-escuro);
+    width: 100%;
+    max-width: 700px;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+}
+
+/* === Botão de voltar === */
+.peca-card .btn-back {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    text-decoration: none;
+    color: var(--yellow-color);
+    font-weight: bold;
+    transition: 0.3s;
+}
+.peca-card .btn-back:hover {
+    color: var(--hover-button-yellow);
+    transform: translateX(-3px);
+}
+
+/* === Título === */
+.peca-title {
+    text-align: center;
+    color: var(--yellow-color);
+    font-size: 1.8rem;
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+/* === Formulário === */
+.peca-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+/* === Grupos de input === */
+.peca-group {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.peca-group.full {
+    flex: 1 1 100%;
+}
+
+/* === Inputs === */
+label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: var(--secundary-color);
+}
+
+input, textarea {
+    background: var(--cinza-color);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 10px;
+    color: var(--white-color);
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--yellow-color);
+    background: var(--fundo-color);
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+/* === Botão principal === */
+#button-create {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: var(--yellow-color);
+    color: var(--fundo-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#button-create:hover {
+    background: var(--hover-button-yellow);
+    transform: scale(1.02);
+}
+
+/* === Responsividade === */
+@media (max-width: 600px) {
+    .peca-group {
+        flex: 1 1 100%;
+    }
+    .peca-card {
+        padding: 25px;
+    }
+}
+
+
+/* =========================
+   === FORMULÁRIO MÁQUINA ===
+   ========================= */
+   .maquina-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  
+  .maquina-card {
+    position: relative;
+    background: var(--fundo-escuro);
+    width: 100%;
+    max-width: 800px;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .maquina-card .btn-back {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    text-decoration: none;
+    color: var(--secundary-color);
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  .maquina-card .btn-back:hover {
+    color: var(--white-color);
+    transform: translateX(-3px);
+  }
+  
+  .maquina-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-top: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .maquina-subtitle {
+    text-align: center;
+    color: var(--secundary-color);
+    margin-bottom: 30px;
+    font-size: 1rem;
+  }
+  
+  .maquina-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .maquina-submit {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary-color);
+    color: var(--white-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .maquina-submit:hover {
+    background: var(--hover-button-blue);
+    transform: scale(1.02);
+  }
+  
+  /* =========================
+     === FORMULÁRIO PEÇA ===
+     ========================= */
+  .peca-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  
+  .peca-card {
+    position: relative;
+    background: var(--fundo-escuro);
+    width: 100%;
+    max-width: 700px;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .peca-card .btn-back {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    text-decoration: none;
+    color: var(--secundary-color);
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  .peca-card .btn-back:hover {
+    color: var(--white-color);
+    transform: translateX(-3px);
+  }
+  
+  .peca-title {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-top: 50px;
+    margin-bottom: 25px;
+  }
+  
+  .peca-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .peca-group {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .peca-group.full {
+    flex: 1 1 100%;
+  }
+  
+  label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: var(--secundary-color);
+  }
+  
+  input, textarea {
+    background: var(--cinza-color);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 10px;
+    color: var(--white-color);
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+  }
+  
+  input:focus, textarea:focus {
+    border-color: var(--primary-color);
+    background: var(--fundo-color);
+  }
+  
+  textarea {
+    resize: none;
+    height: 100px;
+  }
+  
+  #button-create {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary-color);
+    color: var(--white-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  #button-create:hover {
+    background: var(--hover-button-blue);
+    transform: scale(1.02);
+  }
+  
+  /* Responsividade */
+  @media (max-width: 600px) {
+    .peca-group {
+      flex: 1 1 100%;
+    }
+    .peca-card,
+    .maquina-card {
+      padding: 25px;
+    }
+  }
+
+  
+/* === Container principal === */
+.peca-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  
+  /* === Card === */
+  .peca-card {
+    position: relative;
+    background: var(--fundo-escuro);
+    width: 100%;
+    max-width: 700px;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* === Botão voltar === */
+  .peca-card .btn-back {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    text-decoration: none;
+    color: var(--secundary-color);
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  .peca-card .btn-back:hover {
+    color: var(--white-color);
+    transform: translateX(-3px);
+  }
+  
+  /* === Título === */
+  .peca-title {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-top: 50px;
+    margin-bottom: 25px;
+  }
+  
+  /* === Form === */
+  .peca-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+  }
+  
+  .peca-group {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .peca-group.full {
+    flex: 1 1 100%;
+  }
+  
+  label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: var(--secundary-color);
+  }
+  
+  /* Campos Django mantêm classe automática */
+  input, textarea, select {
+    background: var(--cinza-color);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 10px;
+    color: var(--white-color);
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+  }
+  
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--primary-color);
+    background: var(--fundo-color);
+  }
+  
+  textarea {
+    resize: none;
+    height: 100px;
+  }
+  
+  /* === Botão === */
+  #button-update {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary-color);
+    color: var(--white-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  #button-update:hover {
+    background: var(--hover-button-blue);
+    transform: scale(1.02);
+  }
+  
+  /* === Responsivo === */
+  @media (max-width: 600px) {
+    .peca-group {
+      flex: 1 1 100%;
+    }
+    .peca-card {
+      padding: 25px;
+    }
+  }
+
+  /* === Container === */
+.delete-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 40px 20px;
+  }
+  
+  /* === Card === */
+  .delete-card {
+    position: relative;
+    background: var(--fundo-escuro);
+    width: 100%;
+    max-width: 600px;
+    padding: 40px 35px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+  /* === Botão voltar === */
+  .delete-card .btn-back {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    text-decoration: none;
+    color: var(--secundary-color);
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  .delete-card .btn-back:hover {
+    color: var(--white-color);
+    transform: translateX(-3px);
+  }
+  
+  /* === Títulos === */
+  .delete-title {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-top: 40px;
+    margin-bottom: 15px;
+  }
+  
+  .delete-warning {
+    font-size: 1.1rem;
+    color: var(--secundary-color);
+    margin-bottom: 10px;
+  }
+  
+  .delete-name {
+    color: var(--white-color);
+    font-weight: bold;
+  }
+  
+  .delete-text {
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-bottom: 30px;
+  }
+  
+  /* === Botões === */
+  .delete-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .btn-delete,
+  .btn-cancel {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+  }
+  
+  .btn-delete {
+    background: var(--danger-color);
+    color: var(--white-color);
+  }
+  
+  .btn-delete:hover {
+    background: rgb(226, 42, 42);
+  }
+  
+  .btn-cancel {
+    background: var(--primary-color);
+    color: var(--white-color);
+  }
+  
+  .btn-cancel:hover {
+    background: var(--hover-button-blue);
+    transform: scale(1.03);
+  }
+  
+  /* === Responsivo === */
+  @media (max-width: 600px) {
+    .delete-buttons {
+      flex-direction: column;
+    }
+    .btn-delete,
+    .btn-cancel {
+      width: 100%;
+    }
+  }
+
+
+/* USUÁRIOS */
+.user-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  
+  .user-card {
+    position: relative;
+    background: var(--fundo-escuro);
+    width: 100%;
+    max-width: 600px;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .user-card .btn-back {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    text-decoration: none;
+    color: var(--secundary-color);
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  .user-card .btn-back:hover {
+    color: var(--white-color);
+    transform: translateX(-3px);
+  }
+  
+  .user-title {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 1.7rem;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  
+  .user-subtitle {
+    text-align: center;
+    color: var(--secundary-color);
+    margin-bottom: 25px;
+  }
+  
+  .user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .user-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-group.checkbox {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .user-hint {
+    font-size: 0.8rem;
+    color: var(--secundary-color);
+    margin-top: 5px;
+  }
+  
+  input, select {
+    background: var(--cinza-color);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 10px;
+    color: var(--white-color);
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+  }
+  
+  input:focus, select:focus {
+    border-color: var(--primary-color);
+    background: var(--fundo-color);
+  }
+  
+  .user-submit {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary-color);
+    color: var(--white-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .user-submit:hover {
+    background: var(--hover-button-blue);
+    transform: scale(1.02);
+  }
+  

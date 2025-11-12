@@ -1,23 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}StockMind - Editar Usuário{% endblock title %}
-
 {% block content %}
-<main class="main">
-    <div class="formulario">
-        <div class="btn-voltar">
-            <a href="{% url 'listar' %}">
-                <img src="{% static 'media/img/icon-voltar.png' %}" alt="Ícone de voltar">
-            </a>
-        </div>
 
-        <h2>Editar Usuário: {{ user.username }}</h2>
+<div class="user-container">
+  <div class="user-card">
+    <a href="{% url 'listar' %}" class="btn-back">← Voltar</a>
 
-        <form method="post" action="{% url 'editar' user.id %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Salvar Alterações</button>
-        </form>
-    </div>
-</main>
+    <h2 class="user-title">Editar Usuário</h2>
+    <p class="user-subtitle">Atualize os dados de <strong>{{ user.username }}</strong></p>
+
+    <form method="post" action="{% url 'editar' user.id %}" class="user-form">
+      {% csrf_token %}
+      
+      <div class="user-group">
+        <label>Usuário (login)</label>
+        {{ form.username }}
+        <small class="user-hint">⚠️ O nome de usuário não pode conter espaços.</small>
+      </div>
+
+      <div class="user-group">
+        <label>Nome completo</label>
+        {{ form.full_name }}
+      </div>
+
+      <button type="submit" class="user-submit">Salvar Alterações</button>
+    </form>
+  </div>
+</div>
+
 {% endblock content %}

@@ -1,25 +1,30 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Excluir usuários{% endblock %}
-
 {% block content %}
 
-    <div class="bloco-exclusao">
-        <div class="mini-bloco-exclusao">
-            <div class="btn-voltar-exclusao">
-                <a href="{% url 'listar' %}">
-                    <img src="{% static 'media/img/icon-voltar.png' %}" alt="Ícone de voltar">
-                </a>
-            </div>
-    
-            <h2>Excluir Usuário: {{ user.username }}</h2>
-    
-            <form method="post" action="{% url 'excluir' user.id %}">
-                {% csrf_token %}
-                <p>Tem certeza que deseja excluir o usuário "{{ user.username }}"?</p>
-                <button id="btn-exclusao" type="submit">Confirmar Exclusão</button>
-            </form>
-        </div>
-    </div>
+<div class="delete-container">
+  <div class="delete-card">
 
-{% endblock %}
+    <a href="javascript:history.back()" class="btn-back">← Voltar</a>
+
+    <h1 class="delete-title">Confirmação de Exclusão</h1>
+    <p class="delete-warning">
+      Tem certeza que deseja excluir
+      <span class="delete-name">"{{ user.username }}"</span>?
+    </p>
+
+    <p class="delete-text">
+      Esta ação é <strong>irreversível</strong> e removerá permanentemente o registro do sistema.
+    </p>
+
+    <form method="post" class="delete-form">
+      {% csrf_token %}
+      <div class="delete-buttons">
+        <button type="submit" class="btn-delete">Deletar</button>
+        <a href="javascript:history.back()" class="btn-cancel">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

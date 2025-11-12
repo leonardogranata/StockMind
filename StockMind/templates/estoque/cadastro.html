@@ -2,160 +2,64 @@
 {% load static %}
 {% block content %}
 
-<style>
-body {
-    background-color: #1a1b20;
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: #f1f1f1;
-    margin: 0;
-}
-
-.container {
-    background-color: #2b2d36;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    width: 800px;
-    max-width: 95%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #fff;
-    font-weight: 600;
-}
-
-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px 40px;
-    width: 100%;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    font-size: 14px;
-    color: #ddd;
-    margin-bottom: 5px;
-}
-
-input,
-textarea {
-    background-color: #1e1f26;
-    border: 1px solid #444;
-    color: #fff;
-    border-radius: 6px;
-    padding: 10px;
-    font-size: 14px;
-    width: 100%;
-}
-
-input:focus,
-textarea:focus {
-    outline: none;
-    border-color: #677bff;
-    box-shadow: 0 0 4px #677bff;
-}
-
-textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-.full {
-    grid-column: 1 / -1;
-}
-
-#button-create {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: 100%;
-    padding: 12px 0;
-    background: #677bff;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-#button-create:hover {
-    background: #5b6cf7;
-}
-
-@media (max-width: 768px) {
-    form {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
-
-<div class="container">
-    <h2>Cadastro de Item</h2>
-
-    <form method="post" enctype="multipart/form-data">
+<div class="peca-container">
+    <div class="peca-card">
+      <a href="{% url 'home' %}" class="btn-back">← Voltar para lista</a>
+  
+      <h2 class="peca-title">Cadastro de Item</h2>
+  
+      <form method="post" enctype="multipart/form-data" class="peca-form">
         {% csrf_token %}
-        <div class="form-group">
-            <label>Código:</label>
-            <input type="text" name="codigo" placeholder="Digite o código" required>
+        
+        <div class="peca-group">
+          <label>Código:</label>
+          <input type="text" name="codigo" placeholder="Digite o código" required>
         </div>
-
-        <div class="form-group">
-            <label>Nome:</label>
-            <input type="text" name="nome" placeholder="Digite o nome" required>
+  
+        <div class="peca-group">
+          <label>Nome:</label>
+          <input type="text" name="nome" placeholder="Digite o nome" required>
         </div>
-
-        <div class="form-group">
-            <label>Quantidade:</label>
-            <input type="number" name="quantidade" placeholder="Digite a quantidade" required>
+  
+        <div class="peca-group">
+          <label>Quantidade:</label>
+          <input type="number" name="quantidade" placeholder="Digite a quantidade" required>
         </div>
-
-        <div class="form-group">
-            <label>Marca:</label>
-            <input type="text" name="marca" placeholder="Digite a marca" required>
+  
+        <div class="peca-group">
+          <label>Marca:</label>
+          <input type="text" name="marca" placeholder="Digite a marca" required>
         </div>
-
-        <div class="form-group">
-            <label>Fornecedor:</label>
-            <input type="text" name="fornecedor" placeholder="Digite o fornecedor" required>
+  
+        <div class="peca-group">
+          <label>Fornecedor:</label>
+          <input type="text" name="fornecedor" placeholder="Digite o fornecedor" required>
         </div>
-
-        <div class="form-group">
-            <label>Preço:</label>
-            <input type="number" step="0.01" name="preco" placeholder="Digite o preço" required>
+  
+        <div class="peca-group">
+          <label>Preço:</label>
+          <input type="number" step="0.01" name="preco" placeholder="Digite o preço" required>
         </div>
-
-        <div class="form-group">
-            <label>Qtd. Mínima:</label>
-            <input type="number" name="qtd_min" placeholder="Mínimo" required>
+  
+        <div class="peca-group">
+          <label>Qtd. Mínima:</label>
+          <input type="number" name="qtd_min" placeholder="Mínimo" required>
         </div>
-
-        <div class="form-group">
-            <label>Qtd. Máxima:</label>
-            <input type="number" name="qtd_max" placeholder="Máximo" required>
+  
+        <div class="peca-group">
+          <label>Qtd. Máxima:</label>
+          <input type="number" name="qtd_max" placeholder="Máximo" required>
         </div>
-
-        <div class="form-group full">
-            <label>Descrição:</label>
-            <textarea name="descricao" placeholder="Digite a descrição..." required></textarea>
+  
+        <div class="peca-group full">
+          <label>Descrição:</label>
+          <textarea name="descricao" placeholder="Digite a descrição..." required></textarea>
         </div>
-
+  
         <button id="button-create" type="submit">Cadastrar</button>
-    </form>
+        </form>
+    </div>
 </div>
+  
 
 {% endblock content %}

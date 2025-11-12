@@ -2,109 +2,116 @@
 {% block content %}
 
 
-<div class="form-container">
-    <a href="{% url 'maquinas' %}" class="btn-back">← Voltar para lista</a
-    <div class="form-card">
-        <h1 class="form-title">Cadastrar Nova Máquina</h1>
-        <p class="form-subtitle">Preencha os dados para adicionar uma máquina ao sistema</p>
+<div class="maquina-container">
+    <div class="maquina-card">
+      <a href="{% url 'maquinas' %}" class="btn-back">← Voltar para lista</a>
+  
+      <h1 class="maquina-title">Cadastrar Nova Máquina</h1>
+      <p class="maquina-subtitle">Preencha os dados para adicionar uma máquina ao sistema</p>
+  
+      <form method="POST" class="maquina-form">
+        {% csrf_token %}
+      <div class="maquina-grid">
+        <div class="maquina-group">
+          <label class="maquina-label">Código</label>
+          <input type="text" name="codigo" class="maquina-input" required placeholder="Ex: MQ-001">
+        </div>
+        <div class="maquina-group">
+          <label class="maquina-label">Data de Aquisição</label>
+          <input type="date" name="data_aquisicao" class="maquina-input">
+        </div>
+      </div>
 
-        <form method="POST">
-            {% csrf_token %}
-            
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="codigo" class="form-label">Código</label>
-                    <input type="text" id="codigo" name="codigo" class="form-input" required placeholder="Ex: MQ-001">
-                </div>
+      <div class="maquina-group">
+        <label class="maquina-label">Nome da Máquina</label>
+        <input type="text" name="nome" class="maquina-input" required placeholder="Ex: Torno CNC Modelo X">
+      </div>
 
-                <div class="form-group">
-                    <label for="data_aquisicao" class="form-label">Data de Aquisição</label>
-                    <input type="date" id="data_aquisicao" name="data_aquisicao" class="form-input">
-                </div>
-            </div>
+      <div class="maquina-group full">
+        <label class="maquina-label">Descrição</label>
+        <textarea name="descricao" class="maquina-textarea"></textarea>
+      </div>
 
-            <div class="form-group">
-                <label for="nome" class="form-label">Nome da Máquina</label>
-                <input type="text" id="nome" name="nome" class="form-input" required placeholder="Ex: Torno CNC Modelo X">
-            </div>
+      <div class="maquina-grid">
+        <div class="maquina-group">
+          <label class="maquina-label">Localização</label>
+          <input type="text" name="localizacao" class="maquina-input" placeholder="Ex: Galpão A - Setor 3">
+        </div>
+        <div class="maquina-group">
+          <label class="maquina-label">Status</label>
+          <select name="status" class="maquina-select">
+            <option value="Ativa">✅ Ativa</option>
+            <option value="Em manutenção">🔧 Em manutenção</option>
+            <option value="Inativa">⛔ Inativa</option>
+          </select>
+        </div>
+      </div>
 
-            <div class="form-group">
-                <label for="descricao" class="form-label">Descrição</label>
-                <textarea id="descricao" name="descricao" class="form-textarea" placeholder="Descreva as características e especificações da máquina..."></textarea>
-            </div>
+      <div class="maquina-group full">
+        <label class="maquina-label">Peças Associadas</label>
+        <div class="maquina-multiselect">
+          <div class="maquina-selected-items" id="maquina-selected-text">Selecione as peças</div>
+          <div class="maquina-options-list" id="maquina-options-list">
+            {% for peca in pecas %}
+              <label class="maquina-option-item">
+                <input type="checkbox" name="pecas" value="{{ peca.id }}" {% if peca in maquina.pecas.all %}checked{% endif %}>
+                {{ peca.nome }}
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
 
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="localizacao" class="form-label">Localização</label>
-                    <input type="text" id="localizacao" name="localizacao" class="form-input" placeholder="Ex: Galpão A - Setor 3">
-                </div>
-
-                <div class="form-group">
-                    <label for="status" class="form-label">Status</label>
-                    <select id="status" name="status" class="form-select">
-                        <option value="Ativa">✅ Ativa</option>
-                        <option value="Em manutenção">🔧 Em manutenção</option>
-                        <option value="Inativa">⛔ Inativa</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="pecas" class="form-label">Peças Associadas</label>
-                <div class="custom-multiselect">
-                    <div class="selected-items" id="selected-text">Selecione as peças</div>
-                    <div class="options-list" id="options-list">
-                        {% for peca in pecas %}
-                        <label class="option-item">
-                            <input type="checkbox" name="pecas" value="{{ peca.id }}"
-                                {% if peca in maquina.pecas.all %}checked{% endif %}>
-                            {{ peca.nome }}
-                        </label>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <p class="form-help">Segure CTRL (ou CMD no Mac) para selecionar múltiplas peças</p>
-            </div>
-
-            <button type="submit" class="btn-submit">
-                Cadastrar Máquina
-            </button>
-        </form>
-    </div>
-
+      <button type="submit" class="maquina-submit">Cadastrar Máquina</button>
+    </form>
+  </div>
 </div>
+
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const selectedBox = document.getElementById("selected-text");
-    const optionsList = document.getElementById("options-list");
-    const checkboxes = optionsList.querySelectorAll("input[type='checkbox']");
-
-    selectedBox.addEventListener("click", () => {
-        optionsList.style.display = 
-            optionsList.style.display === "block" ? "none" : "block";
-    });
-
-    checkboxes.forEach(chk => {
-        chk.addEventListener("change", updateSelectedText);
-    });
-
-    function updateSelectedText() {
-        const selected = Array.from(checkboxes)
-            .filter(c => c.checked)
-            .map(c => c.parentNode.textContent.trim());
-        selectedBox.textContent = selected.length ? selected.join(", ") : "Selecione as peças";
-    }
-
-    // Inicializa texto
-    updateSelectedText();
-
-    // Fecha menu ao clicar fora
-    document.addEventListener("click", e => {
-        if (!e.target.closest(".custom-multiselect")) {
-            optionsList.style.display = "none";
+    document.addEventListener("DOMContentLoaded", function() {
+        // Seletores compatíveis com o HTML que você postou
+        const selectedBox = document.getElementById("maquina-selected-text");
+        const optionsList = document.getElementById("maquina-options-list");
+        const multiselectWrap = document.querySelector(".maquina-multiselect");
+    
+        // Se não existir (por alguma razão), sai sem quebrar a página
+        if (!selectedBox || !optionsList || !multiselectWrap) {
+            console.warn("Multiselect: elementos não encontrados. Verifique IDs/classes.");
+            return;
         }
+    
+        const checkboxes = optionsList.querySelectorAll("input[type='checkbox']");
+    
+        // Toggle do dropdown
+        selectedBox.addEventListener("click", (e) => {
+            e.stopPropagation(); // evita fechar por clique no document
+            optionsList.style.display = optionsList.style.display === "block" ? "none" : "block";
+        });
+    
+        // Atualiza texto quando mudar seleção
+        function updateSelectedText() {
+            const selected = Array.from(checkboxes)
+                .filter(c => c.checked)
+                .map(c => c.parentNode.textContent.trim());
+            selectedBox.textContent = selected.length ? selected.join(", ") : "Selecione as peças";
+        }
+    
+        checkboxes.forEach(chk => chk.addEventListener("change", updateSelectedText));
+    
+        // Inicializa texto
+        updateSelectedText();
+    
+        // Fecha menu ao clicar fora
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".maquina-multiselect")) {
+                optionsList.style.display = "none";
+            }
+        });
+    
+        // Evita que o clique nas opções feche o menu imediatamente (por bubbling)
+        optionsList.addEventListener("click", (e) => {
+            e.stopPropagation();
+        });
     });
-});
-</script>
+    </script>
 {% endblock content %}

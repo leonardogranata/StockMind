@@ -2,47 +2,29 @@
 {% load static %}
 {% block content %}
 
-<style>
-    .botao-excluir {
-        background-color: #e74c3c; /* vermelho forte */
-        color: #fff;               /* texto branco */
-        border: none;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.2s;
-    }
-    
-    .botao-excluir:hover {
-        background-color: #c0392b; /* vermelho mais escuro */
-        transform: scale(1.05);    /* leve aumento ao passar o mouse */
-    }
-    
-    .botao-cancelar {
-        background-color: #95a5a6; /* cinza */
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-size: 16px;
-        text-decoration: none;
-        margin-left: 10px;
-        transition: background-color 0.3s;
-    }
-    
-    .botao-cancelar:hover {
-        background-color: #7f8c8d;
-    }
-    
-</style>
+<div class="delete-container">
+  <div class="delete-card">
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" class="botao-excluir">Sim, excluir</button>
-    <a href="{% url 'maquinas' %}" class="botao-cancelar">Cancelar</a>
-</form>
+    <a href="javascript:history.back()" class="btn-back">← Voltar</a>
 
+    <h1 class="delete-title">Confirmação de Exclusão</h1>
+    <p class="delete-warning">
+      Tem certeza que deseja excluir
+      <span class="delete-name">"{{ maquina.nome }}"</span>?
+    </p>
 
+    <p class="delete-text">
+      Esta ação é <strong>irreversível</strong> e removerá permanentemente o registro do sistema.
+    </p>
+
+    <form method="post" class="delete-form">
+      {% csrf_token %}
+      <div class="delete-buttons">
+        <button type="submit" class="btn-delete">Deletar</button>
+        <a href="javascript:history.back()" class="btn-cancel">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
 
 {% endblock content %}
