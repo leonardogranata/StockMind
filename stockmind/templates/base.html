@@ -82,13 +82,13 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {% if messages %}
-        <script id="django-messages" type="application/json">
-        [
-        {% for message in messages %}
-        {"message": "{{ message|escapejs }}", "tags": "{{ message.tags }}"}{% if not forloop.last %},{% endif %}
-        {% endfor %}
-        ]
-        </script>
+    <script id="django-messages" type="application/json">
+    [
+    {% for message in messages %}
+    {"message": "{{ message|escapejs }}", "tags": "{{ message.tags }}"}{% if not forloop.last %},{% endif %}
+    {% endfor %}
+    ]
+    </script>
     {% endif %}
 
     <script src="{% static 'js/alerts.js' %}"></script>

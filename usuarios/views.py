@@ -71,7 +71,7 @@ def logoutUser(request):
     return redirect('login')
 
 @login_required
-@user_passes_test(lambda u: u.is_superuser)  # só o superuser acessa
+@user_passes_test(lambda u: u.is_superuser) 
 def listarUsers(request):
     users = User.objects.all()
     return render(request, 'usuarios/listar.html', {'users': users})
@@ -102,13 +102,13 @@ def editarUser(request, user_id):
 
 
 @login_required
-@user_passes_test(lambda u: u.is_superuser)  # só o superuser acessa
+@user_passes_test(lambda u: u.is_superuser)
 def excluirUser(request, user_id):
     user = get_object_or_404(User, id=user_id)
     if request.method == "POST":
-        # Criar auditoria manualmente antes de deletar
+
         Auditoria.objects.create(
-            usuario=request.user,  # superuser que está deletando
+            usuario=request.user,
             tabela='User',
             acao='DELETE',
             registro_id=user.id,
