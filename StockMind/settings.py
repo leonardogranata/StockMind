@@ -82,8 +82,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stockmind',      
-        'USER': 'tecmysql',             
-        'PASSWORD': 'devmysql',
+        'USER': 'root',             
+        'PASSWORD': 'Admindev369@@',
         'HOST': 'localhost',         
         'PORT': '3306',              
         'OPTIONS': {
@@ -142,11 +142,8 @@ LOGOUT_REDIRECT_URL = 'accounts/login/'
 
 # JAZZMIN
 JAZZMIN_SETTINGS = {
-    # Título da aba e cabeçalho (pode usar o nome do seu site)
     "site_title": "StockMind Admin",
     "site_header": "Administração",
-    # Logo (opcional)
     "site_logo": "media/img/logo.png",
-    # Tema (existem vários, 'flatly', 'darkly', 'litera', etc.)
     "theme": "flatly",
 }
