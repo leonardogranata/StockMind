@@ -8,6 +8,8 @@
     --hover-button-blue: #5f79d4;
     --yellow-color: #d8c589;
     --hover-button-yellow: #c4b06e;
+    --danger-color: #b92e1e;
+    --hover-danger-color: #881a0d;
 }
 
 /* === Custom Multi-Select === */
@@ -54,7 +56,6 @@
     scrollbar-color: var(--primary-color) var(--fundo-color);
 }
 
-/* Scrollbar para navegadores baseados em WebKit (Chrome, Edge) */
 .options-list::-webkit-scrollbar {
     width: 6px;
 }
@@ -89,13 +90,11 @@
     cursor: pointer;
 }
 
-/* Quando o select está aberto */
 .custom-multiselect.open .selected-items {
     border-color: var(--primary-color);
     background: var(--fundo-color);
 }
 
-/* Texto placeholder */
 .selected-items.placeholder {
     color: #aaa;
     font-style: italic;
@@ -192,8 +191,8 @@ body {
     margin-right: 0;
 }
 
-.sidebar-section {
-    margin-bottom: 30px;
+.sidebar.collapsed .sidebar-title-abbr {
+    display: block;
 }
 
 .sidebar-title-abbr {
@@ -205,16 +204,10 @@ body {
     font-weight: 600;
     letter-spacing: 1px;
     padding: 0;
-    
 }
 
-/* Quando a sidebar colapsa, some o título longo e aparece a sigla */
-.sidebar.collapsed .sidebar-title {
-    display: none;
-}
-
-.sidebar.collapsed .sidebar-title-abbr {
-    display: block;
+.sidebar-section {
+    margin-bottom: 30px;
 }
 
 .sidebar-title {
@@ -237,7 +230,7 @@ body {
 }
 
 .sidebar-item.active {
-    border-right: 4px solid #007BFF; /* azul bonito */
+    border-right: 4px solid #007BFF;
     background-color: #313238;
 }
 
@@ -292,9 +285,8 @@ body {
 }
 
 .menu-btn:hover {
-    color: #007BFF; /* azul de destaque */
+    color: #007BFF;
 }
-
 
 .page-title {
     font-size: 32px;
@@ -349,7 +341,7 @@ body {
     align-items: center;
     gap: 8px;
     padding: 10px 16px;
-    background-color: #dc3545; /* Vermelho para logout */
+    background-color: #dc3545;
     border: none;
     border-radius: 8px;
     color: var(--white-color);
@@ -367,55 +359,13 @@ body {
     background-color: #c82333;
 }
 
-/* ÍCONE DO LOGOUT */
 #logout-button img {
     width: 16px;
     height: 16px;
     object-fit: contain;
-    filter: brightness(0) invert(1); /* Torna o ícone branco */
+    filter: brightness(0) invert(1);
     transition: all 0.3s ease;
 }
-
-/* RESPONSIVIDADE */
-@media (max-width: 480px) {
-    #logout-button {
-        padding: 8px 12px;
-        font-size: 12px;
-        gap: 6px;
-    }
-    
-    #logout-button img {
-        width: 14px;
-        height: 14px;
-    }
-}
-
-/* RESPONSIVIDADE BÁSICA */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 200px;
-    }
-    
-    .main-content {
-        margin-left: 200px;
-    }
-}
-
-@media (max-width: 640px) {
-    .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-    }
-    
-    .sidebar.mobile-open {
-        transform: translateX(0);
-    }
-    
-    .main-content {
-        margin-left: 0;
-    }
-}
-
 
 /* HEADER DE LOGIN */
 .header-login {
@@ -463,7 +413,7 @@ body {
     border-radius: 12px;
     padding: 40px;
     width: 100%;
-    max-width: 550px; /* Maior para acomodar campos de cadastro */
+    max-width: 550px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     border: 1px solid #555;
     animation: fadeInUp 0.6s ease-out;
@@ -478,20 +428,17 @@ body {
     color: white;
 }
 
-/* FORMULÁRIO */
 .formulario form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* Paragrafos gerados pelo form.as_p */
 .formulario p {
     margin-bottom: 20px;
     color: white;
 }
 
-/* LABELS */
 .formulario label {
     display: block;
     color: #ccc;
@@ -505,7 +452,6 @@ body {
     margin-top: 0;
 }
 
-/* TODOS OS INPUTS */
 .formulario input[type="text"],
 .formulario input[type="password"],
 .formulario input[type="email"],
@@ -523,7 +469,6 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* ESTADOS DE FOCO */
 .formulario input[type="text"]:focus,
 .formulario input[type="password"]:focus,
 .formulario input[type="email"]:focus,
@@ -535,7 +480,6 @@ body {
     box-shadow: 0 0 0 2px rgba(114, 137, 218, 0.2);
 }
 
-/* ESTADOS DE HOVER */
 .formulario input[type="text"]:hover,
 .formulario input[type="password"]:hover,
 .formulario input[type="email"]:hover,
@@ -545,13 +489,11 @@ body {
     background-color: #3d3d3d;
 }
 
-/* PLACEHOLDERS */
 .formulario input::placeholder,
 .formulario textarea::placeholder {
     color: #999;
 }
 
-/* BOTÃO DE SUBMIT */
 .formulario button[type="submit"] {
     width: 100%;
     padding: 15px;
@@ -574,8 +516,6 @@ body {
     transform: translateY(0);
 }
 
-
-/* MENSAGENS DE ERRO DO DJANGO */
 .formulario .errorlist {
     list-style: none;
     margin: 5px 0 10px 0;
@@ -592,7 +532,6 @@ body {
     border: 1px solid rgba(255, 107, 107, 0.3);
 }
 
-/* MENSAGEM DE ERRO GENÉRICA */
 .formulario p[style*="color: red"] {
     color: #ff6b6b !important;
     background-color: rgba(255, 107, 107, 0.1);
@@ -604,91 +543,25 @@ body {
     border: 1px solid rgba(255, 107, 107, 0.3);
 }
 
-/* HELP TEXT DO DJANGO - OCULTAR */
 .formulario .helptext,
 .formulario ul {
     display: none;
 }
 
-/* CAMPOS OBRIGATÓRIOS (ASTERISCO) */
 .formulario .required {
     color: #ff6b6b;
 }
 
-/* Remover os <br><br> do layout com CSS */
 .formulario br {
     display: none;
 }
 
-/* RESPONSIVIDADE */
-@media (max-width: 600px) {
-    .formulario {
-        padding: 30px 20px;
-        margin: 20px;
-        max-width: 100%;
-    }
-    
-    .formulario h2 {
-        font-size: 24px;
-    }
-}
-
-@media (max-width: 480px) {
-    .formulario {
-        padding: 25px 15px;
-    }
-    
-    .formulario h2 {
-        font-size: 22px;
-    }
-    
-    .header-login h1 {
-        font-size: 20px;
-    }
-    
-    .formulario button[type="submit"] {
-        padding: 12px;
-        font-size: 15px;
-    }
-}
-
-
-
 /* FORMULARIO ISABELE */
-.btn-voltar img {
-    width: 40px;
-    height: 40px;
-    margin-right: 8px;
-    transition: all 0.3s ease;
-}
-
-.formulario {
-    background-color: var(--cinza-color);
-    border-radius: 12px;
-    padding: 40px;
-    width: 100%;
-    max-width: 550px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    border: 1px solid #555;
-    animation: fadeInUp 0.6s ease-out;
-}
-
-.formulario h2 {
-    cursor: default;
-    text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 30px;
-    color: white;
-}
-
-/* 💥 Aqui o tapa no espaçamento que não tava indo */
 .formulario form p {
-    margin-bottom: 6px !important; /* reduz o espaço entre os campos */
+    margin-bottom: 6px !important;
     margin-top: 6px !important;
 }
 
-/* Sobe o checkbox de "Usuário administrador" */
 .formulario form p:last-of-type {
     margin-top: -6px !important;
 }
@@ -735,6 +608,7 @@ body {
 .formulario button:hover {
     background-color: #5065d6;
 }
+
 .mensagem {
     display: flex;
     align-items: center;
@@ -828,28 +702,25 @@ body {
     background-color: var(--hover-button-blue);
 }
 
-
-
 /* LISTA DE USUARIOS */
-
 .bloco-tabela {
     display: flex;
     flex-direction: column;
-    align-items: center; /* mantém tabela no centro */
+    align-items: center;
     margin: 40px auto;
     width: 100%;
 }
 
 .bloco-tabela .botoes {
-    width: 100%; /* mesma largura da tabela */
+    width: 100%;
     display: flex;
-    justify-content: flex-start; /* joga botões pra esquerda */
+    justify-content: flex-start;
     margin-bottom: 15px;
     margin-bottom: -20px;
 }
 
 .bloco-tabela table {
-    width: 100%; /* metade da tela */
+    width: 100%;
     border-collapse: collapse;
     text-align: center;
 }
@@ -864,21 +735,20 @@ body {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 6px 12px; 
+    padding: 6px 12px;
 }
-
 
 table {
     width: 100%;
-    border-collapse: separate;   /* precisa ser separate */
-    border-spacing: 0;           /* evita “buracos” entre células */
+    border-collapse: separate;
+    border-spacing: 0;
     margin-top: 20px;
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
     cursor: default;
     border: 1px solid #ddd;
-    border-radius: 10px;         /* arredondamento da tabela */
-    overflow: hidden;            /* garante que o fundo siga o arredondado */
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 table thead {
@@ -895,7 +765,6 @@ table th, table td {
     cursor: default;
 }
 
-/* tira a borda duplicada nas laterais */
 table th {
     border-top: none;
 }
@@ -927,8 +796,9 @@ h1 {
 table th,
 table td {
     padding: 12px 15px;
-    border: none; /* mata a borda branca */
+    border: none;
 }
+
 .status-td img{
     width: 4vh;
     height: 4vh;
@@ -937,7 +807,7 @@ table td {
 .icones-alteracao img {
     width: 25px;
     height: 25px;
-    filter: brightness(0) invert(1); /* Torna o ícone branco */
+    filter: brightness(0) invert(1);
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -949,7 +819,6 @@ table td {
 .icones-alteracao:last-child img {
     margin-left: 10px;
 }
-
 
 /* BOTÃO NOVO COM ONCLICK - VERSÃO FINAL */
 #create-user-button {
@@ -969,22 +838,20 @@ table td {
     transition: all 0.3s ease;
     margin-bottom: 20px;
     white-space: nowrap;
-    outline: none; /* Remove outline padrão do botão */
+    outline: none;
 }
 
 #create-user-button:hover {
     background-color: var(--hover-button-blue);
 }
 
-/* ÍCONE DENTRO DO BOTÃO */
 #create-user-button img {
     width: 18px;
     height: 18px;
     object-fit: contain;
-    filter: brightness(0) invert(1); /* Torna o ícone branco */
+    filter: brightness(0) invert(1);
     transition: all 0.3s ease;
 }
-
 
 #create-item-button {
     display: flex;
@@ -1003,19 +870,18 @@ table td {
     transition: all 0.3s ease;
     margin-bottom: 20px;
     white-space: nowrap;
-    outline: none; /* Remove outline padrão do botão */
+    outline: none;
 }
 
 #create-item-button:hover {
     background-color: var(--hover-button-blue);
 }
 
-/* ÍCONE DENTRO DO BOTÃO */
 #create-item-button img {
     width: 18px;
     height: 18px;
     object-fit: contain;
-    filter: brightness(0) invert(1); /* Torna o ícone branco */
+    filter: brightness(0) invert(1);
     transition: all 0.3s ease;
 }
 
@@ -1036,50 +902,22 @@ table td {
     transition: all 0.3s ease;
     white-space: nowrap;
     margin-top: 20px;
-    outline: none; /* Remove outline padrão do botão */
+    outline: none;
 }
 
-#export-button {
+#export-button:hover {
     background-color: var(--hover-button-yellow);
 }
 
-/* ÍCONE DENTRO DO BOTÃO */
 #export-button img {
     width: 18px;
     height: 18px;
     object-fit: contain;
-    filter: brightness(0) invert(1); /* Torna o ícone branco */
+    filter: brightness(0) invert(1);
     transition: all 0.3s ease;
 }
 
-
-/* RESPONSIVIDADE */
-@media (max-width: 480px) {
-    #create-user-button {
-        padding: 10px 16px;
-        font-size: 13px;
-        gap: 8px;
-    }
-    
-    #create-user-button img {
-        width: 16px;
-        height: 16px;
-    }
-}
-
-/* VARIAÇÃO PARA BOTÃO MAIOR */
-.btn-novo-large {
-    padding: 15px 25px !important;
-    font-size: 16px !important;
-}
-
-.btn-novo-large img {
-    width: 20px !important;
-    height: 20px !important;
-}
-
 /* excluir usuário */
-
 .bloco-exclusao {
     display: flex;
     justify-content: center;
@@ -1091,7 +929,7 @@ table td {
     border-radius: 12px;
     padding: 30px;
     width: 100%;
-    max-width: 400px; 
+    max-width: 400px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     border: 1px solid #555;
     animation: fadeInUp 0.6s ease-out;
@@ -1130,16 +968,15 @@ table td {
     color: white;
 }
 
-
 /* botões json */
-
 .container-principal-json {
     display: flex;
-    justify-content: flex-start; /* Alinha os itens filhos no início (esquerda) */
-    width: 100%; /* Garante que o contêiner ocupe toda a largura disponível */
-    padding: 20px; /* Apenas para espaçamento visual */
-    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+    justify-content: flex-start;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
+
 .botoes-json {
     display: flex;
     gap: 20px;
@@ -1181,7 +1018,7 @@ table td {
 
 .button-enviar-json {
     background-color: var(--yellow-color);
-    color: #ffffff;;
+    color: #ffffff;
 }
 
 .button-enviar-json:hover {
@@ -1236,28 +1073,6 @@ table td {
     text-overflow: ellipsis;
 }
 
-@media (max-width: 768px) {
-    .botoes-json {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .form-importar-json {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .file-input-wrapper {
-        width: 100%;
-        min-width: unset;
-    }
-
-    .button-baixar-json,
-    .button-enviar-json {
-        width: 100%;
-        justify-content: center;
-    }
-}
 .overlay {
   display: none;
   position: fixed;
@@ -1287,10 +1102,10 @@ table td {
   100% { transform: rotate(360deg); }
 }
 
-
 /* Página gráficos */
 .form-group-select {
     max-width: 400px;
+    margin: 0 auto;
 }
 
 .form-group-select label {
@@ -1363,54 +1178,6 @@ table td {
     text-align: center;
 }
 
-.form-group-select {
-    max-width: 400px;
-    margin: 0 auto 40px auto;
-}
-
-.form-group-select label {
-    display: block;
-    font-size: 14px;
-    color: #ddd;
-    margin-bottom: 8px;
-    font-weight: 500;
-    text-align: left;
-}
-
-.select-customizado {
-    width: 100%;
-    padding: 12px 16px;
-    background-color: var(--cinza-color);
-    border: 2px solid var(--primary-color);
-    border-radius: 8px;
-    color: var(--white-color);
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: inherit;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237289da' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 36px;
-}
-
-.select-customizado:hover {
-    background-color: var(--fundo-escuro);
-    border-color: var(--hover-button-blue);
-}
-
-.select-customizado:focus {
-    outline: none;
-    border-color: var(--hover-button-blue);
-    background-color: var(--fundo-escuro);
-}
-
-.select-customizado option {
-    background-color: var(--cinza-color);
-    color: var(--white-color);
-}
-
 .chart-wrapper {
     display: none;
     background-color: var(--cinza-color);
@@ -1441,28 +1208,6 @@ table td {
     font-weight: 600;
     margin-bottom: 30px;
     text-align: center;
-}
-
-@media (max-width: 768px) {
-    .titulo-previsao-main {
-        font-size: 28px;
-        margin-bottom: 30px;
-        padding: 30px 20px 0 20px;
-    }
-
-    .container-previsao {
-        min-height: auto;
-        padding: 20px;
-    }
-
-    .content-previsao {
-        max-width: 100%;
-    }
-
-    .chart-wrapper {
-        padding: 20px;
-        margin-top: 30px;
-    }
 }
 
 /* SUGESTÕES */
@@ -1515,7 +1260,6 @@ table td {
     color: #d1d5db;
 }
 
-
 /* dashboard */
 .dashboard-container {
     display: flex;
@@ -1525,6 +1269,7 @@ table td {
     position: relative;
     overflow: hidden;
 }
+
 .content-wrapper {
     position: relative;
     z-index: 1;
@@ -1660,34 +1405,7 @@ table td {
     background: var(--hover-button-yellow);
 }
 
-@media (max-width: 768px) {
-    .header-section h1 {
-        font-size: 2.5rem;
-    }
-
-    .header-section p {
-        font-size: 1rem;
-    }
-
-    .cards-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        padding: 0;
-    }
-
-    .card {
-        padding: 30px;
-    }
-
-    .btn-access {
-        padding: 10px 30px;
-        font-size: 0.9rem;
-    }
-}
-
 /* CADASTRO MÁQUINAS */
-
-/* === Container geral === */
 .maquina-container {
     display: flex;
     justify-content: center;
@@ -1695,7 +1413,6 @@ table td {
     padding: 40px 20px;
 }
 
-/* === Card principal === */
 .maquina-card {
     background: var(--fundo-escuro);
     width: 100%;
@@ -1703,9 +1420,9 @@ table td {
     padding: 35px;
     border-radius: 15px;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    position: relative;
 }
 
-/* === Título e subtítulo === */
 .maquina-title {
     text-align: center;
     font-size: 2rem;
@@ -1720,29 +1437,28 @@ table td {
     font-size: 1rem;
 }
 
-/* === Formulário === */
 .maquina-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* === Grid responsivo === */
 .maquina-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
+
 .maquina-group {
     flex: 1 1 48%;
     display: flex;
     flex-direction: column;
 }
+
 .maquina-group.full {
     flex: 1 1 100%;
 }
 
-/* === Labels e Inputs === */
 .maquina-label {
     font-weight: 500;
     margin-bottom: 6px;
@@ -1774,7 +1490,6 @@ table td {
     min-height: 100px;
 }
 
-/* === Multiselect custom === */
 .maquina-multiselect {
     position: relative;
     background: var(--cinza-color);
@@ -1825,46 +1540,12 @@ table td {
     margin-right: 8px;
 }
 
-/* === Ajuda === */
 .maquina-help {
     font-size: 0.85rem;
     color: var(--yellow-color);
     margin-top: 5px;
 }
 
-/* === Botão principal === */
-.maquina-submit {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background: var(--primary-color);
-    color: var(--white-color);
-    font-weight: bold;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.maquina-submit:hover {
-    background: var(--hover-button-blue);
-    transform: scale(1.02);
-}
-
-/* === Responsividade === */
-@media (max-width: 700px) {
-    .maquina-card {
-        padding: 25px;
-    }
-
-    .maquina-grid {
-        flex-direction: column;
-    }
-
-    .maquina-group {
-        flex: 1 1 100%;
-    }
-}
 
 /* listagem máquinas */
 .container-listagem {
@@ -1938,8 +1619,9 @@ table td {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 2px solid var(--cinza-color);
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
-
 
 .card-maquina:hover::before {
     opacity: 1;
@@ -1999,6 +1681,7 @@ table td {
 
 .corpo-card {
     padding: 1.75rem 1.5rem;
+    flex: 1;
 }
 
 .titulo-card {
@@ -2069,7 +1752,7 @@ table td {
 .botao-editar {
     background: var(--primary-color);
     color: var(--white-color);
-    border-right: 1px solid var(--fundo-escuro);
+    border-bottom-left-radius: 14px;
 }
 
 .botao-editar:hover {
@@ -2080,6 +1763,8 @@ table td {
 .botao-deletar {
     background: transparent;
     color: #ed4245;
+    border-left: 1px solid var(--fundo-escuro);
+    border-bottom-right-radius: 14px;
 }
 
 .botao-deletar:hover {
@@ -2152,27 +1837,7 @@ table td {
     transform: translateY(-1px);
 }
 
-@media (max-width: 768px) {
-    .container-listagem {
-        padding: 1rem;
-    }
-
-    .grade-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .titulo-pagina {
-        font-size: 2rem;
-    }
-
-    .card-maquina:hover {
-        transform: translateY(-4px);
-    }
-}
-
 /* Cadastro de peças */
-
-/* === Container principal === */
 .peca-container {
     display: flex;
     justify-content: center;
@@ -2180,7 +1845,6 @@ table td {
     padding: 40px 20px;
 }
 
-/* === Card === */
 .peca-card {
     position: relative;
     background: var(--fundo-escuro);
@@ -2191,22 +1855,6 @@ table td {
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
 }
 
-/* === Botão de voltar === */
-.peca-card .btn-back {
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    text-decoration: none;
-    color: var(--yellow-color);
-    font-weight: bold;
-    transition: 0.3s;
-}
-.peca-card .btn-back:hover {
-    color: var(--hover-button-yellow);
-    transform: translateX(-3px);
-}
-
-/* === Título === */
 .peca-title {
     text-align: center;
     color: var(--yellow-color);
@@ -2215,7 +1863,6 @@ table td {
     margin-bottom: 25px;
 }
 
-/* === Formulário === */
 .peca-form {
     display: flex;
     flex-wrap: wrap;
@@ -2223,7 +1870,6 @@ table td {
     justify-content: space-between;
 }
 
-/* === Grupos de input === */
 .peca-group {
     flex: 1 1 45%;
     display: flex;
@@ -2234,7 +1880,6 @@ table td {
     flex: 1 1 100%;
 }
 
-/* === Inputs === */
 label {
     font-weight: 500;
     margin-bottom: 5px;
@@ -2262,7 +1907,6 @@ textarea {
     height: 100px;
 }
 
-/* === Botão principal === */
 #button-create {
     width: 100%;
     padding: 12px;
@@ -2282,38 +1926,8 @@ textarea {
     transform: scale(1.02);
 }
 
-/* === Responsividade === */
-@media (max-width: 600px) {
-    .peca-group {
-        flex: 1 1 100%;
-    }
-    .peca-card {
-        padding: 25px;
-    }
-}
-
-
-/* =========================
-   === FORMULÁRIO MÁQUINA ===
-   ========================= */
-   .maquina-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-  }
-  
-  .maquina-card {
-    position: relative;
-    background: var(--fundo-escuro);
-    width: 100%;
-    max-width: 800px;
-    padding: 35px;
-    border-radius: 15px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-  }
-  
-  .maquina-card .btn-back {
+/* FORMULÁRIO MÁQUINA */
+.maquina-card .btn-back {
     position: absolute;
     top: 25px;
     left: 25px;
@@ -2321,34 +1935,35 @@ textarea {
     color: var(--secundary-color);
     font-weight: bold;
     transition: 0.3s;
-  }
-  .maquina-card .btn-back:hover {
+}
+
+.maquina-card .btn-back:hover {
     color: var(--white-color);
     transform: translateX(-3px);
-  }
-  
-  .maquina-title {
+}
+
+.maquina-title {
     text-align: center;
     font-size: 2rem;
     color: var(--primary-color);
     margin-top: 50px;
     margin-bottom: 10px;
-  }
-  
-  .maquina-subtitle {
+}
+
+.maquina-subtitle {
     text-align: center;
     color: var(--secundary-color);
     margin-bottom: 30px;
     font-size: 1rem;
-  }
-  
-  .maquina-form {
+}
+
+.maquina-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
-  }
-  
-  .maquina-submit {
+}
+
+.maquina-submit {
     width: 100%;
     padding: 12px;
     border: none;
@@ -2359,34 +1974,15 @@ textarea {
     font-size: 1.1rem;
     cursor: pointer;
     transition: 0.3s;
-  }
-  
-  .maquina-submit:hover {
+}
+
+.maquina-submit:hover {
     background: var(--hover-button-blue);
     transform: scale(1.02);
-  }
-  
-  /* =========================
-     === FORMULÁRIO PEÇA ===
-     ========================= */
-  .peca-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-  }
-  
-  .peca-card {
-    position: relative;
-    background: var(--fundo-escuro);
-    width: 100%;
-    max-width: 700px;
-    padding: 35px;
-    border-radius: 15px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-  }
-  
-  .peca-card .btn-back {
+}
+
+/* FORMULÁRIO PEÇA */
+.peca-card .btn-back {
     position: absolute;
     top: 25px;
     left: 25px;
@@ -2394,44 +1990,45 @@ textarea {
     color: var(--secundary-color);
     font-weight: bold;
     transition: 0.3s;
-  }
-  .peca-card .btn-back:hover {
+}
+
+.peca-card .btn-back:hover {
     color: var(--white-color);
     transform: translateX(-3px);
-  }
-  
-  .peca-title {
+}
+
+.peca-title {
     text-align: center;
     color: var(--primary-color);
     font-size: 1.8rem;
     margin-top: 50px;
     margin-bottom: 25px;
-  }
-  
-  .peca-form {
+}
+
+.peca-form {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-between;
-  }
-  
-  .peca-group {
+}
+
+.peca-group {
     flex: 1 1 45%;
     display: flex;
     flex-direction: column;
-  }
-  
-  .peca-group.full {
+}
+
+.peca-group.full {
     flex: 1 1 100%;
-  }
-  
-  label {
+}
+
+label {
     font-weight: 500;
     margin-bottom: 5px;
     color: var(--secundary-color);
-  }
-  
-  input, textarea {
+}
+
+input, textarea {
     background: var(--cinza-color);
     border: 2px solid transparent;
     border-radius: 8px;
@@ -2440,19 +2037,19 @@ textarea {
     font-size: 1rem;
     outline: none;
     transition: 0.3s;
-  }
-  
-  input:focus, textarea:focus {
+}
+
+input:focus, textarea:focus {
     border-color: var(--primary-color);
     background: var(--fundo-color);
-  }
-  
-  textarea {
+}
+
+textarea {
     resize: none;
     height: 100px;
-  }
-  
-  #button-create {
+}
+
+#button-create {
     width: 100%;
     padding: 12px;
     margin-top: 15px;
@@ -2464,116 +2061,15 @@ textarea {
     font-size: 1.1rem;
     cursor: pointer;
     transition: 0.3s;
-  }
-  
-  #button-create:hover {
+}
+
+#button-create:hover {
     background: var(--hover-button-blue);
     transform: scale(1.02);
-  }
-  
-  /* Responsividade */
-  @media (max-width: 600px) {
-    .peca-group {
-      flex: 1 1 100%;
-    }
-    .peca-card,
-    .maquina-card {
-      padding: 25px;
-    }
-  }
+}
 
-  
-/* === Container principal === */
-.peca-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-  }
-  
-  /* === Card === */
-  .peca-card {
-    position: relative;
-    background: var(--fundo-escuro);
-    width: 100%;
-    max-width: 700px;
-    padding: 35px;
-    border-radius: 15px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* === Botão voltar === */
-  .peca-card .btn-back {
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    text-decoration: none;
-    color: var(--secundary-color);
-    font-weight: bold;
-    transition: 0.3s;
-  }
-  .peca-card .btn-back:hover {
-    color: var(--white-color);
-    transform: translateX(-3px);
-  }
-  
-  /* === Título === */
-  .peca-title {
-    text-align: center;
-    color: var(--primary-color);
-    font-size: 1.8rem;
-    margin-top: 50px;
-    margin-bottom: 25px;
-  }
-  
-  /* === Form === */
-  .peca-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
-  }
-  
-  .peca-group {
-    flex: 1 1 45%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .peca-group.full {
-    flex: 1 1 100%;
-  }
-  
-  label {
-    font-weight: 500;
-    margin-bottom: 5px;
-    color: var(--secundary-color);
-  }
-  
-  /* Campos Django mantêm classe automática */
-  input, textarea, select {
-    background: var(--cinza-color);
-    border: 2px solid transparent;
-    border-radius: 8px;
-    padding: 10px;
-    color: var(--white-color);
-    font-size: 1rem;
-    outline: none;
-    transition: 0.3s;
-  }
-  
-  input:focus, textarea:focus, select:focus {
-    border-color: var(--primary-color);
-    background: var(--fundo-color);
-  }
-  
-  textarea {
-    resize: none;
-    height: 100px;
-  }
-  
-  /* === Botão === */
-  #button-update {
+/* FORMULÁRIO PEÇA UPDATE */
+#button-update {
     width: 100%;
     padding: 12px;
     margin-top: 15px;
@@ -2585,34 +2081,127 @@ textarea {
     font-size: 1.1rem;
     cursor: pointer;
     transition: 0.3s;
-  }
-  
-  #button-update:hover {
+}
+
+#button-update:hover {
     background: var(--hover-button-blue);
     transform: scale(1.02);
-  }
-  
-  /* === Responsivo === */
-  @media (max-width: 600px) {
-    .peca-group {
-      flex: 1 1 100%;
-    }
-    .peca-card {
-      padding: 25px;
-    }
-  }
+}
 
-  /* === Container === */
+/* USUÁRIOS */
+.user-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.user-card {
+    position: relative;
+    background: var(--fundo-escuro);
+    width: 100%;
+    max-width: 600px;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+}
+
+.user-card .btn-back {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    text-decoration: none;
+    color: var(--secundary-color);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.user-card .btn-back:hover {
+    color: var(--white-color);
+    transform: translateX(-3px);
+}
+
+.user-title {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 1.7rem;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.user-subtitle {
+    text-align: center;
+    color: var(--secundary-color);
+    margin-bottom: 25px;
+}
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-group.checkbox {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-hint {
+    font-size: 0.8rem;
+    color: var(--secundary-color);
+    margin-top: 5px;
+}
+
+input, select {
+    background: var(--cinza-color);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 10px;
+    color: var(--white-color);
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-color);
+    background: var(--fundo-color);
+}
+
+.user-submit {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary-color);
+    color: var(--white-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.user-submit:hover {
+    background: var(--hover-button-blue);
+    transform: scale(1.02);
+}
+
+/* EXCLUSÃO */
 .delete-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 80vh;
     padding: 40px 20px;
-  }
-  
-  /* === Card === */
-  .delete-card {
+}
+
+.delete-card {
     position: relative;
     background: var(--fundo-escuro);
     width: 100%;
@@ -2621,10 +2210,9 @@ textarea {
     border-radius: 15px;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
     text-align: center;
-  }
-  
-  /* === Botão voltar === */
-  .delete-card .btn-back {
+}
+
+.delete-card .btn-back {
     position: absolute;
     top: 25px;
     left: 25px;
@@ -2632,46 +2220,45 @@ textarea {
     color: var(--secundary-color);
     font-weight: bold;
     transition: 0.3s;
-  }
-  .delete-card .btn-back:hover {
+}
+
+.delete-card .btn-back:hover {
     color: var(--white-color);
     transform: translateX(-3px);
-  }
-  
-  /* === Títulos === */
-  .delete-title {
+}
+
+.delete-title {
     color: var(--primary-color);
     font-size: 1.8rem;
     margin-top: 40px;
     margin-bottom: 15px;
-  }
-  
-  .delete-warning {
+}
+
+.delete-warning {
     font-size: 1.1rem;
     color: var(--secundary-color);
     margin-bottom: 10px;
-  }
-  
-  .delete-name {
+}
+
+.delete-name {
     color: var(--white-color);
     font-weight: bold;
-  }
-  
-  .delete-text {
+}
+
+.delete-text {
     font-size: 0.95rem;
     color: #ccc;
     margin-bottom: 30px;
-  }
-  
-  /* === Botões === */
-  .delete-buttons {
+}
+
+.delete-buttons {
     display: flex;
     justify-content: center;
     gap: 20px;
-  }
-  
-  .btn-delete,
-  .btn-cancel {
+}
+
+.btn-delete,
+.btn-cancel {
     padding: 10px 25px;
     border: none;
     border-radius: 8px;
@@ -2680,138 +2267,199 @@ textarea {
     cursor: pointer;
     transition: 0.3s;
     text-decoration: none;
-  }
-  
-  .btn-delete {
+}
+
+.btn-delete {
     background: var(--danger-color);
     color: var(--white-color);
-  }
-  
-  .btn-delete:hover {
-    background: rgb(226, 42, 42);
-  }
-  
-  .btn-cancel {
+}
+
+.btn-delete:hover {
+    background: var(--hover-danger-color);
+}
+
+.btn-cancel {
     background: var(--primary-color);
     color: var(--white-color);
-  }
-  
-  .btn-cancel:hover {
+}
+
+.btn-cancel:hover {
     background: var(--hover-button-blue);
-    transform: scale(1.03);
-  }
-  
-  /* === Responsivo === */
-  @media (max-width: 600px) {
-    .delete-buttons {
-      flex-direction: column;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
     }
+    
+    .main-content {
+        margin-left: 200px;
+    }
+}
+
+@media (max-width: 640px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .formulario {
+        padding: 30px 20px;
+        margin: 20px;
+        max-width: 100%;
+    }
+    
+    .formulario h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    #logout-button {
+        padding: 8px 12px;
+        font-size: 12px;
+        gap: 6px;
+    }
+    
+    #logout-button img {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .formulario {
+        padding: 25px 15px;
+    }
+    
+    .formulario h2 {
+        font-size: 22px;
+    }
+    
+    .header-login h1 {
+        font-size: 20px;
+    }
+    
+    .formulario button[type="submit"] {
+        padding: 12px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .header-section p {
+        font-size: 1rem;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 0;
+    }
+
+    .card {
+        padding: 30px;
+    }
+
+    .btn-access {
+        padding: 10px 30px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .botoes-json {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-importar-json {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .file-input-wrapper {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .button-baixar-json,
+    .button-enviar-json {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .titulo-previsao-main {
+        font-size: 28px;
+        margin-bottom: 30px;
+        padding: 30px 20px 0 20px;
+    }
+
+    .container-previsao {
+        min-height: auto;
+        padding: 20px;
+    }
+
+    .content-previsao {
+        max-width: 100%;
+    }
+
+    .chart-wrapper {
+        padding: 20px;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container-listagem {
+        padding: 1rem;
+    }
+
+    .grade-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .titulo-pagina {
+        font-size: 2rem;
+    }
+
+    .card-maquina:hover {
+        transform: translateY(-4px);
+    }
+}
+
+@media (max-width: 600px) {
+    .peca-group {
+        flex: 1 1 100%;
+    }
+    .peca-card,
+    .maquina-card {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 600px) {
+    .delete-buttons {
+        flex-direction: column;
+    }
+    
     .btn-delete,
     .btn-cancel {
-      width: 100%;
+        width: 100%;
     }
-  }
-
-
-/* USUÁRIOS */
-.user-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-  }
-  
-  .user-card {
-    position: relative;
-    background: var(--fundo-escuro);
-    width: 100%;
-    max-width: 600px;
-    padding: 35px;
-    border-radius: 15px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-  }
-  
-  .user-card .btn-back {
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    text-decoration: none;
-    color: var(--secundary-color);
-    font-weight: bold;
-    transition: 0.3s;
-  }
-  .user-card .btn-back:hover {
-    color: var(--white-color);
-    transform: translateX(-3px);
-  }
-  
-  .user-title {
-    text-align: center;
-    color: var(--primary-color);
-    font-size: 1.7rem;
-    margin-top: 40px;
-    margin-bottom: 20px;
-  }
-  
-  .user-subtitle {
-    text-align: center;
-    color: var(--secundary-color);
-    margin-bottom: 25px;
-  }
-  
-  .user-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .user-group {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .user-group.checkbox {
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .user-hint {
-    font-size: 0.8rem;
-    color: var(--secundary-color);
-    margin-top: 5px;
-  }
-  
-  input, select {
-    background: var(--cinza-color);
-    border: 2px solid transparent;
-    border-radius: 8px;
-    padding: 10px;
-    color: var(--white-color);
-    font-size: 1rem;
-    outline: none;
-    transition: 0.3s;
-  }
-  
-  input:focus, select:focus {
-    border-color: var(--primary-color);
-    background: var(--fundo-color);
-  }
-  
-  .user-submit {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background: var(--primary-color);
-    color: var(--white-color);
-    font-weight: bold;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  .user-submit:hover {
-    background: var(--hover-button-blue);
-    transform: scale(1.02);
-  }
-  
+}

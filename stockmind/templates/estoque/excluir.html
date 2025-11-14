@@ -5,7 +5,7 @@
 <div class="delete-container">
   <div class="delete-card">
 
-    <a href="javascript:history.back()" class="btn-back">← Voltar</a>
+    <a href="{% url 'home' %}" class="btn-back">← Voltar</a>
 
     <h1 class="delete-title">Confirmação de Exclusão</h1>
     <p class="delete-warning">
@@ -21,7 +21,7 @@
       {% csrf_token %}
       <div class="delete-buttons">
         <button type="submit" class="btn-delete">Deletar</button>
-        <a href="javascript:history.back()" class="btn-cancel">Cancelar</a>
+        <a href="{% url 'home' %}" class="btn-cancel">Cancelar</a>
       </div>
     </form>
   </div>
