@@ -57,26 +57,25 @@ document.addEventListener('DOMContentLoaded', function() {
         let icone = '';
         let corBorda = '';
 
-        if (mensagem.includes("abaixo do nível mínimo") || mensagem.includes("Compre imediatamente")) {
+        if (mensagem.includes("abaixo do mínimo") || mensagem.includes("abaixo do nível mínimo") || mensagem.includes("Compre imediatamente")) {
             classe = 'sugestao-critico';
-            icone = '⚠️';
-            corBorda = 'rgba(239, 68, 68, 0.3)';
-        } else if (mensagem.includes("nível mínimo") || mensagem.includes("nova compra logo") || mensagem.includes("atingir o nível mínimo")) {
+            icone = '🚨';
+        } 
+        else if (mensagem.includes("atingir o nível mínimo em aproximadamente")) {
             classe = 'sugestao-alerta';
-            icone = '🟡';
-            corBorda = 'rgba(234, 179, 8, 0.3)';
-        } else if (mensagem.includes("baixo consumo") || mensagem.includes("Evite")) {
-            classe = 'sugestao-info';
-            icone = '💤';
-            corBorda = 'rgba(59, 130, 246, 0.3)';
-        } else if (mensagem.includes("equilibrado")) {
+            icone = '⚠️';
+        }
+        else if (mensagem.includes("não deve atingir o nível mínimo") || mensagem.includes("seguro") || mensagem.includes("equilibrado")) {
             classe = 'sugestao-sucesso';
             icone = '✅';
-            corBorda = 'rgba(34, 197, 94, 0.3)';
-        } else {
-            classe = 'sugestao-neutro';
+        }
+        else if (mensagem.includes("baixo consumo") || mensagem.includes("Evite")) {
+            classe = 'sugestao-info';
             icone = 'ℹ️';
-            corBorda = 'rgba(107, 114, 128, 0.3)';
+        } 
+        else {
+            classe = 'sugestao-neutro';
+            icone = '⬤';
         }
 
         // Remove animação anterior
@@ -90,29 +89,29 @@ document.addEventListener('DOMContentLoaded', function() {
             // Define estilos de fundo e cor conforme a classe
             let estilos = {
                 'sugestao-critico': {
-                    background: 'rgba(239, 68, 68, 0.15)',
-                    color: '#fecaca',
-                    borderColor: 'rgba(239, 68, 68, 0.3)'
+                    background: 'rgba(220, 38, 38, 0.18)',   // vermelho forte
+                    color: '#fca5a5',
+                    borderColor: 'rgba(220, 38, 38, 0.5)'
                 },
                 'sugestao-alerta': {
-                    background: 'rgba(234, 179, 8, 0.15)',
-                    color: '#fde047',
-                    borderColor: 'rgba(234, 179, 8, 0.3)'
-                },
-                'sugestao-info': {
-                    background: 'rgba(59, 130, 246, 0.15)',
-                    color: '#bfdbfe',
-                    borderColor: 'rgba(59, 130, 246, 0.3)'
+                    background: 'rgba(234, 179, 8, 0.20)',    // amarelo
+                    color: '#fef3c7',
+                    borderColor: 'rgba(234, 179, 8, 0.6)'
                 },
                 'sugestao-sucesso': {
-                    background: 'rgba(34, 197, 94, 0.15)',
+                    background: 'rgba(34, 197, 94, 0.18)',    // verde forte
                     color: '#bbf7d0',
-                    borderColor: 'rgba(34, 197, 94, 0.3)'
+                    borderColor: 'rgba(34, 197, 94, 0.5)'
+                },
+                'sugestao-info': {
+                    background: 'rgba(59, 130, 246, 0.18)',   // azul
+                    color: '#bfdbfe',
+                    borderColor: 'rgba(59, 130, 246, 0.5)'
                 },
                 'sugestao-neutro': {
-                    background: 'rgba(107, 114, 128, 0.15)',
-                    color: '#d1d5db',
-                    borderColor: 'rgba(107, 114, 128, 0.3)'
+                    background: 'rgba(107, 114, 128, 0.20)',  // cinza neutro
+                    color: '#e5e7eb',
+                    borderColor: 'rgba(107, 114, 128, 0.5)'
                 }
             };
 

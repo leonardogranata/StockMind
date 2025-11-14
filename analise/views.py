@@ -38,7 +38,9 @@ def previsao(request):
 
     for item_nome in nomes_itens:
         previsao_df = prever_consumo(item_nome, dias=15)
-        if previsao_df is None or previsao_df.empty:
+        if previsao_df is None:
+            previsoes_todos_itens[item_nome] = []
+            sugestoes[item_nome] = "Este item não possui dados suficientes (mínimo 2 dias de consumo)."
             continue
 
         previsao_df['ds'] = pd.to_datetime(previsao_df['ds']).dt.strftime('%Y-%m-%d')
@@ -51,27 +53,56 @@ def previsao(request):
             item = Estoque.objects.get(nome=item_nome)
             estoque_atual = item.quantidade
             qtd_min = item.qtd_min
-            consumo_diario = previsao_df['yhat'].mean()
 
-            if consumo_diario > 0:
-                dias_restantes = (estoque_atual - qtd_min) / consumo_diario
-            else:
-                dias_restantes = float('inf')
+            # Se não há previsão válida
+            if previsao_df is None or previsao_df.empty:
+                sugestoes[item_nome] = (
+                    f"O item {item_nome} não possui dados suficientes (mínimo 2 dias de consumo)."
+                )
+                continue
+
+            previsoes_futuras = previsao_df['yhat'].tolist()
+
+            dias = 0
+            estoque_simulado = estoque_atual
+            atingiu_minimo = False
+
+            for consumo_dia in previsoes_futuras:
+                if consumo_dia < 0:
+                    consumo_dia = 0
+
+                estoque_simulado -= consumo_dia
+                dias += 1
+
+                if estoque_simulado <= qtd_min:
+                    atingiu_minimo = True
+                    break
+
+            # ---- Geração da sugestão ----
 
             if estoque_atual < qtd_min:
-                sugestao = f"O estoque de {item_nome} está abaixo do nível mínimo! Compre imediatamente."
+                sugestao = f"O estoque de {item_nome} está abaixo do mínimo! Compre imediatamente."
+
             elif estoque_atual == qtd_min:
-                sugestao = f"O estoque de {item_nome} está no nível mínimo. Considere fazer uma nova compra logo."
-            elif dias_restantes <= 5:
-                sugestao = f"O estoque de {item_nome} deve atingir o nível mínimo em cerca de {dias_restantes:.1f} dias. Considere fazer uma nova compra."
-            elif dias_restantes > 30:
-                sugestao = f"{item_nome} está com baixo consumo e grande estoque. Evite novas compras por enquanto."
+                sugestao = f"O estoque de {item_nome} está exatamente no mínimo! Avalie comprar logo."
+
+            elif atingiu_minimo:
+                sugestao = (
+                    f"O estoque de {item_nome} deve atingir o nível mínimo em aproximadamente "
+                    f"{dias} dias."
+                )
+
             else:
-                sugestao = f"O estoque de {item_nome} está equilibrado conforme o consumo previsto."
+                sugestao = (
+                    f"O estoque de {item_nome} não deve atingir o nível mínimo nos próximos "
+                    f"{dias} dias previstos. Estoque considerado seguro."
+                )
 
             sugestoes[item_nome] = sugestao
+
         except Exception as e:
-            sugestoes[item_nome] = f"Não foi possível gerar sugestão para {item_nome}."
+            sugestoes[item_nome] = f"Erro ao gerar sugestão para {item_nome}: {str(e)}"
+
 
     previsoes_json = json.dumps(previsoes_todos_itens)
     sugestoes_json = json.dumps(sugestoes)
