@@ -38,19 +38,19 @@
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-section">
             <a href="{% url 'home' %}" 
-            class="sidebar-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+            class="sidebar-item {% if request.resolver_match.url_name == 'home' or request.resolver_match.url_name == 'cadastroItem' or request.resolver_match.url_name == 'editarItem' or request.resolver_match.url_name == 'excluirItem' %}active{% endif %}">
                 <i class="icon"><img src="{% static 'media/img/icon-estoque.png' %}" alt="Icon de Estoque"></i>
                 <span class="text">Estoque</span>
             </a>
 
             <a href="{% url 'maquinas' %}"
-            class="sidebar-item {% if request.resolver_match.url_name == 'maquinas' %}active{% endif %}">
+            class="sidebar-item {% if request.resolver_match.url_name == 'maquinas' or request.resolver_match.url_name == 'cadastro_maquina' or request.resolver_match.url_name == 'editar_maquina' or request.resolver_match.url_name == 'excluir_maquina' %}active{% endif %}">
                 <i class="icon"><img src="{% static 'media/img/icon-maquinas.png' %}" alt="Icon de Estoque"></i>
                 <span class="text">Máquinas</span>
             </a>
 
             <a href="{% url 'dashboard' %}" 
-            class="sidebar-item {% if request.resolver_match.url_name == 'dashboard'  %}active{% endif %}">
+            class="sidebar-item {% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'previsao' or request.resolver_match.url_name == 'mais_usados' %}active{% endif %}">
                 <i class="icon"><img src="{% static 'media/img/icon-dashboard.png' %}" alt="Icon de Dashboard"></i>
                 <span class="text">Dashboard</span>
             </a>
@@ -66,7 +66,7 @@
                     <span class="text">Auditoria</span>
                 </a>
                 <a href="{% url 'listar' %}" 
-                class="sidebar-item {% if request.resolver_match.url_name == 'listar' %}active{% endif %}">
+                class="sidebar-item {% if request.resolver_match.url_name == 'listar' or request.resolver_match.url_name == 'cadastro' or request.resolver_match.url_name == 'editar' or request.resolver_match.url_name == 'excluir' %}active{% endif %}">
                     <i class="icon"><img src="{% static 'media/img/icon-usuarios.png' %}" alt="Icon de Usuário"></i>
                     <span class="text">Usuários</span>
                 </a>
