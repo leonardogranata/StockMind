@@ -1,10 +1,7 @@
-<!-- lista_maquinas.html -->
 {% extends "base.html" %}
 {% load static %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/maquina_lista.css' %}">
-{% endblock %}
+{% block title %}StockMind - Máquinas{% endblock title %}
 
 {% block content %}
 <div class="container-listagem">
@@ -22,64 +19,64 @@
     </div>
 
     {% if maquinas %}
-    <div class="grade-cards">
-        {% for maquina in maquinas %}
-        <div class="card-maquina">
-            <div class="cabecalho-card">
-                <div class="codigo-card">{{ maquina.codigo }}</div>
-                <div class="badge-status status-{{ maquina.status|lower|cut:' ' }}">
-                    {% if maquina.status == "Ativa" %}
-                        ✓ Ativa
-                    {% elif maquina.status == "Em manutenção" %}
-                        ⚙ Manutenção
-                    {% else %}
-                        ✕ Inativa
-                    {% endif %}
+        <div class="grade-cards">
+            {% for maquina in maquinas %}
+                <div class="card-maquina">
+                    <div class="cabecalho-card">
+                        <div class="codigo-card">{{ maquina.codigo }}</div>
+                        <div class="badge-status status-{{ maquina.status|lower|cut:' ' }}">
+                            {% if maquina.status == "Ativa" %}
+                                ✓ Ativa
+                            {% elif maquina.status == "Em manutenção" %}
+                                ⚙ Manutenção
+                            {% else %}
+                                ✕ Inativa
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="corpo-card">
+                        <h3 class="titulo-card">{{ maquina.nome }}</h3>
+                        
+                        {% if maquina.descricao %}
+                        <p class="descricao-card">{{ maquina.descricao|truncatewords:15 }}</p>
+                        {% endif %}
+
+                        <div class="informacoes-card">
+                            {% if maquina.localizacao %}
+                            <div class="item-info">
+                                <span class="icone-info">📍</span>
+                                <span class="texto-info">{{ maquina.localizacao }}</span>
+                            </div>
+                            {% endif %}
+
+                            {% if maquina.data_aquisicao %}
+                            <div class="item-info">
+                                <span class="icone-info">📅</span>
+                                <span class="texto-info">{{ maquina.data_aquisicao|date:"d/m/Y" }}</span>
+                            </div>
+                            {% endif %}
+
+                            {% if maquina.pecas.count > 0 %}
+                            <div class="item-info">
+                                <span class="icone-info">🔧</span>
+                                <span class="texto-info">{{ maquina.pecas.count }} peça{{ maquina.pecas.count|pluralize:"s" }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="acoes-card">
+                        <a href="{% url 'editar_maquina' maquina.id %}" class="botao-acao botao-editar">
+                            Editar
+                        </a>
+                        <a href="{% url 'excluir_maquina' maquina.id %}" class="botao-acao botao-deletar">  
+                            Deletar
+                        </a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="corpo-card">
-                <h3 class="titulo-card">{{ maquina.nome }}</h3>
-                
-                {% if maquina.descricao %}
-                <p class="descricao-card">{{ maquina.descricao|truncatewords:15 }}</p>
-                {% endif %}
-
-                <div class="informacoes-card">
-                    {% if maquina.localizacao %}
-                    <div class="item-info">
-                        <span class="icone-info">📍</span>
-                        <span class="texto-info">{{ maquina.localizacao }}</span>
-                    </div>
-                    {% endif %}
-
-                    {% if maquina.data_aquisicao %}
-                    <div class="item-info">
-                        <span class="icone-info">📅</span>
-                        <span class="texto-info">{{ maquina.data_aquisicao|date:"d/m/Y" }}</span>
-                    </div>
-                    {% endif %}
-
-                    {% if maquina.pecas.count > 0 %}
-                    <div class="item-info">
-                        <span class="icone-info">🔧</span>
-                        <span class="texto-info">{{ maquina.pecas.count }} peça{{ maquina.pecas.count|pluralize:"s" }}</span>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="acoes-card">
-                <a href="{% url 'editar_maquina' maquina.id %}" class="botao-acao botao-editar">
-                    Editar
-                </a>
-                <a href="{% url 'excluir_maquina' maquina.id %}" class="botao-acao botao-deletar">  
-                    Deletar
-                </a>
-            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
     {% else %}
     <div class="estado-vazio">
         <div class="icone-vazio">🏭</div>
