@@ -341,7 +341,7 @@ body {
     align-items: center;
     gap: 8px;
     padding: 10px 16px;
-    background-color: #dc3545;
+    background-color: var(--danger-color);
     border: none;
     border-radius: 8px;
     color: var(--white-color);
@@ -356,7 +356,7 @@ body {
 }
 
 #logout-button:hover {
-    background-color: #c82333;
+    background-color: var(--hover-danger-color);
 }
 
 #logout-button img {
