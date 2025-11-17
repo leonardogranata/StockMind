@@ -36,7 +36,9 @@
                     </div>
 
                     <div class="corpo-card">
-                        <h3 class="titulo-card">{{ maquina.nome }}</h3>
+                        <a href="{% url 'detalhes_maquina' maquina.id %}" class="titulo-card link-detalhe">
+                            {{ maquina.nome }}
+                        </a>
                         
                         {% if maquina.descricao %}
                         <p class="descricao-card">{{ maquina.descricao|truncatewords:15 }}</p>

@@ -2615,3 +2615,158 @@ input:focus, select:focus {
     border-color: #7289da;
     background: #1f2124;
 }
+
+/* === PÁGINA DE DETALHES DA MÁQUINA === */
+
+.pagina-detalhe-maquina {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px 30px;
+    background: var(--fundo-escuro);
+    border-radius: 18px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    color: var(--white-color);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* TOPÃO */
+.cabecalho-detalhe {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.cabecalho-detalhe h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.cabecalho-detalhe .codigo {
+    margin-top: 6px;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* STATUS BONITÃO */
+.status {
+    margin-top: 15px;
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.status-ativa {
+    background: rgba(67, 214, 111, 0.2);
+    color: #41e981;
+    border: 1px solid #41e981;
+}
+
+.status-emmanutenção {
+    background: rgba(240, 200, 60, 0.2);
+    color: #e5c143;
+    border: 1px solid #e5c143;
+}
+
+.status-inativa {
+    background: rgba(235, 80, 80, 0.2);
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+}
+
+/* BLOCO DE INFO */
+.conteudo-info {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.bloco {
+    background: var(--fundo-color);
+    padding: 18px 22px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.bloco:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+.bloco h2 {
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+}
+
+/* LISTA DE PEÇAS */
+.lista-pecas {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lista-pecas li {
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 1.05rem;
+}
+
+.lista-pecas li:last-child {
+    border-bottom: none;
+}
+
+/* BOTÕES FINAIS */
+.acoes-final {
+    margin-top: 35px;
+    display: flex;
+    gap: 15px;
+}
+
+.acoes-final a {
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.botao-editar {
+    background: var(--primary-color);
+    color: white;
+    transition: 0.2s;
+}
+
+.botao-editar:hover {
+    background: #5b74d4;
+}
+
+.botao-voltar {
+    background: var(--cinza-color);
+    color: #fff;
+    transition: 0.2s;
+}
+
+.botao-voltar:hover {
+    background: #4b4d50;
+}
+
+/* LINK DO NOME NA LISTA DE MÁQUINAS */
+.link-detalhe {
+    text-decoration: none;
+    color: var(--white-color);
+    transition: 0.2s;
+}
+
+.link-detalhe:hover {
+    color: var(--primary-color);
+}

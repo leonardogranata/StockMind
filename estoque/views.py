@@ -274,3 +274,8 @@ def excluir_estoque(request, pk):
         return redirect('home')
 
     return render(request, 'estoque/excluir.html', {'estoque': item})
+
+
+def detalhes_maquina(request, id):
+    maquina = get_object_or_404(Maquina, id=id)
+    return render(request, 'estoque/detalhes_maquina.html', {'maquina': maquina})

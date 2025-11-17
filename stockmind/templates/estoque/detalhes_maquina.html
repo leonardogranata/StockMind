@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Detalhes da Máquina{% endblock %}
+
+{% block content %}
+<div class="pagina-detalhe-maquina">
+
+    <div class="cabecalho-detalhe">
+        <h1>{{ maquina.nome }}</h1>
+        <p class="codigo">Código: {{ maquina.codigo }}</p>
+
+        <span class="status badge-status status-{{ maquina.status|lower|cut:' ' }}">
+            {% if maquina.status == "Ativa" %}
+                ✓ Ativa
+            {% elif maquina.status == "Em manutenção" %}
+                ⚙ Em manutenção
+            {% else %}
+                ✕ Inativa
+            {% endif %}
+        </span>
+    </div>
+
+    <div class="conteudo-info">
+        <div class="bloco">
+            <h2>Descrição</h2>
+            <p>{{ maquina.descricao|default:"Não informada" }}</p>
+        </div>
+
+        <div class="bloco">
+            <h2>Localização</h2>
+            <p>{{ maquina.localizacao|default:"Não informada" }}</p>
+        </div>
+
+        <div class="bloco">
+            <h2>Data de Aquisição</h2>
+            <p>
+                {% if maquina.data_aquisicao %}
+                    {{ maquina.data_aquisicao|date:"d/m/Y" }}
+                {% else %}
+                    Não informada
+                {% endif %}
+            </p>
+        </div>
+
+        <div class="bloco">
+            <h2>Peças Associadas</h2>
+            {% if maquina.pecas.count > 0 %}
+                <ul class="lista-pecas">
+                    {% for peca in maquina.pecas.all %}
+                    <li>{{ peca.nome }} ({{ peca.codigo }})</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nenhuma peça vinculada.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="acoes-final">
+        <a href="{% url 'editar_maquina' maquina.id %}" class="botao-editar">Editar</a>
+        <a href="{% url 'maquinas' %}" class="botao-voltar">Voltar</a>
+    </div>
+
+</div>
+{% endblock %}
