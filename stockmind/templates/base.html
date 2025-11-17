@@ -50,7 +50,7 @@
             </a>
 
             <a href="{% url 'dashboard' %}" 
-            class="sidebar-item {% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'previsao' or request.resolver_match.url_name == 'mais_usados' %}active{% endif %}">
+            class="sidebar-item {% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'previsao' or request.resolver_match.url_name == 'mais_usados' or request.resolver_match.url_name == 'dashboard_maquinas' %}active{% endif %}">
                 <i class="icon"><img src="{% static 'media/img/icon-dashboard.png' %}" alt="Icon de Dashboard"></i>
                 <span class="text">Dashboard</span>
             </a>

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}StockMind - Dashboard Máquinas{% endblock title %}
+
+{% block content %}
+
+<h1 class="titulo-pagina">Número de peças por máquina</h1>
+<p class="subtitulo-pagina">Explore suas análises de estoque em detalhes</p>
+
+<div class="dashboard-container-maquinas">
+
+    <div class="linha-maquinas"></div>
+
+    <div class="dropdown-area">
+
+        <button class="dropdown-btn" id="dropdownToggle">
+            Selecionar máquinas ▾
+        </button>
+
+        <div class="dropdown-content" id="dropdownContent">
+            {% for m in dados %}
+                <label class="checkbox-item">
+                    <input type="checkbox" class="check-maquina" value="{{ m.nome }}">
+                    {{ m.nome }}
+                </label>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <canvas id="grafico_pecas"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const dados = {{ dados|safe }};
+    const ctx = document.getElementById('grafico_pecas');
+
+    let chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Número de Peças',
+                data: [],
+                borderWidth: 1,
+                backgroundColor: ['#7289da', '#87c8e0', '#5f79ff', '#9bb0ff']
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // dropdown
+    const toggle = document.getElementById("dropdownToggle");
+    const content = document.getElementById("dropdownContent");
+
+    toggle.addEventListener("click", () => {
+        content.classList.toggle("show-dropdown");
+    });
+
+    // Atualiza o gráfico ao marcar/desmarcar
+    const checkboxes = document.querySelectorAll(".check-maquina");
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener("change", () => {
+            const selecionadas = Array.from(checkboxes)
+                .filter(c => c.checked)
+                .map(c => c.value);
+
+            const filtrado = dados.filter(d => selecionadas.includes(d.nome));
+
+            chart.data.labels = filtrado.map(f => f.nome);
+            chart.data.datasets[0].data = filtrado.map(f => f.pecas);
+
+            chart.update();
+        });
+    });
+</script>
+
+{% endblock content %}

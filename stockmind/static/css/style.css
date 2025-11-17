@@ -1405,6 +1405,21 @@ table td {
     background: var(--hover-button-yellow);
 }
 
+.card-maquinas {
+    animation-delay: 0.3s;
+    grid-column: 1 / -1;
+    margin-top: 2vh;
+}
+
+.btn-maquinas {
+    background: #87c8e0;
+    color: #2C2F33;
+}
+
+.btn-maquinas:hover {
+    background: #6bb2c9;
+}
+
 /* CADASTRO MÁQUINAS */
 .maquina-container {
     display: flex;
@@ -2462,4 +2477,141 @@ input:focus, select:focus {
     .btn-cancel {
         width: 100%;
     }
+}
+
+/* Dashboard máquinas */
+
+.dashboard-container-maquinas {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #2C2F33;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.25);
+}
+
+.dashboard-container-maquinas h2 {
+    margin-top: 0;
+    font-size: 22px;
+    color: #7289da;
+    text-align: center;
+}
+
+.linha-maquinas {
+    height: 1px;
+    width: 100%;
+    background: #393C40;
+    margin: 15px 0 25px;
+}
+
+.filtro-area-maquinas {
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filtro-area-maquinas label {
+    font-size: 1rem;
+    color: #b8bcc4;
+}
+
+.filtro-area-maquinas select {
+    background: #2C2F33;
+    border: 1px solid #393C40;
+    padding: 8px 10px;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.filtro-area-maquinas select:hover {
+    border-color: #7289da;
+}
+
+.checkbox-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding: 10px 0;
+}
+
+.checkbox-item {
+    background: #2C2F33;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #393C40;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+    color: #fff;
+    user-select: none;
+    transition: 0.2s;
+}
+
+.checkbox-item:hover {
+    border-color: #7289da;
+}
+
+.checkbox-item input {
+    cursor: pointer;
+}
+
+.dropdown-area {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
+.dropdown-btn {
+    background: #2C2F33;
+    border: 1px solid #393C40;
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+
+.dropdown-btn:hover {
+    border-color: #7289da;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: #2C2F33;
+    border: 1px solid #393C40;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 8px;
+    width: 230px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.dropdown-content.show-dropdown {
+    display: block;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    border: 1px solid transparent;
+}
+
+.checkbox-item:hover {
+    border-color: #7289da;
+    background: #1f2124;
 }

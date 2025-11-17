@@ -33,6 +33,18 @@
                 </button>
             </div>
         </div>
+        <div class="cards-grid">
+            <div class="card card-maquinas">
+                <div class="icon-wrapper">
+                    <img src="{% static 'media/img/icon-pecaMaquinas.png' %}" alt="Ícone de máquinas">
+                </div>
+                <h2>Peças por Máquina</h2>
+                <p>Visualize quantas peças cada máquina possui e obtenha uma visão clara da distribuição.</p>
+                <button class="btn-access btn-maquinas" onclick="window.location.href='{% url 'dashboard_maquinas' %}'">
+                    Ver Gráfico
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

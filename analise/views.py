@@ -4,7 +4,9 @@ from django.shortcuts import render
 from estoque.models import Estoque
 from analise.ia import prever_consumo 
 from django.db.models import Sum
-from .models import Consumo  
+from .models import Consumo
+from estoque.models import Maquina
+from django.contrib.auth.decorators import login_required
 
 def dashboard(request):
     return render(request, 'analise/dashboard.html')
@@ -114,3 +116,20 @@ def previsao(request):
     }
 
     return render(request, 'analise/previsao.html', context)
+
+@login_required
+def dashboard_maquinas(request):
+    maquinas = Maquina.objects.all()
+
+    dados = [
+        {
+            "nome": m.nome,
+            "pecas": m.pecas.count()
+        }
+        for m in maquinas
+    ]
+
+    context = {
+        "dados": dados
+    }
+    return render(request, "analise/dashboard_maquinas.html", context)
