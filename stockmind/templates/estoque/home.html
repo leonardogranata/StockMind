@@ -146,4 +146,15 @@
     });
 </script>
 
+<script>
+    const input = document.getElementById('arquivo-json');
+    const text = document.querySelector('.file-text');
+
+    input.addEventListener('change', function () {
+        text.textContent = this.files.length > 0
+            ? this.files[0].name
+            : "Selecione um arquivo JSON";
+    });
+</script>
+
 {% endblock content %}
