@@ -20,7 +20,6 @@ def estoque_auditoria(sender, instance, created, **kwargs):
     )
 
     Auditoria.objects.create(
-        usuario=getattr(instance, 'usuario_logado', None),
         tabela='Estoque',
         acao=acao,
         registro_id=instance.id,
@@ -36,7 +35,6 @@ def estoque_auditoria_delete(sender, instance, **kwargs):
     )
 
     Auditoria.objects.create(
-        usuario=getattr(instance, 'usuario_logado', None),
         tabela='Estoque',
         acao='DELETE',
         registro_id=instance.id,

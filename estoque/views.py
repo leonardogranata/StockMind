@@ -168,7 +168,6 @@ def cadastrarMaquina(request):
         )
 
         Auditoria.objects.create(
-            usuario=request.user,
             tabela='Maquina',
             acao='INSERT',
             registro_id=maquina.id,
@@ -205,7 +204,6 @@ def editar_maquina(request, id):
             else:
                 nova_maquina.pecas.clear()
             Auditoria.objects.create(
-                usuario=request.user,
                 tabela='Maquina',
                 acao='UPDATE',
                 registro_id=maquina.id,
@@ -236,7 +234,6 @@ def excluir_maquina(request, id):
     if request.method == 'POST':
         
         Auditoria.objects.create(
-            usuario=request.user,
             tabela='Maquina',
             acao='DELETE',
             registro_id=maquina.id,
@@ -264,7 +261,6 @@ def excluir_estoque(request, pk):
             m.pecas.remove(item)
 
         Auditoria.objects.create(
-            usuario=request.user,
             tabela='Estoque',
             acao='DELETE',
             registro_id=item.id,
