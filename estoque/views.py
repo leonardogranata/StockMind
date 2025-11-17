@@ -33,14 +33,6 @@ def cadastroItem(request):
             item = form.save(commit=False)
             item.usuario_logado = request.user  # para auditoria
             item.save()
-
-            Auditoria.objects.create(
-                usuario=request.user,
-                tabela='Estoque',
-                acao='INSERT',
-                registro_id=item.id,
-                descricao=f"Item cadastrado: {item.nome}"
-            )
             return redirect('home')
     else:
         form = EstoqueForm()
@@ -75,15 +67,6 @@ def editarItem(request, pk):
                         usuario=request.user
                     )
 
-            # auditoria: usar UPDATE quando for edição
-            Auditoria.objects.create(
-                usuario=request.user,
-                tabela='Estoque',
-                acao='UPDATE',
-                registro_id=novo_item.id,
-                descricao=f"Item atualizado: {novo_item.nome}"
-            )
-
             return redirect('home')
         else:
             # debug: imprime erros no console do servidor para tu ver
@@ -103,14 +86,8 @@ def excluirItem(request, pk):
     estoque = get_object_or_404(Estoque, pk=pk)
     item = get_object_or_404(Estoque, pk=pk)
     if request.method == 'POST':
-        estoque.usuario_logado = request.user  # para auditoria
-        Auditoria.objects.create(
-                usuario=request.user,
-                tabela='Estoque',
-                acao='DELETE',
-                registro_id=item.id,
-                descricao=f"Item deletado: {item.nome}"
-            )
+        estoque.usuario_logado = request.user
+       
         estoque.delete()
         return redirect('home')
     return render(request, 'estoque/excluir.html', {'estoque': estoque, 'item': item})
@@ -190,6 +167,20 @@ def cadastrarMaquina(request):
             status=status
         )
 
+        Auditoria.objects.create(
+            usuario=request.user,
+            tabela='Maquina',
+            acao='INSERT',
+            registro_id=maquina.id,
+            descricao=(
+                f"Máquina criada com sucesso.\n"
+                f"Nome: {maquina.nome}\n"
+                f"Código: {maquina.codigo}\n"
+                f"Localização: {maquina.localizacao or 'Não informado'}\n"
+                f"Status: {maquina.status}"
+            )
+        )
+
         if pecas_ids:
             maquina.pecas.set(pecas_ids)
         return redirect('maquinas')
@@ -213,16 +204,20 @@ def editar_maquina(request, id):
                 nova_maquina.pecas.set(pecas_ids)
             else:
                 nova_maquina.pecas.clear()
-
-            # Auditoria opcional, se você quiser registrar edição
             Auditoria.objects.create(
                 usuario=request.user,
                 tabela='Maquina',
                 acao='UPDATE',
-                registro_id=nova_maquina.id,
-                descricao=f"Máquina atualizada: {nova_maquina.nome}"
+                registro_id=maquina.id,
+                descricao=(
+                    f"Máquina atualizada com novos dados.\n"
+                    f"Nome: {maquina.nome}\n"
+                    f"Código: {maquina.codigo}\n"
+                    f"Localização: {maquina.localizacao or 'Não informado'}\n"
+                    f"Status: {maquina.status}"
+                )
             )
-
+                    
             return redirect('maquinas')
     else:
         form = MaquinaForm(instance=maquina)
@@ -239,13 +234,18 @@ def excluir_maquina(request, id):
     maquina = get_object_or_404(Maquina, id=id)
 
     if request.method == 'POST':
-        # Auditoria antes de deletar
+        
         Auditoria.objects.create(
             usuario=request.user,
             tabela='Maquina',
             acao='DELETE',
             registro_id=maquina.id,
-            descricao=f"Máquina deletada: {maquina.nome}"
+            descricao=(
+                f"Máquina removida.\n"
+                f"Nome: {maquina.nome}\n"
+                f"Código: {maquina.codigo}\n"
+                f"Status anterior: {maquina.status}"
+            )
         )
         maquina.delete()
         return redirect('maquinas')

@@ -3,11 +3,22 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from .models import Estoque, Auditoria
 
-# Auditoria para Estoque
 @receiver(post_save, sender=Estoque)
 def estoque_auditoria(sender, instance, created, **kwargs):
     acao = 'INSERT' if created else 'UPDATE'
-    descricao = f"Codigo: {instance.codigo}, Nome: {instance.nome}, Quantidade: {instance.quantidade}, Marca: {instance.marca}, Fornecedor: {instance.fornecedor}, Preço: {instance.preco}, Qtd_min: {instance.qtd_min}, Qtd_max: {instance.qtd_max}"
+
+    descricao = (
+        f"Item {'criado' if created else 'atualizado'}.\n"
+        f"Código: {instance.codigo}\n"
+        f"Nome: {instance.nome}\n"
+        f"Quantidade: {instance.quantidade}\n"
+        f"Marca: {instance.marca}\n"
+        f"Fornecedor: {instance.fornecedor}\n"
+        f"Preço: {instance.preco}\n"
+        f"Qtd Mínima: {instance.qtd_min}\n"
+        f"Qtd Máxima: {instance.qtd_max}"
+    )
+
     Auditoria.objects.create(
         usuario=getattr(instance, 'usuario_logado', None),
         tabela='Estoque',
@@ -18,7 +29,12 @@ def estoque_auditoria(sender, instance, created, **kwargs):
 
 @receiver(post_delete, sender=Estoque)
 def estoque_auditoria_delete(sender, instance, **kwargs):
-    descricao = f"Item deletado: Codigo: {instance.codigo}, Nome: {instance.nome}"
+    descricao = (
+        "Item deletado.\n"
+        f"Código: {instance.codigo}\n"
+        f"Nome: {instance.nome}"
+    )
+
     Auditoria.objects.create(
         usuario=getattr(instance, 'usuario_logado', None),
         tabela='Estoque',
