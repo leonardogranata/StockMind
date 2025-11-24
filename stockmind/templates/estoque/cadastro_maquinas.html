@@ -3,21 +3,22 @@
 {% block title %}StockMind - Cadastro de Máquina{% endblock title %}
 {% block content %}
 
-
 <div class="maquina-container">
     <div class="maquina-card">
       <a href="{% url 'maquinas' %}" class="btn-back">← Voltar para lista</a>
-  
+
       <h1 class="maquina-title">Cadastrar Nova Máquina</h1>
       <p class="maquina-subtitle">Preencha os dados para adicionar uma máquina ao sistema</p>
-  
+
       <form method="POST" class="maquina-form">
         {% csrf_token %}
+
       <div class="maquina-grid">
         <div class="maquina-group">
           <label class="maquina-label">Código</label>
-          <input type="text" name="codigo" class="maquina-input" required placeholder="Ex: MQ-001">
+          <input type="text" name="codigo" maxlength="25" class="maquina-input" required placeholder="Ex: MQ-001">
         </div>
+
         <div class="maquina-group">
           <label class="maquina-label">Data de Aquisição</label>
           <input type="date" name="data_aquisicao" class="maquina-input">
@@ -26,7 +27,7 @@
 
       <div class="maquina-group">
         <label class="maquina-label">Nome da Máquina</label>
-        <input type="text" name="nome" class="maquina-input" required placeholder="Ex: Torno CNC Modelo X">
+        <input type="text" name="nome" maxlength="25" class="maquina-input" required placeholder="Ex: Torno CNC">
       </div>
 
       <div class="maquina-group full">
@@ -37,8 +38,9 @@
       <div class="maquina-grid">
         <div class="maquina-group">
           <label class="maquina-label">Localização</label>
-          <input type="text" name="localizacao" class="maquina-input" placeholder="Ex: Galpão A - Setor 3">
+          <input type="text" name="localizacao" maxlength="25" class="maquina-input" placeholder="Ex: Setor 3">
         </div>
+
         <div class="maquina-group">
           <label class="maquina-label">Status</label>
           <select name="status" class="maquina-select">
@@ -56,7 +58,7 @@
           <div class="maquina-options-list" id="maquina-options-list">
             {% for peca in pecas %}
               <label class="maquina-option-item">
-                <input type="checkbox" name="pecas" value="{{ peca.id }}" {% if peca in maquina.pecas.all %}checked{% endif %}>
+                <input type="checkbox" name="pecas" value="{{ peca.id }}">
                 {{ peca.nome }}
               </label>
             {% endfor %}

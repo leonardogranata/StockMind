@@ -11,6 +11,7 @@ import json
 from django.http import JsonResponse, HttpResponse
 from decimal import Decimal
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 # CRUD
@@ -119,28 +120,44 @@ def exportar_json(request):
 def importar_json(request):
     if request.method == 'POST' and request.FILES.get('arquivo'):
         arquivo = request.FILES['arquivo']
-        dados = json.load(arquivo)
 
-        for item in dados:
-            item_id = item.pop('id', None)  # pega o ID e remove do dict
+        # Verifica extensão
+        if not arquivo.name.lower().endswith('.json'):
+            messages.error(request, 'Arquivo inválido. Envie um arquivo .json, criatura.')
+            return redirect('home')
 
-            # converte float/str para Decimal nos campos numéricos
-            for campo in ['preco', 'qtd_min', 'qtd_max', 'quantidade']:
-                if campo in item:
-                    try:
+        # Tenta carregar o JSON
+        try:
+            dados = json.load(arquivo)
+        except Exception:
+            messages.error(request, 'Há um erro na estrutura do arquivo.')
+            return redirect('home')
+
+        # Processamento dos itens
+        try:
+            for item in dados:
+                item_id = item.pop('id', None)
+
+                # Converte campos numéricos
+                for campo in ['preco', 'qtd_min', 'qtd_max', 'quantidade']:
+                    if campo in item:
                         item[campo] = Decimal(str(item[campo]))
-                    except:
-                        pass
 
-            # se já existir, atualiza; senão, cria
-            if item_id and Estoque.objects.filter(id=item_id).exists():
-                Estoque.objects.filter(id=item_id).update(**item)
-            else:
-                Estoque.objects.create(**item)
+                # Atualiza ou cria
+                if item_id and Estoque.objects.filter(id=item_id).exists():
+                    Estoque.objects.filter(id=item_id).update(**item)
+                else:
+                    Estoque.objects.create(**item)
+
+        except Exception:
+            messages.error(request, 'Há um erro na estrutura do arquivo.')
+            return redirect('home')
+
+        # Sucesso
+        messages.success(request, 'Arquivo importado com sucesso.')
+        return redirect('home')
 
     return redirect('home')
-
-
 
 # --- MÁQUINAS ---
 @login_required

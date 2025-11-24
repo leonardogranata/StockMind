@@ -16,29 +16,42 @@
       <div class="maquina-grid">
         <div class="maquina-group">
           <label class="maquina-label">Código</label>
-          <input type="text" name="codigo" class="maquina-input" required value="{{ maquina.codigo }}">
+          <input type="text" name="codigo" class="maquina-input"
+                 required maxlength="25"
+                 placeholder="Ex: MQ-001"
+                 value="{{ maquina.codigo }}">
         </div>
 
         <div class="maquina-group">
           <label class="maquina-label">Data de Aquisição</label>
-          <input type="date" name="data_aquisicao" class="maquina-input" value="{{ maquina.data_aquisicao|date:'Y-m-d' }}">
+          <input type="date" name="data_aquisicao" class="maquina-input"
+                 value="{{ maquina.data_aquisicao|date:'Y-m-d' }}">
         </div>
       </div>
 
       <div class="maquina-group">
         <label class="maquina-label">Nome da Máquina</label>
-        <input type="text" name="nome" class="maquina-input" required value="{{ maquina.nome }}">
+        <input type="text" name="nome" class="maquina-input"
+               required maxlength="25"
+               placeholder="Ex: Torno CNC"
+               value="{{ maquina.nome }}">
       </div>
 
       <div class="maquina-group full">
         <label class="maquina-label">Descrição</label>
-        <textarea name="descricao" class="maquina-textarea">{{ maquina.descricao }}</textarea>
+        <textarea name="descricao" class="maquina-textarea"
+                  placeholder="Digite uma descrição">
+          {{ maquina.descricao }}
+        </textarea>
       </div>
 
       <div class="maquina-grid">
         <div class="maquina-group">
           <label class="maquina-label">Localização</label>
-          <input type="text" name="localizacao" class="maquina-input" value="{{ maquina.localizacao }}">
+          <input type="text" name="localizacao" class="maquina-input"
+                 maxlength="25"
+                 placeholder="Ex: Setor 3"
+                 value="{{ maquina.localizacao }}">
         </div>
 
         <div class="maquina-group">
@@ -58,7 +71,8 @@
           <div class="maquina-options-list" id="maquina-options-list">
             {% for peca in pecas %}
               <label class="maquina-option-item">
-                <input type="checkbox" name="pecas" value="{{ peca.id }}" {% if peca in maquina.pecas.all %}checked{% endif %}>
+                <input type="checkbox" name="pecas" value="{{ peca.id }}"
+                       {% if peca in maquina.pecas.all %}checked{% endif %}>
                 {{ peca.nome }}
               </label>
             {% endfor %}
