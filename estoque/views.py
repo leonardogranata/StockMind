@@ -210,34 +210,40 @@ def editar_maquina(request, id):
 
     if request.method == 'POST':
         form = MaquinaForm(request.POST, instance=maquina)
+
         if form.is_valid():
             nova_maquina = form.save(commit=False)
             nova_maquina.save()
-            
-            # Atualiza o relacionamento com as peças, se enviado
+
+            # SET DAS PEÇAS — ESSENCIAL
             pecas_ids = request.POST.getlist('pecas')
+
             if pecas_ids:
                 nova_maquina.pecas.set(pecas_ids)
             else:
                 nova_maquina.pecas.clear()
+
+            # AUDITORIA COM DADOS NOVOS
             Auditoria.objects.create(
                 tabela='Maquina',
                 acao='UPDATE',
-                registro_id=maquina.id,
+                registro_id=nova_maquina.id,
                 descricao=(
-                    f"Máquina atualizada com novos dados.\n"
-                    f"Nome: {maquina.nome}\n"
-                    f"Código: {maquina.codigo}\n"
-                    f"Localização: {maquina.localizacao or 'Não informado'}\n"
-                    f"Status: {maquina.status}"
+                    f"Máquina atualizada.\n"
+                    f"Nome: {nova_maquina.nome}\n"
+                    f"Código: {nova_maquina.codigo}\n"
+                    f"Localização: {nova_maquina.localizacao or 'Não informado'}\n"
+                    f"Status: {nova_maquina.status}"
                 )
             )
-                    
+
             return redirect('maquinas')
+
     else:
         form = MaquinaForm(instance=maquina)
 
     pecas = Estoque.objects.all()
+
     return render(request, 'estoque/editar_maquina.html', {
         'form': form,
         'maquina': maquina,

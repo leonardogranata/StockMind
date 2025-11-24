@@ -17,7 +17,7 @@
         <div class="maquina-group">
           <label class="maquina-label">Código</label>
           <input type="text" name="codigo" class="maquina-input"
-                 required maxlength="25"
+                 required maxlength="20"
                  placeholder="Ex: MQ-001"
                  value="{{ maquina.codigo }}">
         </div>
@@ -32,7 +32,7 @@
       <div class="maquina-group">
         <label class="maquina-label">Nome da Máquina</label>
         <input type="text" name="nome" class="maquina-input"
-               required maxlength="25"
+               required maxlength="40"
                placeholder="Ex: Torno CNC"
                value="{{ maquina.nome }}">
       </div>
@@ -49,7 +49,7 @@
         <div class="maquina-group">
           <label class="maquina-label">Localização</label>
           <input type="text" name="localizacao" class="maquina-input"
-                 maxlength="25"
+                 maxlength="0"
                  placeholder="Ex: Setor 3"
                  value="{{ maquina.localizacao }}">
         </div>

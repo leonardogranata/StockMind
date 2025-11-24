@@ -8,7 +8,7 @@ class EstoqueForm(forms.ModelForm):
         widgets = {
             "codigo": forms.TextInput(attrs={"placeholder": "Digite o código", "maxlength": "25"}),
             "nome": forms.TextInput(attrs={"placeholder": "Digite o nome", "maxlength": "25"}),
-            "descricao": forms.TextInput(attrs={"placeholder": "Descrição", "maxlength": "25"}),
+            "descricao": forms.TextInput(attrs={"placeholder": "Descrição"}),
             "marca": forms.TextInput(attrs={"placeholder": "Digite a marca", "maxlength": "15"}),
             "fornecedor": forms.TextInput(attrs={"placeholder": "Digite o fornecedor", "maxlength": "15"}),
             "quantidade": forms.NumberInput(attrs={"placeholder": "Digite a quantidade"}),
@@ -20,12 +20,6 @@ class EstoqueForm(forms.ModelForm):
 class MaquinaForm(forms.ModelForm):
     class Meta:
         model = Maquina
-        fields = '__all__'
-        widgets = {
-            "codigo": forms.TextInput(attrs={"placeholder": "Código da máquina", "maxlength": "15"}),
-            "nome": forms.TextInput(attrs={"placeholder": "Nome da máquina", "maxlength": "25"}),
-            "descricao": forms.TextInput(attrs={"placeholder": "Descrição", "maxlength": "25"}),
-            "localizacao": forms.TextInput(attrs={"placeholder": "Localização", "maxlength": "25"}),
-            "data_aquisicao": forms.DateInput(attrs={"type": "date"}),
-            "status": forms.Select(),
-        }
+        exclude = ['pecas'] 
+        fields = '__all__'   
+
