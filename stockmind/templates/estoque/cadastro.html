@@ -14,12 +14,12 @@
         
         <div class="peca-group">
           <label>Código:</label>
-          <input type="text" name="codigo" placeholder="Digite o código" required>
+          <input type="text" name="codigo" maxlength="25" placeholder="Digite o código" required>
         </div>
   
         <div class="peca-group">
           <label>Nome:</label>
-          <input type="text" name="nome" placeholder="Digite o nome" required>
+          <input type="text" name="nome" maxlength="25" placeholder="Digite o nome" required>
         </div>
   
         <div class="peca-group">
@@ -29,12 +29,12 @@
   
         <div class="peca-group">
           <label>Marca:</label>
-          <input type="text" name="marca" placeholder="Digite a marca" required>
+          <input type="text" name="marca" maxlength="25" placeholder="Digite a marca" required>
         </div>
   
         <div class="peca-group">
           <label>Fornecedor:</label>
-          <input type="text" name="fornecedor" placeholder="Digite o fornecedor" required>
+          <input type="text" name="fornecedor" maxlength="25" placeholder="Digite o fornecedor" required>
         </div>
   
         <div class="peca-group">
@@ -54,13 +54,12 @@
   
         <div class="peca-group full">
           <label>Descrição:</label>
-          <textarea name="descricao" placeholder="Digite uma descrição..." required></textarea>
+          <textarea name="descricao" maxlength="25" placeholder="Digite uma descrição" required></textarea>
         </div>
   
         <button id="button-create" type="submit">Cadastrar</button>
-        </form>
+      </form>
     </div>
 </div>
-  
 
 {% endblock content %}

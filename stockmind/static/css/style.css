@@ -33,7 +33,7 @@
     background: var(--cinza-color);
     border-color: var(--primary-color);
 }
-
+    
 .selected-items::after {
     content: "▾";
     float: right;

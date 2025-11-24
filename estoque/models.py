@@ -4,11 +4,11 @@ from django.utils import timezone
 
 class Estoque(models.Model):
     codigo = models.CharField(max_length=25)
-    nome = models.CharField(max_length=100, default='Sem nome')
+    nome = models.CharField(max_length=25, default='Sem nome')
     descricao = models.TextField()
     quantidade = models.IntegerField()
-    marca = models.CharField(max_length=120)
-    fornecedor = models.CharField(max_length=50)
+    marca = models.CharField(max_length=25)
+    fornecedor = models.CharField(max_length=25)
     preco = models.DecimalField(max_digits=6, decimal_places=2)
     qtd_min = models.IntegerField()
     qtd_max = models.IntegerField()
@@ -18,11 +18,11 @@ class Estoque(models.Model):
 
 class Maquina(models.Model):
     codigo = models.CharField(max_length=25, unique=True)
-    nome = models.CharField(max_length=100)
-    descricao = models.TextField(blank=True)
-    localizacao = models.CharField(max_length=100, blank=True)
+    nome = models.CharField(max_length=25)
+    descricao = models.TextField()
+    localizacao = models.CharField(max_length=25, blank=True)
     data_aquisicao = models.DateField(null=True, blank=True)
-    status = models.CharField(  
+    status = models.CharField(
         max_length=20,
         choices=[
             ('Ativa', 'Ativa'),
@@ -39,14 +39,14 @@ class Maquina(models.Model):
 
 class Auditoria(models.Model):
     usuario = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
-    tabela = models.CharField(max_length=50)
-    acao = models.CharField(max_length=10)  # INSERT, UPDATE, DELETE
+    tabela = models.CharField(max_length=25)
+    acao = models.CharField(max_length=10)
     registro_id = models.IntegerField()
     data_hora = models.DateTimeField(default=timezone.now)
-    descricao = models.TextField()
+    descricao = models.CharField(max_length=25)
 
     def __str__(self):
         return f"{self.acao} em {self.tabela} - ID {self.registro_id}"
 
     class Meta:
-        db_table = 'estoque_auditoria'  # força o nome da tabela
+        db_table = 'estoque_auditoria'
