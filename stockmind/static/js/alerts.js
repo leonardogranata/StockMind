@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon: msg.tags.includes('error') ? 'error' : 'success',
                 title: msg.message,
                 showConfirmButton: false,
-                timer: 2000,
+                timer: 3000,
                 background: '#23272A',   
                 color: '#f5f5f5',        
                 customClass: {

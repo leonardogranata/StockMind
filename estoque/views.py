@@ -12,6 +12,7 @@ from django.http import JsonResponse, HttpResponse
 from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.exceptions import ValidationError
 
 
 # CRUD
@@ -30,13 +31,29 @@ def home(request):
 def cadastroItem(request):
     if request.method == 'POST':
         form = EstoqueForm(request.POST, request.FILES)
+
         if form.is_valid():
-            item = form.save(commit=False)
-            item.usuario_logado = request.user  # para auditoria
-            item.save()
-            return redirect('home')
+            try:
+                item = form.save(commit=False)
+                item.usuario_logado = request.user
+                item.save()  # pode gerar ValidationError do model
+
+                return redirect('home')
+
+            except ValidationError as e:
+                # coloca mensagens do model dentro do form
+                for campo, erros in e.message_dict.items():
+                    for erro in erros:
+                        form.add_error(campo, erro)
+
+                messages.error(request, "A quantidade deve ser menor que a Qtd. Máxima")
+
+        else:
+            print("FORM ERRORS:", form.errors)
+
     else:
         form = EstoqueForm()
+
     return render(request, 'estoque/cadastro.html', {'form': form})
 
 @login_required
@@ -46,32 +63,39 @@ def editarItem(request, pk):
 
     if request.method == 'POST':
         form = EstoqueForm(request.POST, instance=estoque)
+
         if form.is_valid():
-            novo_item = form.save(commit=False)
+            try:
+                novo_item = form.save(commit=False)
+                novo_item.save()  # aqui pode explodir se violar quantidade > máxima
 
-            # salva primeiro para garantir que o obj está persistido e tem pk definitivo
-            novo_item.save()
+                diferenca = quantidade_anterior - novo_item.quantidade
+                if diferenca > 0:
+                    hoje = timezone.now().date()
+                    consumo_existente = Consumo.objects.filter(item=novo_item, data=hoje).first()
+                    if consumo_existente:
+                        consumo_existente.quantidade += diferenca
+                        consumo_existente.save()
+                    else:
+                        Consumo.objects.create(
+                            item=novo_item,
+                            quantidade=diferenca,
+                            data=hoje,
+                            usuario=request.user
+                        )
 
-            # calculo de diferença (consumo): se diminuiu, registra consumo
-            diferenca = quantidade_anterior - novo_item.quantidade
-            if diferenca > 0:
-                hoje = timezone.now().date()
-                consumo_existente = Consumo.objects.filter(item=novo_item, data=hoje).first()
-                if consumo_existente:
-                    consumo_existente.quantidade += diferenca
-                    consumo_existente.save()
-                else:
-                    Consumo.objects.create(
-                        item=novo_item,
-                        quantidade=diferenca,
-                        data=hoje,
-                        usuario=request.user
-                    )
+                return redirect('home')
 
-            return redirect('home')
+            except ValidationError as e:
+                # transforma erros do model em erros do formulário
+                for field, error_list in e.message_dict.items():
+                    for error in error_list:
+                        form.add_error(field, error)
+                messages.error(request, "A quantidade deve ser menor que a Qtd. Máxima")
+        
         else:
-            # debug: imprime erros no console do servidor para tu ver
             print("FORM ERRORS:", form.errors)
+
     else:
         form = EstoqueForm(instance=estoque)
 
@@ -123,7 +147,7 @@ def importar_json(request):
 
         # Verifica extensão
         if not arquivo.name.lower().endswith('.json'):
-            messages.error(request, 'Arquivo inválido. Envie um arquivo .json, criatura.')
+            messages.error(request, 'Arquivo inválido. Envie um arquivo json.')
             return redirect('home')
 
         # Tenta carregar o JSON

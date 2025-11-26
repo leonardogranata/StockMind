@@ -58,6 +58,11 @@
         </div>
   
         <button id="button-create" type="submit">Cadastrar</button>
+        {% if form.quantidade.errors %}
+          <div class="erro-campo">
+              {{ form.quantidade.errors.0 }}
+          </div>
+      {% endif %}
       </form>
     </div>
 </div>
