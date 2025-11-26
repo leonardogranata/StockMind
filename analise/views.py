@@ -35,33 +35,36 @@ def itens_mais_usados(request):
 def previsao(request):
     itens = Estoque.objects.all()
     nomes_itens = [item.nome for item in itens]
+
     previsoes_todos_itens = {}
     sugestoes = {}
 
     for item_nome in nomes_itens:
+        # --- Gera previsão diretamente do banco ---
         previsao_df = prever_consumo(item_nome, dias=15)
+
         if previsao_df is None:
             previsoes_todos_itens[item_nome] = []
             sugestoes[item_nome] = "Este item não possui dados suficientes (mínimo 2 dias de consumo)."
             continue
 
-        previsao_df['ds'] = pd.to_datetime(previsao_df['ds']).dt.strftime('%Y-%m-%d')
+        # --- Limpeza de datas e segurança ---
+        previsao_df['ds'] = pd.to_datetime(
+            previsao_df['ds'], errors='coerce'
+        ).dt.strftime('%Y-%m-%d')
+
+        previsao_df = previsao_df.dropna(subset=['ds'])
+
+        # Converte para lista usada no gráfico
         previsao_filtrada = previsao_df[['ds', 'yhat']]
         dados_grafico = previsao_filtrada.values.tolist()
         previsoes_todos_itens[item_nome] = dados_grafico
 
-        # --- Cálculo da sugestão ---
+        # --- Sugestões de estoque ---
         try:
             item = Estoque.objects.get(nome=item_nome)
             estoque_atual = item.quantidade
             qtd_min = item.qtd_min
-
-            # Se não há previsão válida
-            if previsao_df is None or previsao_df.empty:
-                sugestoes[item_nome] = (
-                    f"O item {item_nome} não possui dados suficientes (mínimo 2 dias de consumo)."
-                )
-                continue
 
             previsoes_futuras = previsao_df['yhat'].tolist()
 
@@ -80,8 +83,7 @@ def previsao(request):
                     atingiu_minimo = True
                     break
 
-            # ---- Geração da sugestão ----
-
+            # --- Lógica das sugestões ---
             if estoque_atual < qtd_min:
                 sugestao = f"O estoque de {item_nome} está abaixo do mínimo! Compre imediatamente."
 
@@ -105,14 +107,11 @@ def previsao(request):
         except Exception as e:
             sugestoes[item_nome] = f"Erro ao gerar sugestão para {item_nome}: {str(e)}"
 
-
-    previsoes_json = json.dumps(previsoes_todos_itens)
-    sugestoes_json = json.dumps(sugestoes)
-
+    # --- Envio para o template ---
     context = {
         'nomes_itens': nomes_itens,
-        'previsoes_json': previsoes_json,
-        'sugestoes_json': sugestoes_json,
+        'previsoes_json': json.dumps(previsoes_todos_itens),
+        'sugestoes_json': json.dumps(sugestoes),
     }
 
     return render(request, 'analise/previsao.html', context)
