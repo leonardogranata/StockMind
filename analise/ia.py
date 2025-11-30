@@ -29,7 +29,19 @@ def prever_consumo(item_nome, dias=15):
 
     df['floor'] = 0
 
-    modelo = Prophet()
+    modelo = Prophet(
+        weekly_seasonality=True,
+        daily_seasonality=False,
+        yearly_seasonality=False,
+        changepoint_prior_scale=0.01  # curva cresce menos
+    )
+
+    modelo.add_seasonality(
+        name='weekly',
+        period=7,
+        fourier_order=1
+    )
+
     modelo.fit(df)
 
     futuro = modelo.make_future_dataframe(periods=dias)
