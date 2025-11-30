@@ -6,16 +6,50 @@ class EstoqueForm(forms.ModelForm):
         model = Estoque
         fields = '__all__'
         widgets = {
-            "codigo": forms.TextInput(attrs={"placeholder": "Digite o código", "maxlength": "25"}),
-            "nome": forms.TextInput(attrs={"placeholder": "Digite o nome", "maxlength": "25"}),
-            "descricao": forms.TextInput(attrs={"placeholder": "Descrição"}),
-            "marca": forms.TextInput(attrs={"placeholder": "Digite a marca", "maxlength": "15"}),
-            "fornecedor": forms.TextInput(attrs={"placeholder": "Digite o fornecedor", "maxlength": "15"}),
-            "quantidade": forms.NumberInput(attrs={"placeholder": "Digite a quantidade"}),
-            "preco": forms.NumberInput(attrs={"placeholder": "Digite o preço"}),
-            "qtd_min": forms.NumberInput(attrs={"placeholder": "Mínimo"}),
-            "qtd_max": forms.NumberInput(attrs={"placeholder": "Máximo"}),
+            "codigo": forms.TextInput(attrs={
+                "class": "input-field",
+                "placeholder": "Digite o código",
+                "maxlength": "25",
+            }),
+            "nome": forms.TextInput(attrs={
+                "class": "input-field",
+                "placeholder": "Digite o nome",
+                "maxlength": "25",
+            }),
+            "marca": forms.TextInput(attrs={
+                "class": "input-field",
+                "placeholder": "Digite a marca",
+                "maxlength": "15",
+            }),
+            "fornecedor": forms.TextInput(attrs={
+                "class": "input-field",
+                "placeholder": "Digite o fornecedor",
+                "maxlength": "15",
+            }),
+            "quantidade": forms.NumberInput(attrs={
+                "class": "input-field",
+                "placeholder": "Digite a quantidade",
+            }),
+            "preco": forms.NumberInput(attrs={
+                "class": "input-field",
+                "placeholder": "Digite o preço",
+                "step": "0.01",
+            }),
+            "qtd_min": forms.NumberInput(attrs={
+                "class": "input-field",
+                "placeholder": "Mínimo",
+            }),
+            "qtd_max": forms.NumberInput(attrs={
+                "class": "input-field",
+                "placeholder": "Máximo",
+            }),
+            "descricao": forms.Textarea(attrs={
+                "class": "input-field textarea-field",
+                "placeholder": "Digite uma descrição",
+            }),
         }
+
+
 
 class MaquinaForm(forms.ModelForm):
     class Meta:

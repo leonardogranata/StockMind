@@ -13,58 +13,20 @@
     <form method="post" action="{% url 'editarItem' item.id %}" enctype="multipart/form-data" class="peca-form">
       {% csrf_token %}
 
-      <div class="peca-group">
-        <label for="{{ form.codigo.id_for_label }}">Código:</label>
-        {{ form.codigo }}
-      </div>
-
-      <div class="peca-group">
-        <label for="{{ form.nome.id_for_label }}">Nome:</label>
-        {{ form.nome }}
-      </div>
-
-      <div class="peca-group">
-        <label for="{{ form.quantidade.id_for_label }}">Quantidade:</label>
-        {{ form.quantidade }}
-      </div>
-
-      <div class="peca-group">
-        <label for="{{ form.marca.id_for_label }}">Marca:</label>
-        {{ form.marca }}
-      </div>
-
-      <div class="peca-group">
-        <label for="{{ form.fornecedor.id_for_label }}">Fornecedor:</label>
-        {{ form.fornecedor }}
-      </div>
-
-      <div class="peca-group">
-        <label for="{{ form.preco.id_for_label }}">Preço:</label>
-        {{ form.preco }}
-      </div>
-
-      <div class="peca-group">
-        <label for="{{ form.qtd_min.id_for_label }}">Qtd. Mínima:</label>
-        {{ form.qtd_min }}
-      </div>
-
-      <div class="peca-group">
-        <label for="{{ form.qtd_max.id_for_label }}">Qtd. Máxima:</label>
-        {{ form.qtd_max }}
-      </div>
-
-      <div class="peca-group full">
-        <label for="{{ form.descricao.id_for_label }}">Descrição:</label>
-        {{ form.descricao }}
-      </div>
+      {% for field in form %}
+            <p>
+                {{ field.label_tag }}
+                {{ field }}
+            </p>
+      {% endfor %}
 
       <button id="button-update" type="submit">Salvar Alterações</button>
-      {% if form.quantidade.errors %}
-          <div class="erro-campo">
-              {{ form.quantidade.errors.0 }}
-          </div>
-      {% endif %}
     </form>
+    {% if form.errors %}
+        <div class="erros-form">
+            {{ form.errors }}
+        </div>
+    {% endif %}
   </div>
 </div>
 

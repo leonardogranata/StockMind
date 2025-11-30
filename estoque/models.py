@@ -5,14 +5,14 @@ from django.core.exceptions import ValidationError
 
 class Estoque(models.Model):
     codigo = models.CharField(max_length=25)
-    nome = models.CharField(max_length=25, default='Sem nome')
-    descricao = models.TextField()
+    nome = models.CharField(max_length=25)
     quantidade = models.IntegerField()
     marca = models.CharField(max_length=25)
     fornecedor = models.CharField(max_length=25)
     preco = models.DecimalField(max_digits=6, decimal_places=2)
     qtd_min = models.IntegerField()
     qtd_max = models.IntegerField()
+    descricao = models.TextField()
 
     def clean(self):
         # Quantidade não deve ser maior que a quantidade máxima

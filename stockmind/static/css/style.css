@@ -1851,8 +1851,19 @@ table td {
 .botao-vazio:active {
     transform: translateY(-1px);
 }
+/* Força os <p> do Django a se comportarem como .peca-group */
+.peca-form p {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    margin: 0; /* remove espaço padrão do <p> */
+}
 
-/* Cadastro de peças */
+.peca-form p:has(textarea) {
+    flex: 1 1 100%; /* textarea ocupa a linha inteira */
+}
+
+/* Título e card */
 .peca-container {
     display: flex;
     justify-content: center;
@@ -1878,6 +1889,7 @@ table td {
     margin-bottom: 25px;
 }
 
+/* Form grid igual ao antigo */
 .peca-form {
     display: flex;
     flex-wrap: wrap;
@@ -1885,23 +1897,15 @@ table td {
     justify-content: space-between;
 }
 
-.peca-group {
-    flex: 1 1 45%;
-    display: flex;
-    flex-direction: column;
-}
-
-.peca-group.full {
-    flex: 1 1 100%;
-}
-
-label {
+/* Labels */
+.peca-form label {
     font-weight: 500;
     margin-bottom: 5px;
     color: var(--secundary-color);
 }
 
-input, textarea {
+/* Inputs + Textareas estilizados */
+.input-field, .textarea-field {
     background: var(--cinza-color);
     border: 2px solid transparent;
     border-radius: 8px;
@@ -1910,16 +1914,89 @@ input, textarea {
     font-size: 1rem;
     outline: none;
     transition: 0.3s;
+    width: 90%;
 }
 
-input:focus, textarea:focus {
-    border-color: var(--yellow-color);
+.textarea-field {
+    width: 95%;
+}
+
+.input-field:focus, .textarea-field:focus {
+    border-color: var(--secundary-color);
     background: var(--fundo-color);
 }
 
-textarea {
+.textarea-field {
     resize: none;
     height: 100px;
+}
+
+/* input com erro */
+.input-field.is-invalid,
+.textarea-field.is-invalid {
+    border-color: #ff4d4d !important;
+    background: var(--cinza-color);
+}
+
+/* lista de erro vinda do Django */
+.errorlist {
+    margin: 5px 0 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.errorlist li {
+    color: #ff4d4d;
+    font-size: 0.75rem;
+    margin-top: 3px;
+}
+
+/* Cada campo do as_p vira um bloco fixo */
+.peca-form p {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0;
+}
+
+/* Textarea ocupa linha inteira */
+.peca-form p:has(textarea) {
+    flex: 1 1 100%;
+}
+
+/* Agora: mensagens de erro ficam ABSOLUTAS */
+.peca-form p .errorlist {
+    position: absolute;
+    bottom: -16px; /* coloca a mensagem logo abaixo sem empurrar nada */
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Estilização da mensagem */
+.peca-form p .errorlist li {
+    color: #ff4d4d;
+    font-size: 0.70rem;
+    margin: 0;
+}
+
+/* Campo com erro */
+.input-field.is-invalid,
+.textarea-field.is-invalid {
+    border-color: #ff4d4d !important;
+}
+
+
+.erros-form {
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(255, 50, 50, 0.15);
+    border-left: 3px solid #ff4d4d;
+    color: #ff4d4d;
+    font-size: 0.85rem;
+    border-radius: 5px;
 }
 
 #button-create {
