@@ -92,7 +92,7 @@ def editarUser(request, user_id):
                 tabela='User',
                 acao='UPDATE',
                 registro_id=user.id,
-                descricao=f"Usuário atualizado: {user.username}, Nome: {user.first_name} {user.last_name}"
+                descricao=f"Usuário atualizado: {user.username}, Superuser: {user.is_superuser}"
             )
 
             return redirect('listar')
@@ -108,11 +108,11 @@ def excluirUser(request, user_id):
     if request.method == "POST":
 
         Auditoria.objects.create(
-            usuario=request.user,
-            tabela='User',
-            acao='DELETE',
-            registro_id=user.id,
-            descricao=f"Usuário deletado: {user.username}, Email: {user.email}"
+                usuario=request.user,
+                tabela='User',
+                acao='DELETE',
+                registro_id=user.id,
+                descricao=f"Usuário deletado: {user.username}, Superuser: {user.is_superuser}"
         )
         user.delete()
         return redirect('listar')
