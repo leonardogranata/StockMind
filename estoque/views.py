@@ -1,21 +1,23 @@
+# ============================================================
+# IMPORTAÇÕES
+# ============================================================
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.db.models.signals import post_save, post_delete
 from django.contrib.auth.models import User
-from django.dispatch import receiver
 from analise.models import Consumo
 from .models import Estoque, Auditoria, Maquina
 from .forms import EstoqueForm, MaquinaForm
 from django.utils import timezone
 import json
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from decimal import Decimal
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 
 
-# CRUD
+# ============================================================
+# ESTOQUE — CRUD DE ITENS
+# ============================================================
 
 @login_required
 def home(request):
@@ -112,12 +114,14 @@ def excluirItem(request, pk):
     item = get_object_or_404(Estoque, pk=pk)
     if request.method == 'POST':
         estoque.usuario_logado = request.user
-       
         estoque.delete()
         return redirect('home')
     return render(request, 'estoque/excluir.html', {'estoque': estoque, 'item': item})
 
-# auditoria:
+
+# ============================================================
+# AUDITORIA
+# ============================================================
 def auditoria_list(request):
     logs = Auditoria.objects.all().order_by('-data_hora')
     return render(request, 'estoque/auditoria_list.html', {'logs': logs})
@@ -139,7 +143,10 @@ def exportar_json(request):
     return response
 
 
-# --- Importar ---
+# ============================================================
+# EXPORTAÇÃO / IMPORTAÇÃO JSON
+# ============================================================
+
 @login_required
 def importar_json(request):
     if request.method == 'POST' and request.FILES.get('arquivo'):
@@ -183,7 +190,10 @@ def importar_json(request):
 
     return redirect('home')
 
-# --- MÁQUINAS ---
+
+# ============================================================
+# MÁQUINAS — CRUD
+# ============================================================
 @login_required
 def maquinas(request):
     maquinas = Maquina.objects.all()
